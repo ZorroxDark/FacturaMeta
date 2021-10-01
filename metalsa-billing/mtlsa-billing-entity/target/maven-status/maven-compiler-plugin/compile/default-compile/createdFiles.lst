@@ -1,0 +1,16 @@
+mx\com\mtlsa\billing\entity\openedge\CofidiCodeMstrPK.class
+mx\com\mtlsa\billing\entity\openedge\CofidiCtMstr.class
+mx\com\mtlsa\billing\entity\openedge\CofidiIhHistPK.class
+mx\com\mtlsa\billing\entity\openedge\CofidiTx2dDet.class
+mx\com\mtlsa\billing\entity\repository\App.class
+mx\com\mtlsa\billing\entity\openedge\CofidiCodeMstr.class
+mx\com\mtlsa\billing\entity\openedge\CofidiArMstr.class
+mx\com\mtlsa\billing\entity\openedge\CofidiIhHist.class
+mx\com\mtlsa\billing\entity\openedge\CofidiAbsMstrPK.class
+mx\com\mtlsa\billing\entity\openedge\CofidiTx2dDetPK.class
+mx\com\mtlsa\billing\entity\App.class
+mx\com\mtlsa\billing\entity\openedge\CofidiArMstrPK.class
+mx\com\mtlsa\billing\entity\openedge\CofidiCtMstrPK.class
+mx\com\mtlsa\billing\entity\openedge\CofidiAbsMstr.class
+mx\com\mtlsa\billing\entity\openedge\CofidiCmMstr.class
+mx\com\mtlsa\billing\entity\openedge\CofidiCmMstrPK.class

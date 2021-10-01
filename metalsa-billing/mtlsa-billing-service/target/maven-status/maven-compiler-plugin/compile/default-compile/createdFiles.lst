@@ -1,0 +1,7 @@
+mx\com\mtlsa\billing\service\GeneraTxtService.class
+mx\com\mtlsa\billing\service\WSCFDIBuilderPlusService.class
+mx\com\mtlsa\billing\service\impl\GeneraTxtPagosImpl.class
+mx\com\mtlsa\billing\service\impl\WSCFDIBuilderPlusImpl.class
+mx\com\mtlsa\billing\service\GeneraTxtPagos.class
+mx\com\mtlsa\billing\service\impl\test.class
+mx\com\mtlsa\billing\service\impl\GeneraTxtServiceImpl.class
