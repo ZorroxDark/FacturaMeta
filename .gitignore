@@ -21,3 +21,15 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+metalsa-billing/mtlsa-billing-client/.classpath
+
+metalsa-billing/mtlsa-billing-entity/.settings/org.eclipse.wst.common.project.facet.core.xml
+
+metalsa-billing/mtlsa-billing-client/.project
+
+metalsa-billing/mtsla-billing-dao/.settings/org.eclipse.wst.common.project.facet.core.xml
+
+metalsa-billing/mtsla-billing-dao/.settings/org.eclipse.jdt.core.prefs
+
+metalsa-billing/mtlsa-billing-utils/.classpath
