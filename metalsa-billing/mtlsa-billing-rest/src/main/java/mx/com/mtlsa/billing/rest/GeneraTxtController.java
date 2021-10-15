@@ -1,35 +1,20 @@
 
 package mx.com.mtlsa.billing.rest;
 
-//import mx.com.ferromex.PropertiesReader;
-//import mx.com.ferromex.dto.ErrorDTO;
-//import mx.com.ferromex.dto.TrackDTO;
-//import mx.com.ferromex.dto.YardDTO;
-//import mx.com.ferromex.dto.reponse.TrackResponse;
-//import mx.com.ferromex.dto.reponse.ZoneResponse;
-//import mx.com.ferromex.exceptions.ServiceException;
-//import mx.com.ferromex.service.TrackService;
-//import mx.com.ferromex.util.parse.JsonParse;
-
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
-//import org.apache.logging.log4j.core.config.Configurator;
-
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.ws.rs.*;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import mx.com.mtlsa.billing.dto.request.txt.ComplementoPagoRequest;
 import mx.com.mtlsa.billing.dto.request.txt.FacElectronicaRequest;
 import mx.com.mtlsa.billing.dto.response.txt.EspecMsFacturaPagosTxtDTO;
 import mx.com.mtlsa.billing.dto.response.txt.EspecMsFacturaTxtDTO;
-import mx.com.mtlsa.billing.dto.response.txt.EspecOrdEncaFacElecTxtDTO;
 import mx.com.mtlsa.billing.service.GeneraTxtPagos;
 import mx.com.mtlsa.billing.service.GeneraTxtService;
-
-import java.util.ArrayList;
-import java.util.List;
+import mx.com.mtlsa.billing.service.GeneraTxtServiceComPago;
 
 /**
  * <<Poner la descripcion del servicio.>>
@@ -47,6 +32,10 @@ public class GeneraTxtController {
     
     @Inject
     GeneraTxtPagos generaTxtPagos;
+
+    
+    @Inject
+    GeneraTxtServiceComPago generaTxtServiceComPago;
 //    private TrackService service;
 
     /*
@@ -132,6 +121,24 @@ public class GeneraTxtController {
         }
         return Response.ok(especMsFacturaPagos).build();
     }
+    
+    
+    @POST
+    @Path("/by/ComplementoPago")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response ComplementoPago(ComplementoPagoRequest request) throws Exception {
+    	
+    	EspecMsFacturaTxtDTO  espeComplePagoTxtDTO = new EspecMsFacturaTxtDTO();
+        try {
 
+        	espeComplePagoTxtDTO = generaTxtServiceComPago.getComplementoPago(request);
+        	
+
+        } catch (Exception e) {
+        	//LOGGER.debug(e.getMessage());
+            throw new Exception(e.getMessage());
+        }
+        return Response.ok(espeComplePagoTxtDTO).build();
+    }
    
 }

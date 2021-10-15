@@ -3,7 +3,10 @@ package mx.com.mtsla.billing.dao.map;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.org.apache.xalan.internal.xsltc.util.IntegerArray;
+
 import mx.com.mtlsa.billing.dto.response.txt.EspecOrdEncaFacElecTxtDTO;
+import mx.com.mtlsa.billing.utils.UtilsNumeros;
 
 public class MapEspecOrdEncaFacElecTxtDTO {
 	
@@ -24,7 +27,8 @@ public class MapEspecOrdEncaFacElecTxtDTO {
 					
 					EspecOrdEncaFacElecTxtDTO especOrdEncaFac = new EspecOrdEncaFacElecTxtDTO();
 		        	
-		        	especOrdEncaFac.setFolio(null != respuesta[0] ? respuesta[0].toString().trim().trim():"");
+		        	//especOrdEncaFac.setFolio(null != respuesta[0] ? UtilsNumeros.valStrToInt(respuesta[0].toString()):"");
+					especOrdEncaFac.setFolio("9000"); // se pone porvisional debe der numerico pero el query trae Alfanumerico
 				    especOrdEncaFac.setNombreEmisor(null != respuesta[1] ? respuesta[1].toString().trim():"");
 				    especOrdEncaFac.setRfcEmisor(null != respuesta[2] ? respuesta[2].toString().trim():"");
 				    especOrdEncaFac.setDomEmisorCalle(null != respuesta[3] ? respuesta[3].toString().trim():"");
@@ -55,7 +59,7 @@ public class MapEspecOrdEncaFacElecTxtDTO {
 					especOrdEncaFac.setTelSucursal(null != respuesta[24] ? respuesta[24].toString().trim():"");
 					especOrdEncaFac.setVersion(null != respuesta[25] ? respuesta[25].toString().trim():"");
 					especOrdEncaFac.setSerieComprobante(null != respuesta[26] ? respuesta[26].toString().trim():"");
-					especOrdEncaFac.setNumeroAprobacion(null != respuesta[27] ? respuesta[27].toString().trim():"");
+					especOrdEncaFac.setNumeroAprobacion(null != respuesta[27] ? UtilsNumeros.valStrToInt(respuesta[27].toString()):"");
 					especOrdEncaFac.setFormaPago(null != respuesta[28] ? respuesta[28].toString().trim():"");
 					especOrdEncaFac.setFecha(null != respuesta[29] ? respuesta[29].toString().trim():"");
 					
@@ -85,10 +89,10 @@ public class MapEspecOrdEncaFacElecTxtDTO {
 					especOrdEncaFac.setDomReceptorEstado(null != respuesta[50] ? respuesta[50].toString().trim():"");
 					especOrdEncaFac.setDomReceptorPais(null != respuesta[51] ? respuesta[51].toString().trim():"");
 					especOrdEncaFac.setDomReceptorCodigoPostal(null != respuesta[52] ? respuesta[52].toString().trim():"");
-					especOrdEncaFac.setMontoSubTotal(null != respuesta[53] ? respuesta[53].toString().trim():"");
-					especOrdEncaFac.setMontoIVA(null != respuesta[54] ? respuesta[54].toString().trim():"");
-					especOrdEncaFac.setMontoTotal(null != respuesta[55] ? respuesta[55].toString().trim():"");
-					especOrdEncaFac.setEstado(null != respuesta[56] ? respuesta[56].toString().trim():"");
+					especOrdEncaFac.setMontoSubTotal(null != respuesta[53] ? UtilsNumeros.numDecimal2(respuesta[53].toString()):"");
+					especOrdEncaFac.setMontoIVA(null != respuesta[54] ? UtilsNumeros.numDecimal2(respuesta[54].toString()):"");
+					especOrdEncaFac.setMontoTotal(null != respuesta[55] ? UtilsNumeros.numDecimal2(respuesta[55].toString()):"");
+					especOrdEncaFac.setEstado(null != respuesta[56] ?  UtilsNumeros.valStrToInt(respuesta[56].toString()):"");
 					especOrdEncaFac.setTipoCFD(null != respuesta[57] ? respuesta[57].toString().trim():"");
 					especOrdEncaFac.setNotas(null != respuesta[58] ? respuesta[58].toString().trim():"");
 					especOrdEncaFac.setNotas02(null != respuesta[59] ? respuesta[59].toString().trim():"");
@@ -120,13 +124,13 @@ public class MapEspecOrdEncaFacElecTxtDTO {
 					especOrdEncaFac.setDomTiendaCodigoPostal(null != respuesta[80] ? respuesta[80].toString().trim():"");
 					especOrdEncaFac.setRfcTienda(null != respuesta[81] ? respuesta[81].toString().trim():"");
 					especOrdEncaFac.setCodMoneda(null != respuesta[82] ? respuesta[82].toString().trim():"");
-					especOrdEncaFac.setDiasPago(null != respuesta[83] ? respuesta[83].toString().trim():"");
-					especOrdEncaFac.setPorcDescProntoPago(null != respuesta[84] ? respuesta[84].toString().trim():"");
-					especOrdEncaFac.setMontoDescProntoPago(null != respuesta[85] ? respuesta[85].toString().trim():"");
+					especOrdEncaFac.setDiasPago(null != respuesta[83] ? UtilsNumeros.valStrToInt(respuesta[83].toString()):"");
+					especOrdEncaFac.setPorcDescProntoPago(null != respuesta[84] ? UtilsNumeros.valStrToInt(respuesta[84].toString()):"");
+					especOrdEncaFac.setMontoDescProntoPago(null != respuesta[85] ? UtilsNumeros.numDecimal2(respuesta[85].toString()):"");
 					especOrdEncaFac.setCodDescuento(null != respuesta[86] ? respuesta[86].toString().trim():"");
-					especOrdEncaFac.setPorcDescuento(null != respuesta[87] ? respuesta[87].toString().trim():"");
-					especOrdEncaFac.setMontoDescuento(null != respuesta[88] ? respuesta[88].toString().trim():"");
-					especOrdEncaFac.setCantidadLineasFactura(null != respuesta[89] ? respuesta[89].toString().trim():"");
+					especOrdEncaFac.setPorcDescuento(null != respuesta[87] ? UtilsNumeros.numDecimal2(respuesta[87].toString()):"");
+					especOrdEncaFac.setMontoDescuento(null != respuesta[88] ? UtilsNumeros.numDecimal2(respuesta[88].toString()):"");
+					especOrdEncaFac.setCantidadLineasFactura(null != respuesta[89] ? UtilsNumeros.numDecimal2(respuesta[89].toString()):"");
 					
 					
 					especOrdEncaFac.setFechaVencimiento(null != respuesta[90] ? respuesta[90].toString().trim():"");
@@ -142,14 +146,14 @@ public class MapEspecOrdEncaFacElecTxtDTO {
 					
 					
 					
-					especOrdEncaFac.setCantidadUnidades(null != respuesta[100] ? respuesta[100].toString().trim():"");
-				    especOrdEncaFac.setCantidadEmpaques(null != respuesta[101] ? respuesta[101].toString().trim():"");
+					especOrdEncaFac.setCantidadUnidades(null != respuesta[100] ? UtilsNumeros.valStrToInt(respuesta[100].toString()):"");
+				    especOrdEncaFac.setCantidadEmpaques(null != respuesta[101] ? UtilsNumeros.valStrToInt(respuesta[101].toString()):"");
 				    especOrdEncaFac.setEanReceptor(null != respuesta[102] ? respuesta[102].toString().trim():"");
 				    especOrdEncaFac.setEanLugarExpide(null != respuesta[103] ? respuesta[103].toString().trim():"");
 				    especOrdEncaFac.setIepsId(null != respuesta[104] ? respuesta[104].toString().trim():"");
 				    especOrdEncaFac.setEstatus(null != respuesta[105] ? respuesta[105].toString().trim():"");
-				    especOrdEncaFac.setNumeroEmisor(null != respuesta[106] ? respuesta[106].toString().trim():"");
-				    especOrdEncaFac.setMontoMerma(null != respuesta[107] ? respuesta[107].toString().trim():"");
+				    especOrdEncaFac.setNumeroEmisor(null != respuesta[106] ? UtilsNumeros.numDecimal2(respuesta[106].toString()):"");
+				    especOrdEncaFac.setMontoMerma(null != respuesta[107] ? UtilsNumeros.numDecimal2(respuesta[107].toString()):"");
 				    especOrdEncaFac.setMontoSubTotalApIVA(null != respuesta[108] ? respuesta[108].toString().trim():"");
 					especOrdEncaFac.setTransportista(null != respuesta[109] ? respuesta[109].toString().trim():"");
 					
@@ -213,8 +217,8 @@ public class MapEspecOrdEncaFacElecTxtDTO {
 					
 					especOrdEncaFac.setMisc49(null != respuesta[160] ? respuesta[160].toString().trim():"");
 					especOrdEncaFac.setMisc50(null != respuesta[161] ? respuesta[161].toString().trim():"");
-					especOrdEncaFac.setPorcIVA(null != respuesta[162] ? respuesta[162].toString().trim():"");
-					especOrdEncaFac.setMontoIEPS(null != respuesta[163] ? respuesta[163].toString().trim():"");
+					especOrdEncaFac.setPorcIVA(null != respuesta[162] ? UtilsNumeros.numDecimal2(respuesta[162].toString()):"");
+					especOrdEncaFac.setMontoIEPS(null != respuesta[163] ? UtilsNumeros.numDecimal2(respuesta[163].toString()):"");
 					especOrdEncaFac.setDocumentStatus(null != respuesta[164] ? respuesta[164].toString().trim():"");
 					especOrdEncaFac.setDeliveryDate(null != respuesta[165] ? respuesta[165].toString().trim():"");
 					especOrdEncaFac.setRegimenFiscal(null != respuesta[166] ? respuesta[166].toString().trim():"");
@@ -229,28 +233,28 @@ public class MapEspecOrdEncaFacElecTxtDTO {
 					especOrdEncaFac.setNombreAduana(null != respuesta[173] ? respuesta[173].toString().trim():"");
 					especOrdEncaFac.setNombreAduanaCiudad(null != respuesta[174] ? respuesta[174].toString().trim():"");
 					especOrdEncaFac.setFuncDivisa(null != respuesta[175] ? respuesta[175].toString().trim():"");
-					especOrdEncaFac.setTasaDivisa(null != respuesta[176] ? respuesta[176].toString().trim():"");
+					especOrdEncaFac.setTasaDivisa(null != respuesta[176] ? UtilsNumeros.numDecimal2(respuesta[176].toString()):"");
 					
 					especOrdEncaFac.setRefTiempoPago(null != respuesta[177] ? respuesta[177].toString().trim():"");
-					especOrdEncaFac.setRefTerminoTiempoPago(null != respuesta[178] ? respuesta[178].toString().trim():"");
+					especOrdEncaFac.setRefTerminoTiempoPago(null != respuesta[178] ? UtilsNumeros.valStrToInt(respuesta[178].toString()):"");
 					especOrdEncaFac.setLugarExpedicion(null != respuesta[179] ? respuesta[179].toString().trim():"");
 					
 					
 					especOrdEncaFac.setSerieFolioFiscalOrig(null != respuesta[180] ? respuesta[180].toString().trim():"");
 					especOrdEncaFac.setTipoEspecialDeServicio(null != respuesta[181] ? respuesta[181].toString().trim():"");
 					especOrdEncaFac.setFechaFolioFiscalOrig(null != respuesta[182] ? respuesta[182].toString().trim():"");
-					especOrdEncaFac.setPorcentajeNoAplicado(null != respuesta[183] ? respuesta[183].toString().trim():"");
-					especOrdEncaFac.setMontoFolioFiscalOrig(null != respuesta[184] ? respuesta[184].toString().trim():"");
-					especOrdEncaFac.setMontoTotalDescuentos(null != respuesta[185] ? respuesta[185].toString().trim():"");
-					especOrdEncaFac.setMontoTotalPagar(null != respuesta[186] ? respuesta[186].toString().trim():"");
-					especOrdEncaFac.setAnoAprobacion9(null != respuesta[187] ? respuesta[187].toString().trim():"");
+					especOrdEncaFac.setPorcentajeNoAplicado(null != respuesta[183] ? UtilsNumeros.numDecimal2(respuesta[183].toString()):"");
+					especOrdEncaFac.setMontoFolioFiscalOrig(null != respuesta[184] ? UtilsNumeros.numDecimal2(respuesta[184].toString()):"");
+					especOrdEncaFac.setMontoTotalDescuentos(null != respuesta[185] ? UtilsNumeros.numDecimal2(respuesta[185].toString()):"");
+					especOrdEncaFac.setMontoTotalPagar(null != respuesta[186] ? UtilsNumeros.numDecimal2(respuesta[186].toString()):"");
+					especOrdEncaFac.setAnoAprobacion9(null != respuesta[187] ? UtilsNumeros.valStrToInt(respuesta[187].toString()):"");
 					especOrdEncaFac.setMotivoDescuento(null != respuesta[188] ? respuesta[188].toString().trim():"");
 					especOrdEncaFac.setMetodoPago(null != respuesta[189] ? respuesta[189].toString().trim():"");
 					
 					
 					especOrdEncaFac.setEfectoComprobante(null != respuesta[190] ? respuesta[190].toString().trim():"");
-					especOrdEncaFac.setMontoTotalImpRetenidos(null != respuesta[191] ? respuesta[191].toString().trim():"");
-					especOrdEncaFac.setMontoTotalImpTrasladados(null != respuesta[192] ? respuesta[192].toString().trim():"");
+					especOrdEncaFac.setMontoTotalImpRetenidos(null != respuesta[191] ? UtilsNumeros.numDecimal2(respuesta[191].toString()):"");
+					especOrdEncaFac.setMontoTotalImpTrasladados(null != respuesta[192] ? UtilsNumeros.numDecimal2(respuesta[192].toString()):"");
 			
 					especOrdEncaFacList.add(especOrdEncaFac);
 
