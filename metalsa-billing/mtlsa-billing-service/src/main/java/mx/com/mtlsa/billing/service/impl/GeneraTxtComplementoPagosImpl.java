@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import mx.com.mtlsa.billing.dto.request.txt.ComplementoPagoRequest;
@@ -20,6 +21,8 @@ import mx.com.mtlsa.billing.utils.txt.GeneraStringFacturas;
 import mx.com.mtlsa.billing.utils.txt.GenerarStringAuxComplePago;
 import mx.com.mtsla.billing.dao.GetInfoComplePagosTxtDao;
 
+
+@Stateless
 public class GeneraTxtComplementoPagosImpl implements GeneraTxtServiceComPago, Serializable {
 	/**
 	 * 

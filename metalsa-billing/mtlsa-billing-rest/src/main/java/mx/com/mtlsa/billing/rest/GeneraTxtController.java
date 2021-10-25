@@ -1,4 +1,3 @@
-
 package mx.com.mtlsa.billing.rest;
 
 import javax.inject.Inject;
@@ -24,9 +23,7 @@ import mx.com.mtlsa.billing.service.GeneraTxtServiceComPago;
  * @since <<13-nov-2020>>
  */
 @Path("/")
-//@Secured
 public class GeneraTxtController {
-    //private static final Logger LOGGER = LogManager.getLogger(GeneraTxtController.class.getName());
     @Inject
      GeneraTxtService generaTxtService;
     
@@ -36,57 +33,20 @@ public class GeneraTxtController {
     
     @Inject
     GeneraTxtServiceComPago generaTxtServiceComPago;
-//    private TrackService service;
 
-    /*
-     * Estos campos comentados son para enlazar los recursos administrados por
-     * Weblogic, descomentar lo que se vayan a usar y editar su JNDI. En el caso de
-     * los objeto de JMS son para enviar notificaciones de eventos de forma
-     * asincrona.
-     */
-    // @Resource(mappedName="JDBC/DATASOURCE")
-    // private DataSource datasource;
-
-    /**
-     * Lee las propiedades para ver el nivel de logeo que tiene el servicio.
-     * Adicional se pueden agregar mas procesos que tienen que ejecutarse antes de
-     * llamar a un endpoint.
-     */
-//    @PostConstruct
-//    private void init() {
-//        try {
-//         //   PropertiesReader properties = new PropertiesReader();
-//         //   Configurator.setRootLevel(properties.getLevel());
-//         //   LOGGER.info("Se cargan las propiedades del componente.");
-//        } catch (Exception e) {
-//          //  LOGGER.error("No se pudo cargar las configuraciones iniciales.");
-//        }
-//    }
 
   
     @POST
     @Path("/by/facturas")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response facturas(FacElectronicaRequest request) throws Exception {
-    	//LOGGER.debug(yarDto.toString());
+    	
     	EspecMsFacturaTxtDTO  espeFacElecTxtDTO = new EspecMsFacturaTxtDTO();
         try {
-        	//trackService.saveYard(yarDto);
-        	
-        	
-        	//EspecOrdEncaFacElecTxtDTO temp = new EspecOrdEncaFacElecTxtDTO();
-        	//temp.setAlternateIdentificationGln("X");
-        	//temp.setAnoAprobacion9("X");
-        	//temp.setCalifTradingPartnerProv("X");
         	
         	espeFacElecTxtDTO = generaTxtService.getFacturaTxt(request);
         	
-        	//espeFacElecTxtDTO.add(temp);
-        	
-           
-        //} catch (ServiceException e) {
         } catch (Exception e) {
-        	//LOGGER.debug(e.getMessage());
             throw new Exception(e.getMessage());
         }
         return Response.ok(espeFacElecTxtDTO).build();
@@ -98,25 +58,17 @@ public class GeneraTxtController {
     @Path("/by/facturaPagos")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response facturaPagos(FacElectronicaRequest request) throws Exception {
-    	//LOGGER.debug(yarDto.toString());
+    	
     	EspecMsFacturaPagosTxtDTO  especMsFacturaPagos = new EspecMsFacturaPagosTxtDTO();
         try {
-        	//trackService.saveYard(yarDto);
-        	
-        	
-        	//EspecOrdEncaFacElecTxtDTO temp = new EspecOrdEncaFacElecTxtDTO();
-        	//temp.setAlternateIdentificationGln("X");
-        	//temp.setAnoAprobacion9("X");
-        	//temp.setCalifTradingPartnerProv("X");
+        
         	
         	especMsFacturaPagos = generaTxtPagos.getFacturaPagosTxt(request);
         	
-        	//espeFacElecTxtDTO.add(temp);
         	
-           
-        //} catch (ServiceException e) {
+        	
         } catch (Exception e) {
-        	//LOGGER.debug(e.getMessage());
+        	
             throw new Exception(e.getMessage());
         }
         return Response.ok(especMsFacturaPagos).build();
@@ -135,7 +87,6 @@ public class GeneraTxtController {
         	
 
         } catch (Exception e) {
-        	//LOGGER.debug(e.getMessage());
             throw new Exception(e.getMessage());
         }
         return Response.ok(espeComplePagoTxtDTO).build();

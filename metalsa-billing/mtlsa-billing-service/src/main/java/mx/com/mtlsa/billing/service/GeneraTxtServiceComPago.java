@@ -6,5 +6,5 @@ import mx.com.mtlsa.billing.dto.response.txt.EspecMsFacturaTxtDTO;
 public interface GeneraTxtServiceComPago {
 	
 	EspecMsFacturaTxtDTO getComplementoPago(ComplementoPagoRequest request);
-	//EspecMsFacturaTxtDTO  getComplePagoTxt(ComplementoPagoRequest request);
+	
 }
