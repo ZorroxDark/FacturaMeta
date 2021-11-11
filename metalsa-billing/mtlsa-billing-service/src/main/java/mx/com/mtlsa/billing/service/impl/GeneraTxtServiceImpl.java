@@ -39,12 +39,6 @@ public class GeneraTxtServiceImpl implements GeneraTxtService, Serializable {
 	 GetInfoTxtDao getInfoTxtDao;
 	
 
-	@Override
-	public EspecOrdEncaFacElecTxtDTO getFactura(FacElectronicaRequest request) {
-		// TODO Auto-generated method stub
-		// getInfoTxtDao.getInfoFacturaEncabezado();
-		return null;
-	}
 
 	@Override
 	public EspecMsFacturaTxtDTO getFacturaTxt(FacElectronicaRequest request) {

@@ -63,11 +63,8 @@ public class GeneraTxtController {
     	
     	EspecMsFacturaPagosTxtDTO  especMsFacturaPagos = new EspecMsFacturaPagosTxtDTO();
         try {
-        
         	
         	especMsFacturaPagos = generaTxtPagos.getFacturaPagosTxt(request);
-        	
-        	
         	
         } catch (Exception e) {
         	
