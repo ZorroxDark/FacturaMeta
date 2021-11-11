@@ -33,3 +33,17 @@ metalsa-billing/mtsla-billing-dao/.settings/org.eclipse.wst.common.project.facet
 metalsa-billing/mtsla-billing-dao/.settings/org.eclipse.jdt.core.prefs
 
 metalsa-billing/mtlsa-billing-utils/.classpath
+
+metalsa-billing/mtlsa-billing-client/.settings/org.eclipse.wst.common.project.facet.core.xml
+
+metalsa-billing/mtlsa-billing-service/.settings/
+
+metalsa-billing/mtlsa-billing-client/.settings/
+
+metalsa-billing/mtlsa-billing-entity/.classpath
+
+metalsa-billing/mtlsa-billing-entity/.settings/
+
+metalsa-billing/mtlsa-billing-rest/.settings/
+
+metalsa-billing/mtsla-billing-dao/.settings/
