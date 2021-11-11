@@ -9,8 +9,10 @@ import javax.ws.rs.core.Response;
 
 import mx.com.mtlsa.billing.dto.request.txt.ComplementoPagoRequest;
 import mx.com.mtlsa.billing.dto.request.txt.FacElectronicaRequest;
+import mx.com.mtlsa.billing.dto.request.txt.NominaPagoRequest;
 import mx.com.mtlsa.billing.dto.response.txt.EspecMsFacturaPagosTxtDTO;
 import mx.com.mtlsa.billing.dto.response.txt.EspecMsFacturaTxtDTO;
+import mx.com.mtlsa.billing.dto.response.txt.EspecMsNominaTxtDTO;
 import mx.com.mtlsa.billing.service.GeneraTxtPagos;
 import mx.com.mtlsa.billing.service.GeneraTxtService;
 import mx.com.mtlsa.billing.service.GeneraTxtServiceComPago;
@@ -25,7 +27,7 @@ import mx.com.mtlsa.billing.service.GeneraTxtServiceComPago;
 @Path("/")
 public class GeneraTxtController {
     @Inject
-     GeneraTxtService generaTxtService;
+    GeneraTxtService generaTxtService;
     
     @Inject
     GeneraTxtPagos generaTxtPagos;
@@ -90,6 +92,26 @@ public class GeneraTxtController {
             throw new Exception(e.getMessage());
         }
         return Response.ok(espeComplePagoTxtDTO).build();
+    }
+    
+    
+    
+    @POST
+    @Path("/by/NominaPagos")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response nominaPago(NominaPagoRequest request) throws Exception {
+    	
+    	EspecMsNominaTxtDTO  espeNominaPagoTxtDTO = new EspecMsNominaTxtDTO();
+    	
+        try {
+
+        	espeNominaPagoTxtDTO = generaTxtServiceComPago.getNominaPago(request);
+        	
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+        return Response.ok(espeNominaPagoTxtDTO).build();
     }
    
 }

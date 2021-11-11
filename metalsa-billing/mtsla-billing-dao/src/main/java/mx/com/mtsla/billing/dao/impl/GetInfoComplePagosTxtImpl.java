@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import mx.com.mtlsa.billing.dto.request.txt.ComplementoPagoRequest;
+import mx.com.mtlsa.billing.dto.request.txt.FacturaRequest;
 import mx.com.mtsla.billing.dao.GetInfoComplePagosTxtDao;
 import mx.com.mtlsa.billing.dto.response.txt.EspecOrdEncaFacElecTxtDTO;
 import mx.com.mtlsa.billing.dto.response.txt.EspecOrdLineDetCfdTxtDTO;
@@ -28,7 +29,7 @@ public class GetInfoComplePagosTxtImpl implements GetInfoComplePagosTxtDao{
 	
 	@SuppressWarnings("finally")
 	@Override
-	public List<EspecOrdEncaFacElecTxtDTO> getInfoComplementoPagosEncabezado(ComplementoPagoRequest request) {
+	public List<EspecOrdEncaFacElecTxtDTO> getInfoComplementoPagosEncabezado(FacturaRequest request) {
 		
 		List<EspecOrdEncaFacElecTxtDTO> respuesta = new ArrayList<EspecOrdEncaFacElecTxtDTO>();
 
@@ -279,7 +280,7 @@ public class GetInfoComplePagosTxtImpl implements GetInfoComplePagosTxtDao{
 	
 	@SuppressWarnings("finally")
 	@Override
-	public List<EspecOrdLineDetCfdTxtDTO> getInfoComplementoPagosCompleDetalle(ComplementoPagoRequest request) {
+	public List<EspecOrdLineDetCfdTxtDTO> getInfoComplementoPagosCompleDetalle(FacturaRequest request) {
 		// TODO Auto-generated method stub
 		
 		List<EspecOrdLineDetCfdTxtDTO> respuesta = new ArrayList<EspecOrdLineDetCfdTxtDTO>();
@@ -430,7 +431,7 @@ public class GetInfoComplePagosTxtImpl implements GetInfoComplePagosTxtDao{
 	
 	@SuppressWarnings("finally")
 	@Override
-	public List<EstrucSecAuxComplePagoTxtDTO> getListaAuxPagosComplePago(ComplementoPagoRequest request) {
+	public List<EstrucSecAuxComplePagoTxtDTO> getListaAuxPagosComplePago(FacturaRequest request) {
 		// TODO Auto-generated method stub
 		
 		List<EstrucSecAuxComplePagoTxtDTO> listaAuxComplePago = new ArrayList<EstrucSecAuxComplePagoTxtDTO>(); 

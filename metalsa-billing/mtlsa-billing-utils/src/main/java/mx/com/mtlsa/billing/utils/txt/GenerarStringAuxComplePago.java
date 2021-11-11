@@ -92,7 +92,7 @@ public class GenerarStringAuxComplePago {
 			
 			
 			getAuxComplePago.append(Constantes.SIG_NEG);
-			
+			getAuxComplePago.append(Constantes.SIG_AST);
 			for(EstrucSecAuxComplePagoTxtDTO auxComplePago:listaAuxComple) {
 				
 				

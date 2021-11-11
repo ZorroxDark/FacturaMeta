@@ -7,13 +7,12 @@ import mx.com.mtlsa.billing.dto.response.txt.EspecOrdEncaFacElecTxtDTO;
 import mx.com.mtlsa.billing.dto.response.txt.EspecOrdLineDetCfdTxtDTO;
 import mx.com.mtlsa.billing.dto.response.txt.EstrucSecAuxComplePagoTxtDTO;
 
-public interface GetInfoComplePagosTxtDao {
+public interface GetInfoNominaPagosTxtDao {
 	
-	List<EspecOrdEncaFacElecTxtDTO> getInfoComplementoPagosEncabezado(FacturaRequest request);
+	List<EspecOrdEncaFacElecTxtDTO> getInfoNominaPagosEncabezado(FacturaRequest request);
 	
-	List<EspecOrdLineDetCfdTxtDTO> getInfoComplementoPagosCompleDetalle(FacturaRequest request);
+	List<EspecOrdLineDetCfdTxtDTO> getInfoNominaPagosCompleDetalle(FacturaRequest request);
 	
-	List<EstrucSecAuxComplePagoTxtDTO> getListaAuxPagosComplePago(FacturaRequest request);
-	
+	List<EstrucSecAuxComplePagoTxtDTO> getListaAuxPagosNominaPago(FacturaRequest request);
 
 }

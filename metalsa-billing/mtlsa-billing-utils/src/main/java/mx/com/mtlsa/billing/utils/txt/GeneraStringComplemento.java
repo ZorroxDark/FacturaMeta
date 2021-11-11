@@ -247,10 +247,11 @@ public class GeneraStringComplemento {
 				getFacturaComplemento.append(facComplemento.getLineaCodEAN()!= null ? facComplemento.getLineaCodEAN() :"");
 				getFacturaComplemento.append(Constantes.PIPE);
 				getFacturaComplemento.append(facComplemento.getLineaNoIdentificacion()!= null ? facComplemento.getLineaNoIdentificacion() :"");
-				getFacturaComplemento.append(Constantes.PIPE);
+				//getFacturaComplemento.append(Constantes.PIPE);
 				
 				// nvo 
-				getFacturaComplemento.append(facComplemento.getLineAduana().getVariacionModo()	!= null ? facComplemento.getLineAduana().getVariacionModo() : "");
+				//complemento de pago no va
+				/*getFacturaComplemento.append(facComplemento.getLineAduana().getVariacionModo()	!= null ? facComplemento.getLineAduana().getVariacionModo() : "");
 				getFacturaComplemento.append(Constantes.PIPE);
 				getFacturaComplemento.append(facComplemento.getLineAduana().getVariacionTipo()	!= null ? facComplemento.getLineAduana().getVariacionTipo() : "");
 				getFacturaComplemento.append(Constantes.PIPE);
@@ -271,6 +272,7 @@ public class GeneraStringComplemento {
 				getFacturaComplemento.append(facComplemento.getLineAduana().getVariacionPorcRet02()	!= null ? facComplemento.getLineAduana().getVariacionPorcRet02() : "");
 				getFacturaComplemento.append(Constantes.PIPE);
 				getFacturaComplemento.append(facComplemento.getLineAduana().getVariacionPorcRet03()	!= null ? facComplemento.getLineAduana().getVariacionPorcRet03() : "");
+				*/
 				getFacturaComplemento.append(Constantes.SALTO_LINEA);
 			}
 			

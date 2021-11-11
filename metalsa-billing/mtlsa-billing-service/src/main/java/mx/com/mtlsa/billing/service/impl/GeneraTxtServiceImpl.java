@@ -1,7 +1,6 @@
 package mx.com.mtlsa.billing.service.impl;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
@@ -16,11 +15,9 @@ import mx.com.mtlsa.billing.dto.response.txt.EspecMsFacturaTxtDTO;
 import mx.com.mtlsa.billing.dto.response.txt.EspecOrdEncaFacElecTxtDTO;
 import mx.com.mtlsa.billing.dto.response.txt.EspecOrdLineDetCfdTxtDTO;
 import mx.com.mtlsa.billing.dto.response.txt.EspecOrdLineImpuestoCfdTxtDTO;
-import mx.com.mtlsa.billing.dto.response.txt.EspecOrdVarLineAduanaCfdTxtDTO;
 import mx.com.mtlsa.billing.dto.response.txt.EstrucSecAuxComplePagoTxtDTO;
 import mx.com.mtlsa.billing.dto.response.txt.ListaAuxComplePagoTxtDTO;
 import mx.com.mtlsa.billing.service.GeneraTxtService;
-import mx.com.mtlsa.billing.utils.Constantes;
 import mx.com.mtlsa.billing.utils.txt.GeneraStringComplemento;
 import mx.com.mtlsa.billing.utils.txt.GeneraStringFacturas;
 import mx.com.mtlsa.billing.utils.txt.GenerarStringAuxComplePago;
