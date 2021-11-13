@@ -8,11 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import mx.com.mtlsa.billing.dto.request.txt.FacElectronicaRequest;
+import mx.com.mtlsa.billing.dto.request.txt.FacturaRequest;
 import mx.com.mtlsa.billing.dto.response.txt.EspecOrdEncaFacElecTxtDTO;
 import mx.com.mtlsa.billing.dto.response.txt.EspecOrdLineDetCfdTxtDTO;
 import mx.com.mtlsa.billing.dto.response.txt.EstrucSecAuxComplePagoTxtDTO;
-import mx.com.mtlsa.billing.dto.response.txt.ListaAuxComplePagoTxtDTO;
 import mx.com.mtsla.billing.dao.GetInfoPagosTxtDao;
 import mx.com.mtsla.billing.dao.map.MapEspecOrdEncaFacElecTxtDTO;
 import mx.com.mtsla.billing.dao.map.MapEspecOrdLineDetCfdTxtDTO;
@@ -28,7 +27,7 @@ public class GetInfoPagosTxtImpl implements GetInfoPagosTxtDao {
 
 	@SuppressWarnings("finally")
 	@Override
-	public List<EspecOrdEncaFacElecTxtDTO> getInfoFacPagosEncabezado(FacElectronicaRequest request) {
+	public List<EspecOrdEncaFacElecTxtDTO> getInfoFacPagosEncabezado(FacturaRequest request) {
 		
 		List<EspecOrdEncaFacElecTxtDTO> respuesta = new ArrayList<EspecOrdEncaFacElecTxtDTO>();
 
@@ -285,7 +284,7 @@ public class GetInfoPagosTxtImpl implements GetInfoPagosTxtDao {
 	
 	@SuppressWarnings("finally")
 	@Override
-	public List<EspecOrdLineDetCfdTxtDTO> getInfoFacPagosCompleDetalle(FacElectronicaRequest request) {
+	public List<EspecOrdLineDetCfdTxtDTO> getInfoFacPagosCompleDetalle(FacturaRequest request) {
 		// TODO Auto-generated method stub
 		
 		List<EspecOrdLineDetCfdTxtDTO> respuesta = new ArrayList<EspecOrdLineDetCfdTxtDTO>();
@@ -437,7 +436,7 @@ public class GetInfoPagosTxtImpl implements GetInfoPagosTxtDao {
 	
 	@SuppressWarnings("finally")
 	@Override
-	public List<EstrucSecAuxComplePagoTxtDTO> getListaAuxPagosComplePago(FacElectronicaRequest request) {
+	public List<EstrucSecAuxComplePagoTxtDTO> getListaAuxPagosComplePago(FacturaRequest request) {
 		// TODO Auto-generated method stub
 		
 		List<EstrucSecAuxComplePagoTxtDTO> listaAuxComplePago = new ArrayList<EstrucSecAuxComplePagoTxtDTO>(); 

@@ -2,18 +2,17 @@ package mx.com.mtsla.billing.dao.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import mx.com.mtlsa.billing.dto.request.txt.ComplementoPagoRequest;
 import mx.com.mtlsa.billing.dto.request.txt.FacturaRequest;
-import mx.com.mtsla.billing.dao.GetInfoComplePagosTxtDao;
 import mx.com.mtlsa.billing.dto.response.txt.EspecOrdEncaFacElecTxtDTO;
 import mx.com.mtlsa.billing.dto.response.txt.EspecOrdLineDetCfdTxtDTO;
 import mx.com.mtlsa.billing.dto.response.txt.EstrucSecAuxComplePagoTxtDTO;
-import mx.com.mtlsa.billing.dto.response.txt.ListaAuxComplePagoTxtDTO;
+import mx.com.mtsla.billing.dao.GetInfoComplePagosTxtDao;
 import mx.com.mtsla.billing.dao.map.MapEspecOrdEncaFacElecTxtDTO;
 import mx.com.mtsla.billing.dao.map.MapEspecOrdLineDetCfdTxtDTO;
 import mx.com.mtsla.billing.dao.map.MapEstrucSecAuxComplePagoTxtDTO;

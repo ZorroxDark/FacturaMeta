@@ -8,7 +8,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import mx.com.mtlsa.billing.dto.request.txt.ComplementoPagoRequest;
-import mx.com.mtlsa.billing.dto.request.txt.FacElectronicaRequest;
+import mx.com.mtlsa.billing.dto.request.txt.FacturaPagoRequest;
 import mx.com.mtlsa.billing.dto.request.txt.NominaPagoRequest;
 import mx.com.mtlsa.billing.dto.response.txt.EspecMsFacturaPagosTxtDTO;
 import mx.com.mtlsa.billing.dto.response.txt.EspecMsFacturaTxtDTO;
@@ -41,7 +41,7 @@ public class GeneraTxtController {
     @POST
     @Path("/by/facturas")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response facturas(FacElectronicaRequest request) throws Exception {
+    public Response facturas(FacturaPagoRequest request) throws Exception {
     	
     	EspecMsFacturaTxtDTO  espeFacElecTxtDTO = new EspecMsFacturaTxtDTO();
         try {
@@ -59,7 +59,7 @@ public class GeneraTxtController {
     @POST
     @Path("/by/facturaPagos")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response facturaPagos(FacElectronicaRequest request) throws Exception {
+    public Response facturaPagos(FacturaPagoRequest request) throws Exception {
     	
     	EspecMsFacturaPagosTxtDTO  especMsFacturaPagos = new EspecMsFacturaPagosTxtDTO();
         try {

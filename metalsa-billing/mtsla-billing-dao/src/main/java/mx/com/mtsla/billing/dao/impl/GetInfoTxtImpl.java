@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import mx.com.mtlsa.billing.dto.request.txt.FacElectronicaRequest;
+import mx.com.mtlsa.billing.dto.request.txt.FacturaRequest;
 import mx.com.mtlsa.billing.dto.response.txt.EspecOrdEncaFacElecTxtDTO;
 import mx.com.mtlsa.billing.dto.response.txt.EspecOrdLineDetCfdTxtDTO;
 import mx.com.mtlsa.billing.dto.response.txt.EspecOrdLineImpuestoCfdTxtDTO;
@@ -29,7 +29,7 @@ public class GetInfoTxtImpl implements GetInfoTxtDao {
 
 	@SuppressWarnings("finally")
 	@Override
-	public List<EspecOrdEncaFacElecTxtDTO> getInfoFacEncabezado(FacElectronicaRequest request) {
+	public List<EspecOrdEncaFacElecTxtDTO> getInfoFacEncabezado(FacturaRequest request) {
 		
 		List<EspecOrdEncaFacElecTxtDTO> respuesta = new ArrayList<EspecOrdEncaFacElecTxtDTO>();
 
@@ -310,7 +310,7 @@ public class GetInfoTxtImpl implements GetInfoTxtDao {
 
 	@SuppressWarnings("finally")
 	@Override
-	public List<EspecOrdLineDetCfdTxtDTO> getInfoFacCompleDetalle(FacElectronicaRequest request) {
+	public List<EspecOrdLineDetCfdTxtDTO> getInfoFacCompleDetalle(FacturaRequest request) {
 		// TODO Auto-generated method stub
 		
 		List<EspecOrdLineDetCfdTxtDTO> respuesta = new ArrayList<EspecOrdLineDetCfdTxtDTO>();
@@ -479,7 +479,7 @@ public class GetInfoTxtImpl implements GetInfoTxtDao {
 
 	@SuppressWarnings("finally")
 	@Override
-	public List<EspecOrdLineImpuestoCfdTxtDTO> getInfoFacImpuetos(FacElectronicaRequest request) {
+	public List<EspecOrdLineImpuestoCfdTxtDTO> getInfoFacImpuetos(FacturaRequest request) {
 		// TODO Auto-generated method stub
 		List<EspecOrdLineImpuestoCfdTxtDTO> respuesta = new ArrayList<EspecOrdLineImpuestoCfdTxtDTO>();
 
@@ -533,7 +533,7 @@ public class GetInfoTxtImpl implements GetInfoTxtDao {
 
 	@SuppressWarnings("finally")
 	@Override
-	public ListaAuxComplePagoTxtDTO getListaAuxComplePago(FacElectronicaRequest request) {
+	public ListaAuxComplePagoTxtDTO getListaAuxComplePago(FacturaRequest request) {
 		// TODO Auto-generated method stub
 		
 		ListaAuxComplePagoTxtDTO listaAuxComplePago = new ListaAuxComplePagoTxtDTO(); 

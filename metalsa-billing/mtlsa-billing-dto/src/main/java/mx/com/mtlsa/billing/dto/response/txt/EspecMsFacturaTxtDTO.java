@@ -7,7 +7,7 @@ import java.util.List;
 public class EspecMsFacturaTxtDTO  implements Serializable {
 
 	/**
-	 * 
+	 *  EspecMsFacturaPagosTxtDTO
 	 */
 	private static final long serialVersionUID = 6094333318852704898L;
 	
