@@ -57,48 +57,55 @@ public class GeneraTxtPagosImpl implements GeneraTxtPagos, Serializable {
 				System.out.println("1-  Llama   ecabezado Pagos (EspecOrdEncaFacElecTxtDTO) ..");
 
 				List<EspecOrdEncaFacElecTxtDTO> listaEcabezado = new ArrayList<EspecOrdEncaFacElecTxtDTO>();
-
 				listaEcabezado.addAll(getInfoPagosTxtDao.getInfoFacPagosEncabezado(fac));
 
-				if (listaEcabezado.size() == 0) {
-					return especMsFacPagos;
+				if (listaEcabezado.size() != 0) {
+				
+					System.out.println("2-  Genera el IDs () ..");
+					String nomIdFolio = Utils.generaIdTxt() + count.toString();
+					listaEcabezado.get(0).setFolio(nomIdFolio);
+	
+					especMsFacPagos.setCabecera(listaEcabezado.get(0));
+					getFacturaPagosFinal.append(GeneraStringFacturas.facturaCabecera(listaEcabezado.get(0)).toString());
+	
+					System.out.println("3-  Llama   Detalle (EspecOrdLineDetCfdTxtDTO) ..");
+					List<EspecOrdLineDetCfdTxtDTO> especOrdLineDet = new ArrayList<EspecOrdLineDetCfdTxtDTO>();
+					especOrdLineDet = getInfoPagosTxtDao.getInfoFacPagosCompleDetalle(fac);
+					especMsFacPagos.setComplemento(especOrdLineDet);
+					getFacturaPagosFinal.append(GeneraStringComplemento.facturaComplemento(especOrdLineDet));
+	
+					System.out.println("4-  Llama   comercio exterior (ListaAuxComplePagoTxtDTO)  ..");
+					List<EstrucSecAuxComplePagoTxtDTO> listaAuxComplePago = new ArrayList<EstrucSecAuxComplePagoTxtDTO>();
+					listaAuxComplePago = getInfoPagosTxtDao.getListaAuxPagosComplePago(fac);
+					especMsFacPagos.setAuxComplePago(listaAuxComplePago);
+					getFacturaPagosFinal.append(GenerarStringAuxComplePago.facturaAuxPagosComplePago(listaAuxComplePago));
+				
+				
 
 				}
-				System.out.println("2-  Genera el IDs () ..");
-				String nomIdFolio = Utils.generaIdTxt() + count.toString();
-				listaEcabezado.get(0).setFolio(nomIdFolio);
-
-				especMsFacPagos.setCabecera(listaEcabezado.get(0));
-				getFacturaPagosFinal.append(GeneraStringFacturas.facturaCabecera(listaEcabezado.get(0)).toString());
-
-				System.out.println("3-  Llama   Detalle (EspecOrdLineDetCfdTxtDTO) ..");
-				List<EspecOrdLineDetCfdTxtDTO> especOrdLineDet = new ArrayList<EspecOrdLineDetCfdTxtDTO>();
-				especOrdLineDet = getInfoPagosTxtDao.getInfoFacPagosCompleDetalle(fac);
-				especMsFacPagos.setComplemento(especOrdLineDet);
-				getFacturaPagosFinal.append(GeneraStringComplemento.facturaComplemento(especOrdLineDet));
-
-				System.out.println("4-  Llama   comercio exterior (ListaAuxComplePagoTxtDTO)  ..");
-				List<EstrucSecAuxComplePagoTxtDTO> listaAuxComplePago = new ArrayList<EstrucSecAuxComplePagoTxtDTO>();
-				listaAuxComplePago = getInfoPagosTxtDao.getListaAuxPagosComplePago(fac);
-				especMsFacPagos.setAuxComplePago(listaAuxComplePago);
-				getFacturaPagosFinal.append(GenerarStringAuxComplePago.facturaAuxPagosComplePago(listaAuxComplePago));
 				count++;
 
 			}
 
-			File file = new File(nomArchivo + ".txt");
-			flwriter = new FileWriter(file);
-			BufferedWriter bfwriter = new BufferedWriter(flwriter);
-			bfwriter = new BufferedWriter(flwriter);
-			bfwriter.write(getFacturaPagosFinal.toString());
-
-			bfwriter.close();
-
-			FileInputStream test = new FileInputStream(file);
-			System.out.println("Archivo creado satisfactoriamente..");
-			// Se envia archivo al SFTP
-			SFTPSend.SFTPSendTXT_2(nomArchivo + ".txt", test);
-			System.out.println("Se ha enviado satisfactoriamente..");
+			//valido que se haya generado txt
+			if(getFacturaPagosFinal.length() !=0 ) { 
+			
+				File file = new File(nomArchivo + ".txt");
+				flwriter = new FileWriter(file);
+				BufferedWriter bfwriter = new BufferedWriter(flwriter);
+				bfwriter = new BufferedWriter(flwriter);
+				bfwriter.write(getFacturaPagosFinal.toString());
+	
+				bfwriter.close();
+	
+				FileInputStream test = new FileInputStream(file);
+				// Se envia archivo al SFTP
+				SFTPSend.SFTPSendTXT_2(nomArchivo + ".txt", test);
+				System.out.println("Se ha enviado satisfactoriamente..");
+			
+			}else {
+				  System.out.println("La consulta no trajo resultados no genera txt..");
+			}
 
 		} catch (Exception e) {
 			System.out.println("Error Service  " + e);

@@ -28,7 +28,7 @@ public class MapEspecOrdEncaFacElecTxtDTO {
 					EspecOrdEncaFacElecTxtDTO especOrdEncaFac = new EspecOrdEncaFacElecTxtDTO();
 		        	
 		        	//especOrdEncaFac.setFolio(null != respuesta[0] ? UtilsNumeros.valStrToInt(respuesta[0].toString()):"");
-					especOrdEncaFac.setFolio("9000"); // se pone porvisional debe der numerico pero el query trae Alfanumerico
+					//especOrdEncaFac.setFolio("9000"); // se pone porvisional debe der numerico pero el query trae Alfanumerico
 				    especOrdEncaFac.setNombreEmisor(null != respuesta[1] ? respuesta[1].toString().trim():"");
 				    especOrdEncaFac.setRfcEmisor(null != respuesta[2] ? respuesta[2].toString().trim():"");
 				    especOrdEncaFac.setDomEmisorCalle(null != respuesta[3] ? respuesta[3].toString().trim():"");
@@ -253,8 +253,10 @@ public class MapEspecOrdEncaFacElecTxtDTO {
 					
 					
 					especOrdEncaFac.setEfectoComprobante(null != respuesta[190] ? respuesta[190].toString().trim():"");
-					especOrdEncaFac.setMontoTotalImpRetenidos(null != respuesta[191] ? UtilsNumeros.numDecimal2(respuesta[191].toString()):"");
-					especOrdEncaFac.setMontoTotalImpTrasladados(null != respuesta[192] ? UtilsNumeros.numDecimal2(respuesta[192].toString()):"");
+					//especOrdEncaFac.setMontoTotalImpRetenidos(null != respuesta[191] ? UtilsNumeros.numDecimal2(respuesta[191].toString()):""); EEROR vienen numericas
+					//especOrdEncaFac.setMontoTotalImpTrasladados(null != respuesta[192] ? UtilsNumeros.numDecimal2(respuesta[192].toString()):"");
+					especOrdEncaFac.setMontoTotalImpRetenidos(null != respuesta[191] ? respuesta[191].toString().trim():"");
+					especOrdEncaFac.setMontoTotalImpTrasladados(null != respuesta[192] ? respuesta[192].toString().trim():"");
 			
 					especOrdEncaFacList.add(especOrdEncaFac);
 

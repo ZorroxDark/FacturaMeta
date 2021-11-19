@@ -75,32 +75,35 @@ public class GeneraTxtComplementoPagosImpl implements GeneraTxtServiceComPago, S
 					List<EspecOrdEncaFacElecTxtDTO> listaEcabezado = new ArrayList<EspecOrdEncaFacElecTxtDTO>();
 					listaEcabezado.addAll(getInfoComplePagosTxtDao.getInfoComplementoPagosEncabezado(fac));
 					
-					if(listaEcabezado.size()== 0) {
-						return especMsFacPagos;
+					if(listaEcabezado.size()!= 0) {
+					
+						System.out.println("2-  Genera el IDs () ..");
+						String nomIdFolio= Utils.generaIdTxt()+count.toString();
+						listaEcabezado.get(0).setFolio(nomIdFolio);
+						
+					
+						especMsFacPagos.setCabecera(listaEcabezado.get(0));
+						getFacturaPagosFinal.append(GeneraStringFacturas.facturaCabecera(listaEcabezado.get(0)).toString());
+						
+						
+						System.out.println("3-  Llama   Detalle (EspecOrdLineDetCfdTxtDTO) ..");
+						List<EspecOrdLineDetCfdTxtDTO> especOrdLineDet = new ArrayList<EspecOrdLineDetCfdTxtDTO>();
+						especOrdLineDet = getInfoComplePagosTxtDao.getInfoComplementoPagosCompleDetalle(fac);
+						especMsFacPagos.setComplemento(especOrdLineDet);
+						getFacturaPagosFinal.append(GeneraStringComplemento.facturaComplemento(especOrdLineDet));
+						
+						
+						System.out.println("4-  Llama   comercio exterior (ListaAuxComplePagoTxtDTO)  ..");
+						List<EstrucSecAuxComplePagoTxtDTO> listaAuxComplePago = new ArrayList<EstrucSecAuxComplePagoTxtDTO>();
+						listaAuxComplePago = getInfoComplePagosTxtDao.getListaAuxPagosComplePago(fac);
+						
+						
+						if (listaAuxComplePago.size() > 0) {
+							especMsFacPagos.setAuxComplePago(listaAuxComplePago);
+							getFacturaPagosFinal.append(GenerarStringAuxComplePago.facturaAuxPagosComplePago(listaAuxComplePago));
+						}
+						
 					}
-					
-					
-					System.out.println("2-  Genera el IDs () ..");
-					String nomIdFolio= Utils.generaIdTxt()+count.toString();
-					listaEcabezado.get(0).setFolio(nomIdFolio);
-					
-				
-					especMsFacPagos.setCabecera(listaEcabezado.get(0));
-					getFacturaPagosFinal.append(GeneraStringFacturas.facturaCabecera(listaEcabezado.get(0)).toString());
-					
-					
-					System.out.println("3-  Llama   Detalle (EspecOrdLineDetCfdTxtDTO) ..");
-					List<EspecOrdLineDetCfdTxtDTO> especOrdLineDet = new ArrayList<EspecOrdLineDetCfdTxtDTO>();
-					especOrdLineDet = getInfoComplePagosTxtDao.getInfoComplementoPagosCompleDetalle(fac);
-					especMsFacPagos.setComplemento(especOrdLineDet);
-					getFacturaPagosFinal.append(GeneraStringComplemento.facturaComplemento(especOrdLineDet));
-					
-					
-					System.out.println("4-  Llama   comercio exterior (ListaAuxComplePagoTxtDTO)  ..");
-					List<EstrucSecAuxComplePagoTxtDTO> listaAuxComplePago = new ArrayList<EstrucSecAuxComplePagoTxtDTO>();
-					listaAuxComplePago = getInfoComplePagosTxtDao.getListaAuxPagosComplePago(fac);
-					especMsFacPagos.setAuxComplePago(listaAuxComplePago);
-					getFacturaPagosFinal.append(GenerarStringAuxComplePago.facturaAuxPagosComplePago(listaAuxComplePago));
 					
 					count++;
 					
@@ -108,28 +111,25 @@ public class GeneraTxtComplementoPagosImpl implements GeneraTxtServiceComPago, S
 				}
 				
 			
+				//valido que se haya generado txt
+				if(getFacturaPagosFinal.length() !=0 ) { 	
 				
+					  File file = new File(nomArchivo+".txt");
+					  flwriter = new FileWriter(file);
+					  BufferedWriter bfwriter = new BufferedWriter(flwriter);
+					  bfwriter = new BufferedWriter(flwriter);
+					  bfwriter.write(getFacturaPagosFinal.toString());
+					  
+					  bfwriter.close();
+					  FileInputStream test = new FileInputStream(file);
 				
-				 File file = new File(nomArchivo+".txt");
-				  flwriter = new FileWriter(file);
-				  BufferedWriter bfwriter = new BufferedWriter(flwriter);
-				  bfwriter = new BufferedWriter(flwriter);
-				  bfwriter.write(getFacturaPagosFinal.toString());
+					  SFTPSend.SFTPSendTXT_2(nomArchivo+".txt",test);
+					
+					  System.out.println("Se ha enviado satisfactoriamente..");
 				  
-				  bfwriter.close();
-				  
-				  FileInputStream test = new FileInputStream(file);
-				
-				
-				  System.out.println("Archivo creado satisfactoriamente..");
-				
-				
-				
-				// Se envia archivo al SFTP
-				
-				SFTPSend.SFTPSendTXT_2(nomArchivo+".txt",test);
-				
-				System.out.println("Se ha enviado satisfactoriamente..");
+				}else {
+					  System.out.println("La consulta no trajo resultados no genera txt..");
+				}
 				
 		
 	 
@@ -153,7 +153,7 @@ public class GeneraTxtComplementoPagosImpl implements GeneraTxtServiceComPago, S
 
 	@Override
 	public EspecMsNominaTxtDTO getNominaPago(NominaPagoRequest request) {
-		EspecMsNominaTxtDTO especMsFacNomPagos = new EspecMsNominaTxtDTO();
+		  EspecMsNominaTxtDTO especMsFacNomPagos = new EspecMsNominaTxtDTO();
 		
 		  
 		  FileWriter flwriter = null;
@@ -162,9 +162,6 @@ public class GeneraTxtComplementoPagosImpl implements GeneraTxtServiceComPago, S
 		 
 		  
 			try {
-				
-			
-				
 				
 				if(request.getFactura().size()==0) {
 					return especMsFacNomPagos;
@@ -182,32 +179,35 @@ public class GeneraTxtComplementoPagosImpl implements GeneraTxtServiceComPago, S
 					List<EspecOrdEncaFacElecTxtDTO> listaEcabezado = new ArrayList<EspecOrdEncaFacElecTxtDTO>();
 					listaEcabezado.addAll(getInfoNominaPagosTxtDao.getInfoNominaPagosEncabezado(fac));
 					
-					if(listaEcabezado.size()== 0) {
-						return especMsFacNomPagos;
+					if(listaEcabezado.size()!= 0) {
+					
+						System.out.println("2-  Genera el IDs () ..");
+						String nomIdFolio= Utils.generaIdTxt()+count.toString();
+						listaEcabezado.get(0).setFolio(nomIdFolio);
+						
+					
+						especMsFacNomPagos.setCabecera(listaEcabezado.get(0));
+						getFacturaPagosFinal.append(GeneraStringFacturas.facturaCabecera(listaEcabezado.get(0)).toString());
+						
+						
+						System.out.println("3-  Llama   Detalle (EspecOrdLineDetCfdTxtDTO) ..");
+						List<EspecOrdLineDetCfdTxtDTO> especOrdLineDet = new ArrayList<EspecOrdLineDetCfdTxtDTO>();
+						especOrdLineDet = getInfoNominaPagosTxtDao.getInfoNominaPagosCompleDetalle(fac);
+						especMsFacNomPagos.setComplemento(especOrdLineDet);
+						getFacturaPagosFinal.append(GeneraStringComplemento.facturaComplemento(especOrdLineDet));
+						
+						
+						System.out.println("4-  Llama   comercio exterior (ListaAuxComplePagoTxtDTO)  ..");
+						List<EstrucSecAuxComplePagoTxtDTO> listaAuxComplePago = new ArrayList<EstrucSecAuxComplePagoTxtDTO>();
+						listaAuxComplePago = getInfoNominaPagosTxtDao.getListaAuxPagosNominaPago(fac);
+						
+						
+						if (listaAuxComplePago.size() > 0) {
+							especMsFacNomPagos.setAuxComplePago(listaAuxComplePago);
+							getFacturaPagosFinal.append(GenerarStringAuxComplePago.facturaAuxPagosComplePago(listaAuxComplePago));
+						}
+						
 					}
-					
-					
-					System.out.println("2-  Genera el IDs () ..");
-					String nomIdFolio= Utils.generaIdTxt()+count.toString();
-					listaEcabezado.get(0).setFolio(nomIdFolio);
-					
-				
-					especMsFacNomPagos.setCabecera(listaEcabezado.get(0));
-					getFacturaPagosFinal.append(GeneraStringFacturas.facturaCabecera(listaEcabezado.get(0)).toString());
-					
-					
-					System.out.println("3-  Llama   Detalle (EspecOrdLineDetCfdTxtDTO) ..");
-					List<EspecOrdLineDetCfdTxtDTO> especOrdLineDet = new ArrayList<EspecOrdLineDetCfdTxtDTO>();
-					especOrdLineDet = getInfoNominaPagosTxtDao.getInfoNominaPagosCompleDetalle(fac);
-					especMsFacNomPagos.setComplemento(especOrdLineDet);
-					getFacturaPagosFinal.append(GeneraStringComplemento.facturaComplemento(especOrdLineDet));
-					
-					
-					System.out.println("4-  Llama   comercio exterior (ListaAuxComplePagoTxtDTO)  ..");
-					List<EstrucSecAuxComplePagoTxtDTO> listaAuxComplePago = new ArrayList<EstrucSecAuxComplePagoTxtDTO>();
-					listaAuxComplePago = getInfoNominaPagosTxtDao.getListaAuxPagosNominaPago(fac);
-					especMsFacNomPagos.setAuxComplePago(listaAuxComplePago);
-					getFacturaPagosFinal.append(GenerarStringAuxComplePago.facturaAuxPagosComplePago(listaAuxComplePago));
 					
 					count++;
 					
@@ -215,9 +215,10 @@ public class GeneraTxtComplementoPagosImpl implements GeneraTxtServiceComPago, S
 				}
 				
 			
+				//valido que se haya generado txt
+				if(getFacturaPagosFinal.length() !=0 ) { 
 				
-				
-				 File file = new File(nomArchivo+".txt");
+				  File file = new File(nomArchivo+".txt");
 				  flwriter = new FileWriter(file);
 				  BufferedWriter bfwriter = new BufferedWriter(flwriter);
 				  bfwriter = new BufferedWriter(flwriter);
@@ -226,17 +227,14 @@ public class GeneraTxtComplementoPagosImpl implements GeneraTxtServiceComPago, S
 				  bfwriter.close();
 				  
 				  FileInputStream test = new FileInputStream(file);
+				  SFTPSend.SFTPSendTXTNomina(nomArchivo+".txt",test);
+				  SFTPSend.SFTPSendTXTNomina2(nomArchivo+".txt",test);
 				
+				  System.out.println("Se ha enviado satisfactoriamente..");
 				
-				  System.out.println("Archivo creado satisfactoriamente..");
-				
-				
-				
-				
-				SFTPSend.SFTPSendTXTNomina(nomArchivo+".txt",test);
-				SFTPSend.SFTPSendTXTNomina2(nomArchivo+".txt",test);
-				
-				System.out.println("Se ha enviado satisfactoriamente..");
+				}else {
+				  System.out.println("La consulta no trajo resultados no genera txt..");
+				}
 				
 		
 	 

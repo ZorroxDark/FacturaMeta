@@ -63,82 +63,85 @@ public class GeneraTxtServiceImpl implements GeneraTxtService, Serializable {
 				List<EspecOrdEncaFacElecTxtDTO> listaEcabezado = new ArrayList<EspecOrdEncaFacElecTxtDTO>();
 				listaEcabezado.addAll(getInfoTxtDao.getInfoFacEncabezado(fac));
 
-				if (listaEcabezado.size() == 0) {
-					return especMsFactura;
+				if (listaEcabezado.size() != 0) {
+				
+					System.out.println("2-  Genera el IDs () ..");
+					String nomIdFolio = Utils.generaIdTxt() + count.toString();
+					listaEcabezado.get(0).setFolio(nomIdFolio);
+	
+					especMsFactura.setCabecera(listaEcabezado.get(0));
+					getFacturaFinal.append(GeneraStringFacturas.facturaCabecera(listaEcabezado.get(0)).toString());
+	
+					System.out.println("3-  Llama   Detalle (EspecOrdLineDetCfdTxtDTO) ..");
+					List<EspecOrdLineDetCfdTxtDTO> especOrdLineDet = new ArrayList<EspecOrdLineDetCfdTxtDTO>();
+					especOrdLineDet = getInfoTxtDao.getInfoFacCompleDetalle(fac);
+					especMsFactura.setComplemento(especOrdLineDet);
+					getFacturaFinal.append(GeneraStringComplemento.facturaComplemento(especOrdLineDet));
+	
+					System.out.println("3-  Llama   impuestos   (EspecOrdLineImpuestoCfdTxtDTO) ..");
+					List<EspecOrdLineImpuestoCfdTxtDTO> lineImpuesto = new ArrayList<EspecOrdLineImpuestoCfdTxtDTO>();
+					lineImpuesto = getInfoTxtDao.getInfoFacImpuetos(fac);
+					especMsFactura.setImpuestos(lineImpuesto);
+					getFacturaFinal.append(GenerarStringImpuesto.facturaImpuesto(lineImpuesto));
+	
+					System.out.println("4-  Llama   comercio exterior (ListaAuxComplePagoTxtDTO)  ..");
+					List<EstrucSecAuxComplePagoTxtDTO> listaEstrucSecAux = new ArrayList<EstrucSecAuxComplePagoTxtDTO>();
+					ListaAuxComplePagoTxtDTO listaAuxComplePago = new ListaAuxComplePagoTxtDTO();
+					listaAuxComplePago = getInfoTxtDao.getListaAuxComplePago(fac);
+	
+					// Agrega a Listas
+					if (listaAuxComplePago.getEncabezado() != null) {
+						listaEstrucSecAux.add(listaAuxComplePago.getEncabezado());
+					}
+	
+					if (listaAuxComplePago.getDestinatario() != null) {
+						listaEstrucSecAux.add(listaAuxComplePago.getDestinatario());
+					}
+	
+					if (listaAuxComplePago.getDomEmisor() != null) {
+						listaEstrucSecAux.add(listaAuxComplePago.getDomEmisor());
+					}
+	
+					if (listaAuxComplePago.getDomReceptor() != null) {
+						listaEstrucSecAux.add(listaAuxComplePago.getDomReceptor());
+					}
+	
+					if (listaAuxComplePago.getTxtLeyeda() != null) {
+						listaEstrucSecAux.add(listaAuxComplePago.getTxtLeyeda());
+					}
+	
+					// valido que tenga datos y agrego TXT y Response
+	
+					if (listaEstrucSecAux.size() > 0) {
+						especMsFactura.setAuxComplePago(listaEstrucSecAux);
+						getFacturaFinal.append(GenerarStringAuxComplePago.facturaAuxPagosComplePago(listaEstrucSecAux));
+					}
+					
+				
 
-				}
-				System.out.println("2-  Genera el IDs () ..");
-				String nomIdFolio = Utils.generaIdTxt() + count.toString();
-				listaEcabezado.get(0).setFolio(nomIdFolio);
-
-				especMsFactura.setCabecera(listaEcabezado.get(0));
-				getFacturaFinal.append(GeneraStringFacturas.facturaCabecera(listaEcabezado.get(0)).toString());
-
-				System.out.println("3-  Llama   Detalle (EspecOrdLineDetCfdTxtDTO) ..");
-				List<EspecOrdLineDetCfdTxtDTO> especOrdLineDet = new ArrayList<EspecOrdLineDetCfdTxtDTO>();
-				especOrdLineDet = getInfoTxtDao.getInfoFacCompleDetalle(fac);
-				especMsFactura.setComplemento(especOrdLineDet);
-				getFacturaFinal.append(GeneraStringComplemento.facturaComplemento(especOrdLineDet));
-
-				System.out.println("3-  Llama   impuestos   (EspecOrdLineImpuestoCfdTxtDTO) ..");
-				List<EspecOrdLineImpuestoCfdTxtDTO> lineImpuesto = new ArrayList<EspecOrdLineImpuestoCfdTxtDTO>();
-				lineImpuesto = getInfoTxtDao.getInfoFacImpuetos(fac);
-				especMsFactura.setImpuestos(lineImpuesto);
-				getFacturaFinal.append(GenerarStringImpuesto.facturaImpuesto(lineImpuesto));
-
-				System.out.println("4-  Llama   comercio exterior (ListaAuxComplePagoTxtDTO)  ..");
-				List<EstrucSecAuxComplePagoTxtDTO> listaEstrucSecAux = new ArrayList<EstrucSecAuxComplePagoTxtDTO>();
-				ListaAuxComplePagoTxtDTO listaAuxComplePago = new ListaAuxComplePagoTxtDTO();
-				listaAuxComplePago = getInfoTxtDao.getListaAuxComplePago(fac);
-
-				// Agrega a Listas
-				if (listaAuxComplePago.getEncabezado() != null) {
-					listaEstrucSecAux.add(listaAuxComplePago.getEncabezado());
-				}
-
-				if (listaAuxComplePago.getDestinatario() != null) {
-					listaEstrucSecAux.add(listaAuxComplePago.getDestinatario());
-				}
-
-				if (listaAuxComplePago.getDomEmisor() != null) {
-					listaEstrucSecAux.add(listaAuxComplePago.getDomEmisor());
-				}
-
-				if (listaAuxComplePago.getDomReceptor() != null) {
-					listaEstrucSecAux.add(listaAuxComplePago.getDomReceptor());
-				}
-
-				if (listaAuxComplePago.getTxtLeyeda() != null) {
-					listaEstrucSecAux.add(listaAuxComplePago.getTxtLeyeda());
-				}
-
-				// valido que tenga datos y agrego TXT y Response
-
-				if (listaEstrucSecAux.size() > 0) {
-					especMsFactura.setAuxComplePago(listaEstrucSecAux);
-					getFacturaFinal.append(GenerarStringAuxComplePago.facturaAuxPagosComplePago(listaEstrucSecAux));
 				}
 
 				count++;
 			}
 
-			File file = new File(nomArchivo + ".txt");
-			flwriter = new FileWriter(file);
-			BufferedWriter bfwriter = new BufferedWriter(flwriter);
-			bfwriter = new BufferedWriter(flwriter);
-			bfwriter.write(getFacturaFinal.toString());
-
-			bfwriter.close();
-
-			FileInputStream test = new FileInputStream(file);
-
-			System.out.println("Archivo creado satisfactoriamente..");
-
-			// Se envia archivo al SFTP
-
-			SFTPSend.SFTPSendTXT_2(nomArchivo + ".txt", test);
-
-			System.out.println("Se ha enviado satisfactoriamente..");
+			
+			//valido que se haya generado txt
+			if(getFacturaFinal.length() !=0 ) { 
+				File file = new File(nomArchivo + ".txt");
+				flwriter = new FileWriter(file);
+				BufferedWriter bfwriter = new BufferedWriter(flwriter);
+				bfwriter = new BufferedWriter(flwriter);
+				bfwriter.write(getFacturaFinal.toString());
+	
+				bfwriter.close();
+	
+				FileInputStream test = new FileInputStream(file);
+				SFTPSend.SFTPSendTXT_2(nomArchivo + ".txt", test);
+				System.out.println("Se ha enviado satisfactoriamente..");
+			
+			}else {
+				  System.out.println("La consulta no trajo resultados no genera txt..");
+			}
 
 		} catch (Exception e) {
 			System.out.println("Error Service  " + e);
