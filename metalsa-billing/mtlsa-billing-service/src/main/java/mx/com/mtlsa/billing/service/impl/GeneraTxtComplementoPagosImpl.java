@@ -90,7 +90,7 @@ public class GeneraTxtComplementoPagosImpl implements GeneraTxtServiceComPago, S
 						List<EspecOrdLineDetCfdTxtDTO> especOrdLineDet = new ArrayList<EspecOrdLineDetCfdTxtDTO>();
 						especOrdLineDet = getInfoComplePagosTxtDao.getInfoComplementoPagosCompleDetalle(fac);
 						especMsFacPagos.setComplemento(especOrdLineDet);
-						getFacturaPagosFinal.append(GeneraStringComplemento.facturaComplemento(especOrdLineDet));
+						getFacturaPagosFinal.append(GeneraStringComplemento.facturaComplementoFacturas(especOrdLineDet));
 						
 						
 						System.out.println("4-  Llama   comercio exterior (ListaAuxComplePagoTxtDTO)  ..");
@@ -194,7 +194,7 @@ public class GeneraTxtComplementoPagosImpl implements GeneraTxtServiceComPago, S
 						List<EspecOrdLineDetCfdTxtDTO> especOrdLineDet = new ArrayList<EspecOrdLineDetCfdTxtDTO>();
 						especOrdLineDet = getInfoNominaPagosTxtDao.getInfoNominaPagosCompleDetalle(fac);
 						especMsFacNomPagos.setComplemento(especOrdLineDet);
-						getFacturaPagosFinal.append(GeneraStringComplemento.facturaComplemento(especOrdLineDet));
+						getFacturaPagosFinal.append(GeneraStringComplemento.facturaComplementoNomina(especOrdLineDet));
 						
 						
 						System.out.println("4-  Llama   comercio exterior (ListaAuxComplePagoTxtDTO)  ..");

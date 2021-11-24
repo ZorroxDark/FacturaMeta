@@ -67,7 +67,7 @@ public class GetInfoTxtImpl implements GetInfoTxtDao {
 			qlString.append(" 	emp.VersionCFD Version,  \n");
 			qlString.append(" 	null Serie_Comprobante,  \n");
 			qlString.append(" 	null Numero_Aprobacion,  \n");
-			qlString.append(" 	emp.MetodoPago FormaPago,  \n");
+			qlString.append(" 	'03' FormaPago,  \n");
 			qlString.append(" 	CONVERT(varchar,CURRENT_TIMESTAMP,23) Fecha,  \n");
 			qlString.append(" 	CONVERT(varchar,CURRENT_TIMESTAMP,24) Hora,  \n");
 			qlString.append(" 	dir_exp.Calle Dom_LugarExpide_calle,  \n");
@@ -126,15 +126,15 @@ public class GetInfoTxtImpl implements GetInfoTxtDao {
 			qlString.append(" 	soc_com.RFC RFC_Tienda,  \n");
 			qlString.append("	enc.Moneda Cod_Moneda,  \n");
 			qlString.append("	enc.Diasvencimiento Dias_Pago,   \n");
-			qlString.append("	0 Porc_Desc_ProntoPago,  \n");
-			qlString.append("	0 Monto_Desc_ProntoPago,  \n");
-			qlString.append("	0 Cod_Descuento,  \n");
-			qlString.append("	0 Porc_Descuento,  \n");
-			qlString.append("	0 Monto_Descuento,  \n");
+			qlString.append("	null Porc_Desc_ProntoPago,  \n");
+			qlString.append("	null Monto_Desc_ProntoPago,  \n");
+			qlString.append("	null Cod_Descuento,  \n");
+			qlString.append("	null Porc_Descuento,  \n");
+			qlString.append("	null Monto_Descuento,  \n");
 			qlString.append(
 					"	(select count(*) from CLI_IntegraCOFIDI.dbo.cfddet where empresa=enc.Empresa and NoDocumento=enc.NoDocumento) Cantidad_LineasFactura,  \n");
 			qlString.append("	null Fecha_Vencimiento,  \n");
-			qlString.append("	null Cod_Zona,  \n");
+			qlString.append("	(case when enc.cliente='6097' then enc.customfield01 else null end) Cod_Zona ,  \n");
 			qlString.append("	null Numero_Receptor,  \n");
 			qlString.append("	null Cod_Vendedor,  \n");
 			qlString.append("	null Nombre_Vendedor,  \n");
@@ -194,7 +194,7 @@ public class GetInfoTxtImpl implements GetInfoTxtDao {
 			qlString.append("	enc.NoDocumento misc30,  \n");
 			qlString.append(
 					"	case when soc_com.tin is null then replace(replace(REPLACE(replace(soc_com.NoProveedor,' ',''),'-',''),'TAXID',''),':','') else soc_com.tin end TaxID_Receptor, --misc31  \n");
-			qlString.append("	soc_com_dir.incoterm, --misc32  \n");
+			qlString.append("	(SELECT usoCFDI FROM CLI_ATEBCOFIDI.DBO.SocioComercial WHERE cliente=enc.Cliente and Empresa=enc.Empresa) usoCFDI,  --misc32  \n");
 			qlString.append("	null Misc33,  \n");
 			qlString.append("	null Misc34,  \n");
 			qlString.append("	null Misc35,  \n");
@@ -219,7 +219,7 @@ public class GetInfoTxtImpl implements GetInfoTxtDao {
 			qlString.append("	'ORIGINAL' Document_Status,  \n");
 			qlString.append("	null Delivery_Date,  \n");
 			qlString.append(
-					"	(SELECT rtrim(Regimen) + ',' AS 'data()' FROM CLI_ATEBCOFIDI.dbo.EmpresaRF where empresa=enc.Empresa FOR XML PATH('')) RegimenFiscal,  \n");
+					"	(SELECT top 1 rtrim(Regimen) FROM NOMCOFIDI.dbo.EmpresaRF where empresa=enc.Empresa) RegimenFiscal,  \n");
 			qlString.append("	null Reference_Identification,  \n");
 			qlString.append("	null Num_contrarecibo,  \n");
 			qlString.append("	null Fecha_Num_contrarecibo,  \n");
@@ -232,7 +232,7 @@ public class GetInfoTxtImpl implements GetInfoTxtDao {
 			qlString.append("	(case when enc.TipoCambio=0 then 1 else enc.tipocambio end) Tasa_Divisa,  \n");
 			qlString.append("	enc.customfield10 Terminos,  \n");
 			qlString.append("	null Ref_Termino_Tiempo_Pago,  \n");
-			qlString.append("	null Descuento_Tipo,  \n");
+			qlString.append("	dir_exp.CP LugarExpedicion,  \n");
 			qlString.append("	null Indicador_Cargo_Descuento,  \n");
 			qlString.append("	null Inf_Cargo_Descuento,  \n");
 			qlString.append("	null Tipo_Especial_de_Servicio,  \n");
@@ -244,7 +244,7 @@ public class GetInfoTxtImpl implements GetInfoTxtDao {
 			qlString.append("	null Motivo_Descuento,  \n");
 			qlString.append("	enc.formapago Metodo_Pago,  \n");
 			qlString.append(
-					"	(case when enc.TipoDocumento='01' then 'ingreso' when enc.TipoDocumento='02' then 'egreso' when enc.TipoDocumento='03' then 'ingreso' when enc.TipoDocumento='04' then 'traslado' else '' end) Efecto_Comprobante,  \n");
+					"	(case when enc.TipoDocumento='01' then 'I' when enc.TipoDocumento='02' then 'E' when enc.TipoDocumento='03' then 'I' when enc.TipoDocumento='04' then 'T' else '' end) Efecto_Comprobante,  \n");
 			qlString.append("	enc.Impuesto Monto_TotalImp_Retenidos,  \n");
 			qlString.append("	enc.Retencion Monto_TotalImp_Traslados  \n");
 			qlString.append(" from   \n");
@@ -423,14 +423,14 @@ public class GetInfoTxtImpl implements GetInfoTxtDao {
 			qlString.append("		(case when impuesto.PorcentajeImpuesto is not null then '/Impuesto' else null end) Variacion_Modo, \n");
 			qlString.append("		(case when impuesto.PorcentajeImpuesto is not null then 'TR' else null end) Variacion_Tipo, \n");
 			qlString.append("		(case when impuesto.PorcentajeImpuesto is not null then '002' else null end) Variacion_Tipo2, \n");
-			qlString.append("		(case when impuesto.PorcentajeImpuesto is not null then det.importe*(impuesto.PorcentajeImpuesto/100) else null end) Variacion_Porcentaje, \n");
-			qlString.append("		(case when impuesto.PorcentajeImpuesto is not null then round((impuesto.PorcentajeImpuesto/100),2) else null end) Var_Porcentaje2, \n");
+			qlString.append("		(case when impuesto.PorcentajeImpuesto is not null then Cast(Round(det.importe*(impuesto.PorcentajeImpuesto/100),2,1) as decimal(18,2)) else null end) Variacion_Porcentaje, \n");
+			qlString.append("		(case when impuesto.PorcentajeImpuesto is not null then Cast(Round((impuesto.PorcentajeImpuesto/100),2,1) as decimal(18,2)) else null end) Var_Porcentaje2, \n");
 			qlString.append("		(case when impuesto.PorcentajeImpuesto is not null then 'Tasa' else null end) Var_Porcentaje3, \n");
 			qlString.append("		(case when retencion.PorcentajeImpuesto is not null then '/Impuesto' else null end) Variacion_ModoRET, \n");
 			qlString.append("		(case when retencion.PorcentajeImpuesto is not null then 'RE' else null end) Variacion_TipoRET, \n");
 			qlString.append("		(case when retencion.PorcentajeImpuesto is not null then '002' else null end) Variacion_Tipo2RET, \n");
-			qlString.append("		(case when retencion.PorcentajeImpuesto is not null then det.importe*(retencion.PorcentajeImpuesto/100) else null end) Variacion_PorcentajeRET, \n");
-			qlString.append("		(case when retencion.PorcentajeImpuesto is not null then round((retencion.PorcentajeImpuesto/100),2) else null end) Var_Porcentaje2RET, \n");
+			qlString.append("		(case when retencion.PorcentajeImpuesto is not null then Cast(Round(det.importe*(retencion.PorcentajeImpuesto/100),2,1) as decimal(18,2)) else null end) Variacion_PorcentajeRET, \n");
+			qlString.append("		(case when retencion.PorcentajeImpuesto is not null then Cast(Round((retencion.PorcentajeImpuesto/100),2,1) as decimal(18,2)) else null end) Var_Porcentaje2RET, \n");
 			qlString.append("		(case when retencion.PorcentajeImpuesto is not null then 'Tasa' else null end) Var_Porcentaje3RET \n");
 			qlString.append("	from  \n");
 			qlString.append("		CLI_IntegraCOFIDI.dbo.cfddet det \n");
@@ -447,7 +447,6 @@ public class GetInfoTxtImpl implements GetInfoTxtDao {
 			//qlString.append("		det.empresa = @EMPRESA \n");
 			//qlString.append("		and det.nodocumento= @NODOCUMENTO \n");
 			
-				
 					
 			System.out.println("Query: {}" + qlString);
 			query = em.createNativeQuery(qlString.toString());

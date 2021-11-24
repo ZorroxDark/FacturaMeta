@@ -76,7 +76,7 @@ public class GeneraTxtServiceImpl implements GeneraTxtService, Serializable {
 					List<EspecOrdLineDetCfdTxtDTO> especOrdLineDet = new ArrayList<EspecOrdLineDetCfdTxtDTO>();
 					especOrdLineDet = getInfoTxtDao.getInfoFacCompleDetalle(fac);
 					especMsFactura.setComplemento(especOrdLineDet);
-					getFacturaFinal.append(GeneraStringComplemento.facturaComplemento(especOrdLineDet));
+					getFacturaFinal.append(GeneraStringComplemento.facturaComplementoFacturas(especOrdLineDet));
 	
 					System.out.println("3-  Llama   impuestos   (EspecOrdLineImpuestoCfdTxtDTO) ..");
 					List<EspecOrdLineImpuestoCfdTxtDTO> lineImpuesto = new ArrayList<EspecOrdLineImpuestoCfdTxtDTO>();

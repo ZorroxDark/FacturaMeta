@@ -72,7 +72,7 @@ public class GeneraTxtPagosImpl implements GeneraTxtPagos, Serializable {
 					List<EspecOrdLineDetCfdTxtDTO> especOrdLineDet = new ArrayList<EspecOrdLineDetCfdTxtDTO>();
 					especOrdLineDet = getInfoPagosTxtDao.getInfoFacPagosCompleDetalle(fac);
 					especMsFacPagos.setComplemento(especOrdLineDet);
-					getFacturaPagosFinal.append(GeneraStringComplemento.facturaComplemento(especOrdLineDet));
+					getFacturaPagosFinal.append(GeneraStringComplemento.facturaComplementoFacturas(especOrdLineDet));
 	
 					System.out.println("4-  Llama   comercio exterior (ListaAuxComplePagoTxtDTO)  ..");
 					List<EstrucSecAuxComplePagoTxtDTO> listaAuxComplePago = new ArrayList<EstrucSecAuxComplePagoTxtDTO>();
