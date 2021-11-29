@@ -93,7 +93,8 @@ public class GetInfoTxtImpl implements GetInfoTxtDao {
 			qlString.append(" 	soc_com_dir.Pais Dom_Receptor_pais,  \n");
 			qlString.append(" 	soc_com_dir.CP Dom_Receptor_codigoPostal,  \n");
 			qlString.append(" 	enc.SubTotal Monto_SubTotal,  \n");
-			qlString.append(" 	enc.Impuesto Monto_Impuestos,  \n");
+			qlString.append("	Cast(Round(enc.Impuesto ,2,1) as decimal(18,2))  Monto_Impuestos,  \n");
+			//qlString.append(" 	enc.Impuesto Monto_Impuestos,  \n");
 			qlString.append(" 	enc.Monto Monto_Total,  \n");
 			qlString.append(" 	1 Estado,  --Valor Fijo   \n");
 			qlString.append(
@@ -101,8 +102,10 @@ public class GetInfoTxtImpl implements GetInfoTxtDao {
 			qlString.append(
 					" 	(SELECT rtrim(nota) + ', ' AS 'data()' FROM CLI_ATEBCOFIDI.dbo.ADDEA5 where empresa=enc.empresa and NoDocumento=enc.NoDocumento  FOR XML PATH('') ) notas, --Comentarios de factura  \n");
 			qlString.append(" 	enc.customfield12 notas02,  \n");
-			qlString.append(
-					" 	(SELECT rtrim(email) + ';' AS 'data()' FROM CLI_ATEBCOFIDI.dbo.Contactos where empresa=enc.Empresa and Cliente=enc.Cliente  FOR XML PATH('')) Notas03,  \n");
+			//qlString.append(
+			//		" 	(SELECT rtrim(email) + ';' AS 'data()' FROM CLI_ATEBCOFIDI.dbo.Contactos where empresa=enc.Empresa and Cliente=enc.Cliente  FOR XML PATH('')) Notas03,  \n");
+			
+			qlString.append("   (SELECT replace(replace(rtrim(ltrim(email)),CHAR(13),''),CHAR(10),'') + ';' AS 'data()' FROM CLI_ATEBCOFIDI.dbo.Contactos where empresa=enc.Empresa and Cliente=enc.Cliente  FOR XML PATH('')) Notas03,  \n");
 			qlString.append(" 	null TradingPartner_Prov,  \n");
 			qlString.append(" 	null Calif_TradingPartner_Prov,  \n");
 			qlString.append(" 	null EAN_Proveedor,  \n");
@@ -420,17 +423,27 @@ public class GetInfoTxtImpl implements GetInfoTxtDao {
 			qlString.append("		null Linea_Ident_Impuesto, \n");
 			qlString.append("		null Linea_Cod_EAN, \n");
 			qlString.append("		det.producto Linea_NoIdentificacion, \n");
-			qlString.append("		(case when impuesto.PorcentajeImpuesto is not null then '/Impuesto' else null end) Variacion_Modo, \n");
-			qlString.append("		(case when impuesto.PorcentajeImpuesto is not null then 'TR' else null end) Variacion_Tipo, \n");
+			
+			qlString.append("	(case when impuesto.PorcentajeImpuesto is not null then '/Impuesto' else null end) Variacion_Modo, \n");
+			qlString.append("	(case when impuesto.PorcentajeImpuesto is not null then 'TR' else null end) Variacion_Tipo, \n");
+
+			qlString.append("	(case when impuesto.PorcentajeImpuesto is not null then Cast(Round(det.importe*(impuesto.PorcentajeImpuesto/100),2,1) as decimal(18,4)) else null end) Variacion_Porcentaje,  \n");
+			qlString.append("	(case when impuesto.PorcentajeImpuesto is not null then  Cast(Round((impuesto.PorcentajeImpuesto/100),2,1) as decimal(18,2))  else null end) Var_Porcentaje2, \n");
+			
 			qlString.append("		(case when impuesto.PorcentajeImpuesto is not null then '002' else null end) Variacion_Tipo2, \n");
-			qlString.append("		(case when impuesto.PorcentajeImpuesto is not null then Cast(Round(det.importe*(impuesto.PorcentajeImpuesto/100),2,1) as decimal(18,2)) else null end) Variacion_Porcentaje, \n");
-			qlString.append("		(case when impuesto.PorcentajeImpuesto is not null then Cast(Round((impuesto.PorcentajeImpuesto/100),2,1) as decimal(18,2)) else null end) Var_Porcentaje2, \n");
+			//qlString.append("		(case when impuesto.PorcentajeImpuesto is not null then Cast(Round(det.importe*(impuesto.PorcentajeImpuesto/100),2,1) as decimal(18,2)) else null end) Variacion_Porcentaje, \n");
+			//qlString.append("		(case when impuesto.PorcentajeImpuesto is not null then Cast(Round((impuesto.PorcentajeImpuesto/100),2,1) as decimal(18,2)) else null end) Var_Porcentaje2, \n");
 			qlString.append("		(case when impuesto.PorcentajeImpuesto is not null then 'Tasa' else null end) Var_Porcentaje3, \n");
 			qlString.append("		(case when retencion.PorcentajeImpuesto is not null then '/Impuesto' else null end) Variacion_ModoRET, \n");
 			qlString.append("		(case when retencion.PorcentajeImpuesto is not null then 'RE' else null end) Variacion_TipoRET, \n");
+			
+
+			qlString.append("      (case when impuesto.PorcentajeImpuesto is not null then Cast(Round(det.importe*(retencion.PorcentajeImpuesto/100),2,1) as decimal(18,4)) else null end) Variacion_PorcentajeRET, \n");
+			qlString.append("      (case when impuesto.PorcentajeImpuesto is not null then  Cast(Round((retencion.PorcentajeImpuesto/100),2,1) as decimal(18,2))  else null end) Var_Porcentaje2RET, \n");
+			
 			qlString.append("		(case when retencion.PorcentajeImpuesto is not null then '002' else null end) Variacion_Tipo2RET, \n");
-			qlString.append("		(case when retencion.PorcentajeImpuesto is not null then Cast(Round(det.importe*(retencion.PorcentajeImpuesto/100),2,1) as decimal(18,2)) else null end) Variacion_PorcentajeRET, \n");
-			qlString.append("		(case when retencion.PorcentajeImpuesto is not null then Cast(Round((retencion.PorcentajeImpuesto/100),2,1) as decimal(18,2)) else null end) Var_Porcentaje2RET, \n");
+			//qlString.append("		(case when retencion.PorcentajeImpuesto is not null then Cast(Round(det.importe*(retencion.PorcentajeImpuesto/100),2,1) as decimal(18,2)) else null end) Variacion_PorcentajeRET, \n");
+			//qlString.append("		(case when retencion.PorcentajeImpuesto is not null then Cast(Round((retencion.PorcentajeImpuesto/100),2,1) as decimal(18,2)) else null end) Var_Porcentaje2RET, \n");
 			qlString.append("		(case when retencion.PorcentajeImpuesto is not null then 'Tasa' else null end) Var_Porcentaje3RET \n");
 			qlString.append("	from  \n");
 			qlString.append("		CLI_IntegraCOFIDI.dbo.cfddet det \n");
@@ -491,8 +504,13 @@ public class GetInfoTxtImpl implements GetInfoTxtDao {
 			qlString.append(" select \n");
 			qlString.append(" case when ImpuestoTrasladado='IVA' THEN 'TR' when ImpuestoRetenido='IVA' then 'RE' else 'TR' end Impuesto_TipoImpuesto, \n");
 			qlString.append(" case when ImpuestoTrasladado='IVA' THEN '002' when ImpuestoRetenido='IVA' then '002' else '002' end Impuesto_Descripcion, \n");
-			qlString.append(" MontoImpuesto Impuesto_Monto_Importe, \n");
-			qlString.append(" round((PorcentajeImpuesto/100),2) Impuesto_Tasa, \n");
+			
+			qlString.append(" Cast(Round(MontoImpuesto,2,1) as decimal(18,4) )  Impuesto_Monto_Importe, \n");
+			qlString.append(" Cast(Round(PorcentajeImpuesto/100,2,1) as decimal(18,4)) Impuesto_Tasa, \n");
+
+			//qlString.append(" MontoImpuesto Impuesto_Monto_Importe, \n");
+			//qlString.append(" round((PorcentajeImpuesto/100),2) Impuesto_Tasa, \n");
+			
 			qlString.append(" 'Tasa' TipoFactor \n");
 			qlString.append(" from CLI_IntegraCOFIDI.dbo.CFDEncImpuesto imp \n");
 			qlString.append(" where \n");
