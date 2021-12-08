@@ -89,7 +89,8 @@
 
 
 	</dependencies>
-<!-- 
+
+<!--  
 	<build>
 		<plugins>
 			<plugin>
@@ -115,8 +116,10 @@
 						<configuration>
 							<wsdlUrls>
 								<wsdlUrl>https://wstestrecepcionmetalsa.ekomercio.com/WSCFDIBuilderPlus/?wsdl</wsdlUrl>
+								
+								<wsdlUrl>https://edixcfdisecure.ekomercio.com/Cliente_SAT_CFDI_Web/Servicios/WSCFDICancelacion.asmx?WSDL</wsdlUrl>
 							</wsdlUrls>
-							<packageName>mx.com.mtlsa.billing.client.edixcfdisecure</packageName>
+							<packageName>mx.com.mtlsa.billing.client.cancelaciones</packageName>
 							<sourceDestDir>${basedir}/src/main/java</sourceDestDir>
 						</configuration>
 					</execution>
@@ -124,7 +127,7 @@
 			</plugin>
 		</plugins>
 	</build>
+	-->
 	
-	 -->
 
 </project>

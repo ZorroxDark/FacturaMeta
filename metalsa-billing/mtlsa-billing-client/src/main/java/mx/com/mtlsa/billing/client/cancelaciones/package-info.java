@@ -1,2 +1,2 @@
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://tempuri.org/", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package mx.com.mtlsa.billing.client.edixcfdisecure;
+package mx.com.mtlsa.billing.client.cancelaciones;
