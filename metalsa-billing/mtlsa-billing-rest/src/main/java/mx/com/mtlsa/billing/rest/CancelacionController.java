@@ -1,20 +1,26 @@
 package mx.com.mtlsa.billing.rest;
 
+import javax.inject.Inject;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import mx.com.mtlsa.billing.dto.request.txt.FacturaPagoRequest;
+import mx.com.mtlsa.billing.dto.request.txt.ConsultarCancelaReceptorSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.GenerarTokenSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.GuardarCertificadoSucRequest;
-import mx.com.mtlsa.billing.dto.response.txt.EspecMsFacturaPagosTxtDTO;
+import mx.com.mtlsa.billing.dto.response.txt.ConsultarCancelaReceptorSucResponse;
 import mx.com.mtlsa.billing.dto.response.txt.GenerarTokenSUCResponse;
 import mx.com.mtlsa.billing.dto.response.txt.GuardarCertificadoSucResponse;
+import mx.com.mtlsa.billing.service.CancelacionesService;
 
+
+@Path("/")
 public class CancelacionController {
 	
+	 @Inject
+	 CancelacionesService cancelacionesService;
 	
 	
 	 	@POST
@@ -26,7 +32,7 @@ public class CancelacionController {
 	 		
 	        try {
 	        	
-	        	//especMsFacturaPagos = generaTxtPagos.getFacturaPagosTxt(request);
+	        	guaCerSucResponse = cancelacionesService.getGuardarCertificadoSUC(request);
 	        	
 	        } catch (Exception e) {
 	        	
@@ -42,9 +48,10 @@ public class CancelacionController {
 	    public Response generarTokenSUC(GenerarTokenSucRequest request) throws Exception {
 	    	
 	 		GenerarTokenSUCResponse  generarTokenSUCResponse = new GenerarTokenSUCResponse();
-	        try {
+	 		
+	 	    try {
 	        	
-	        	//especMsFacturaPagos = generaTxtPagos.getFacturaPagosTxt(request);
+	        	generarTokenSUCResponse =  cancelacionesService.getGenerarTokenSUC(request);
 	        	
 	        } catch (Exception e) {
 	        	
@@ -57,18 +64,20 @@ public class CancelacionController {
 	 	@POST
 	    @Path("/ConsultarCancelacionesReceptorSUC")
 	    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	    public Response consultarCancelacionesReceptorSUC(FacturaPagoRequest request) throws Exception {
+	    public Response consultarCancelacionesReceptorSUC(ConsultarCancelaReceptorSucRequest request) throws Exception {
 	    	
-	    	EspecMsFacturaPagosTxtDTO  especMsFacturaPagos = new EspecMsFacturaPagosTxtDTO();
+	 		ConsultarCancelaReceptorSucResponse  consultaCancRecSucRes = new ConsultarCancelaReceptorSucResponse();
+	 		
+		       
 	        try {
 	        	
-	        	//especMsFacturaPagos = generaTxtPagos.getFacturaPagosTxt(request);
+	        	consultaCancRecSucRes = cancelacionesService.getConsultarCancelacionesReceptorSUC(request);
 	        	
 	        } catch (Exception e) {
 	        	
 	            throw new Exception(e.getMessage());
 	        }
-	        return Response.ok(especMsFacturaPagos).build();
+	        return Response.ok(consultaCancRecSucRes).build();
 	    }
 	 	
 	 	

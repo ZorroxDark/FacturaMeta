@@ -16,4 +16,5 @@
         <wls:timeout-secs>3600</wls:timeout-secs>
         <wls:invalidation-interval-secs>60</wls:invalidation-interval-secs>
     </wls:session-descriptor>
+   
 </wls:weblogic-web-app>

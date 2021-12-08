@@ -9,7 +9,7 @@ public class GenerarTokenSUCResponse implements Serializable {
 	 */
 	private static final long serialVersionUID = 5670224803777648108L;
 	
-	private String estado;
+	private boolean estado;
 	private String mensaje;
 	private String datos;
 	
@@ -18,15 +18,24 @@ public class GenerarTokenSUCResponse implements Serializable {
 		
 	}
 
+	
 
-	public String getEstado() {
+	
+
+	public boolean isEstado() {
 		return estado;
 	}
 
 
-	public void setEstado(String estado) {
+
+
+
+	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
+
+
+
 
 
 	public String getMensaje() {
@@ -49,10 +58,15 @@ public class GenerarTokenSUCResponse implements Serializable {
 	}
 
 
+
+
+
 	@Override
 	public String toString() {
 		return "GenerarTokenSUCResponse [estado=" + estado + ", mensaje=" + mensaje + ", datos=" + datos + "]";
 	}
+
+
 	
 	
 	
