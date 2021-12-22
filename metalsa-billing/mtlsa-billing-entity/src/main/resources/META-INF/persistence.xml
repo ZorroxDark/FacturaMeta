@@ -8,6 +8,13 @@
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <jta-data-source>jdbc/mtlsa_COFIDI_SSQL</jta-data-source>
     </persistence-unit>
+    
+     <persistence-unit name="jdbc/mtlsa_cuscofidi2" transaction-type="JTA">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <jar-file>mtlsa-billing-entity1.0.1.jar</jar-file>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <jta-data-source>jdbc/mtlsa_cuscofidi2</jta-data-source>
+    </persistence-unit>
 
     <!-- <persistence-unit name="FXE_RMI" transaction-type="JTA">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>

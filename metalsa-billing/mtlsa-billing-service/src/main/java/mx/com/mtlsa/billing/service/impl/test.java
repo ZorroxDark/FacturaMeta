@@ -1,4 +1,16 @@
 package mx.com.mtlsa.billing.service.impl;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.apache.axis.encoding.Base64;
+
+import mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfString;
+import mx.com.mtlsa.billing.client.cancelaciones.WSCFDICancelacion;
+import mx.com.mtlsa.billing.client.cancelaciones.WSCFDICancelacionSoap;
+
 //
 //import java.io.BufferedWriter;
 //import java.io.FileWriter;
@@ -30,21 +42,126 @@ package mx.com.mtlsa.billing.service.impl;
 public class test {
 //
 	public static void main(String[] args) {
-	
-		String valor ="~237|METALSA SA DE CV|MET920131CN5|Carr. Miguel Aleman Km. 16|100|||APODACA|Apodaca NL|APODACA|NLE|MEX|66600|01(81)8369-7400|Carr. Miguel Aleman Km. 16|100|||Apodaca||Apodaca|NLE|MEX|66600||3.3|||PPD|2021-09-09|00:50:24|Carr. Miguel Aleman Km. 16|100|||Apodaca||Apodaca|NLE|MEX|66600|TOYOTA MOTOR ENGINEERING & MANUFACTURING NORTH AME|XEXX010101000|6565 HEADQUARTERS DR.||||PLANO|||TX|USA|75024|1508.42|0.00|1508.42|1|FA|BULTOS: 1 CHASIS.     PESO BRUTO: 209.89 LB.,||rhurt@tmmna.com; kgriggs@mail.tmmna.com; hector.ramirez.clemente@metalsa.com; samuel.rodriguez@metalsa.com; juan.enriquez@metalsa.com;||||A237979D|||||0874C|WONDRIES TOYOTA SG 151543 W. MAIN ST.|||||ALHAMBRA|ZIP CODE: 918011949||CA|USA|918011949|XEXX010101000|USD|45|0|0|0|0|0|1||||||87460253|N45|||One Thousand Five Hundred Eight Dlls and 42/100 Cents|1.0000||||||||1508.42|S.R. Trucking/Orbi Logistic||USD|47|||1500|2021-09-09 00:50:24.363||REG.CAM.IND.TRANSF. N.L. 0049 REG. PATRONAL 03-061245-10 REG.FISCAL DE EXP. E IMP. 62245-00-6|||||2|0|||||||[EM]|0||20.3907|73.98000000000000000|TOYOTA MOTOR ENGINEE|||||A237979D|611310582|DDP|||||||||||||||||||0|0|ORIGINAL||601,||||||||0||20.3907|N45||||||||||||PPD|ingreso|0.00|0.00\r\n";
 		
-		String array[] =valor.split("\\|");
-		
-		int con=0;
-		
-		for(String t :array) {
-			
-			System.out.println(con+" "+t);
-			con++;
-		}
-				
+		cancelaciones();
+//	
+//		String valor ="~237|METALSA SA DE CV|MET920131CN5|Carr. Miguel Aleman Km. 16|100|||APODACA|Apodaca NL|APODACA|NLE|MEX|66600|01(81)8369-7400|Carr. Miguel Aleman Km. 16|100|||Apodaca||Apodaca|NLE|MEX|66600||3.3|||PPD|2021-09-09|00:50:24|Carr. Miguel Aleman Km. 16|100|||Apodaca||Apodaca|NLE|MEX|66600|TOYOTA MOTOR ENGINEERING & MANUFACTURING NORTH AME|XEXX010101000|6565 HEADQUARTERS DR.||||PLANO|||TX|USA|75024|1508.42|0.00|1508.42|1|FA|BULTOS: 1 CHASIS.     PESO BRUTO: 209.89 LB.,||rhurt@tmmna.com; kgriggs@mail.tmmna.com; hector.ramirez.clemente@metalsa.com; samuel.rodriguez@metalsa.com; juan.enriquez@metalsa.com;||||A237979D|||||0874C|WONDRIES TOYOTA SG 151543 W. MAIN ST.|||||ALHAMBRA|ZIP CODE: 918011949||CA|USA|918011949|XEXX010101000|USD|45|0|0|0|0|0|1||||||87460253|N45|||One Thousand Five Hundred Eight Dlls and 42/100 Cents|1.0000||||||||1508.42|S.R. Trucking/Orbi Logistic||USD|47|||1500|2021-09-09 00:50:24.363||REG.CAM.IND.TRANSF. N.L. 0049 REG. PATRONAL 03-061245-10 REG.FISCAL DE EXP. E IMP. 62245-00-6|||||2|0|||||||[EM]|0||20.3907|73.98000000000000000|TOYOTA MOTOR ENGINEE|||||A237979D|611310582|DDP|||||||||||||||||||0|0|ORIGINAL||601,||||||||0||20.3907|N45||||||||||||PPD|ingreso|0.00|0.00\r\n";
+//		
+//		String array[] =valor.split("\\|");
+//		
+//		int con=0;
+//		
+//		for(String t :array) {
+//			
+//			System.out.println(con+" "+t);
+//			con++;
+//		}
+//				
 		
 	}
+	
+	
+	public static void cancelaciones() {
+		
+		try {
+
+//			encodeTest();
+//			encodeFileToBase64Binary();
+			
+			WSCFDICancelacionSoap wSCFDBuilderPlusSoap = new WSCFDICancelacion().getWSCFDICancelacionSoap();	
+			
+		
+			RespuestaDTOOfString respuesta = new RespuestaDTOOfString();	
+			
+			respuesta =wSCFDBuilderPlusSoap.guardarCertificadoSUC
+			("SUCMET0621", "SUCMET0621*21","MET920131CN5", 
+					encodeFileToBase64BinaryCER(), 
+					encodeFileToBase64BinaryKEY(), 
+					"met.9201");
+		
+		System.out.println("--> "+respuesta.getMensaje());
+		System.out.println("--> "+respuesta.getDatos());
+		System.out.println("--> "+respuesta.toString());
+		
+		}catch(Exception e) {
+			System.out.println("Error : ");
+		}
+		
+	}
+	
+	
+	public static String encodeFileToBase64BinaryCER() throws IOException {
+	    File file = new File("C:\\Users\\\\Usuario\\Documents\\OmarCodigo_29_Nov_21\\CSD_MET920131CN5_20211025100335\\00001000000509573393.cer");
+	    
+		// File file = new File("C:\\Users\\Usuario\\Documents\\Firmas\\FIEL_MET920131CN5_20200921113405\\WSCFDICancelacion_v16.pdf");
+		    
+	    String base64File = "";
+        //File file = new File(filePath);
+        try  {
+        	
+        	FileInputStream imageInFile = new FileInputStream(file);
+            // Reading a file from file system
+            byte fileData[] = new byte[(int) file.length()];
+            imageInFile.read(fileData);
+            base64File = Base64.encode(fileData);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found" + e);
+        } catch (IOException ioe) {
+            System.out.println("Exception while reading the file " + ioe);
+        }
+       
+        System.out.println("Hola");
+        System.out.println(base64File.toString());
+	    
+        return base64File;
+	    
+	}
+	
+	public static String encodeFileToBase64BinaryKEY() throws IOException {
+		   // File file = new File("C:\\Users\\Usuario\\Documents\\Firmas\\FIEL_MET920131CN5_20200921113405\\met920131cn5.cer");
+		    
+			 File file = new File("C:\\Users\\Usuario\\Documents\\OmarCodigo_29_Nov_21\\CSD_MET920131CN5_20211025100335\\CSD_METALSA_MET920131CN5_20211025_100315.key");
+			    
+		    String base64File = "";
+	        //File file = new File(filePath);
+	        try  {
+	        	FileInputStream imageInFile = new FileInputStream(file);
+	            // Reading a file from file system
+	            byte fileData[] = new byte[(int) file.length()];
+	            imageInFile.read(fileData);
+	            base64File = Base64.encode(fileData);
+	        } catch (FileNotFoundException e) {
+	            System.out.println("File not found" + e);
+	        } catch (IOException ioe) {
+	            System.out.println("Exception while reading the file " + ioe);
+	        }
+	       
+	        System.out.println("Hola");
+	        System.out.println(base64File.toString());
+		    
+	        return base64File;
+		    
+		}
+	
+	
+	public static void encodeTest() {
+		String encodedfile = null;
+		File file = new File("C:\\Users\\Usuario\\Documents\\Firmas\\FIEL_MET920131CN5_20200921113405\\WSCFDICancelacion_v16.pdf");
+		byte fileContent[] = new byte[(int) file.length()];
+		FileInputStream fin;
+		// Read image in byte array
+		try {
+			fin = new FileInputStream(file);
+			fin.read(fileContent);
+			
+			//encodedfile = Base64.encode(fin).toString();
+			System.out.println(encodedfile);
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+			
+	}
+	
 }
 //		// TODO Auto-generated method stub
 //		
