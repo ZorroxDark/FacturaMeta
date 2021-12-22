@@ -7,6 +7,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import mx.com.mtlsa.billing.dto.request.txt.AceptarRechazarRecSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.ConsultarCancelaReceptorSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.GenerarTokenSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.GuardarCertificadoSucRequest;
@@ -79,6 +80,27 @@ public class CancelacionController {
 	        }
 	        return Response.ok(consultaCancRecSucRes).build();
 	    }
+	 	
+	 	
+		@POST
+	    @Path("/AceptarRechazarReceptorSUC")
+	    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	    public Response aceptarRechazarReceptorSUC(AceptarRechazarRecSucRequest request) throws Exception {
+	    	
+	 		ConsultarCancelaReceptorSucResponse  consultaCancRecSucRes = new ConsultarCancelaReceptorSucResponse();
+	 		
+		       
+	        try {
+	        	
+	        	//consultaCancRecSucRes = cancelacionesService.getConsultarCancelacionesReceptorSUC(request);
+	        	
+	        } catch (Exception e) {
+	        	
+	            throw new Exception(e.getMessage());
+	        }
+	        return Response.ok(consultaCancRecSucRes).build();
+	    }
+	 	
 	 	
 	 	
 
