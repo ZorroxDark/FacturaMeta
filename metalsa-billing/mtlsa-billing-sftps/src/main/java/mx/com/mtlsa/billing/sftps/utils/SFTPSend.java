@@ -1,4 +1,4 @@
-package mx.com.mtlsa.billing.utils;
+package mx.com.mtlsa.billing.sftps.utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

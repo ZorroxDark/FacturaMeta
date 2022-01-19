@@ -1,38 +1,42 @@
 package mx.com.mtlsa.billing.rest;
 
+import javax.inject.Inject;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import mx.com.mtlsa.billing.dto.request.txt.GuardarCertificadoSucRequest;
-import mx.com.mtlsa.billing.dto.response.txt.GuardarCertificadoSucResponse;
+import mx.com.mtlsa.billing.dto.response.txt.ProcesoGuardadoDTO;
+import mx.com.mtlsa.billing.service.ProcesosService;
 
 @Path("/")
 public class ProcesosController {
 	
-		@Path("/GuardarSftpToRutaFacturas")
+		@Inject
+		ProcesosService procService;
+	
+		@Path("/saveSftpToRutaFacturas")
 	    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	    public Response guardarSftpToRutaFacturas(GuardarCertificadoSucRequest request) throws Exception {
+	    public Response saveSftpToRutaFacturas() throws Exception {
 	    	
-	 		GuardarCertificadoSucResponse  guaCerSucResponse = new GuardarCertificadoSucResponse();
+			ProcesoGuardadoDTO  getProGuardadoDTO = new ProcesoGuardadoDTO();
 	 		
 	        try {
 	        	
-	        //	guaCerSucResponse = cancelacionesService.getGuardarCertificadoSUC(request);
+	        	getProGuardadoDTO = procService.guardarSftpToRutaFacturas();
 	        	
 	        } catch (Exception e) {
 	        	
 	            throw new Exception(e.getMessage());
 	        }
-	        return Response.ok(guaCerSucResponse).build();
+	        return Response.ok(getProGuardadoDTO).build();
 	    }
 
-		@Path("/GuardarSftpToRutaNomina")
+		@Path("/saveSftpToRutaNomina")
 	    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	    public Response guardarSftpToRutaNomina(GuardarCertificadoSucRequest request) throws Exception {
+	    public Response saveSftpToRutaNomina() throws Exception {
 	    	
-	 		GuardarCertificadoSucResponse  guaCerSucResponse = new GuardarCertificadoSucResponse();
+			ProcesoGuardadoDTO  getProGuardadoDTO = new ProcesoGuardadoDTO();
 	 		
 	        try {
 	        	
@@ -42,6 +46,45 @@ public class ProcesosController {
 	        	
 	            throw new Exception(e.getMessage());
 	        }
-	        return Response.ok(guaCerSucResponse).build();
+	        return Response.ok(getProGuardadoDTO).build();
 	    }
+		
+		
+		
+		@Path("/saveSftpToRutaFacturasError")
+	    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	    public Response saveSftpToRutaFacturasError() throws Exception {
+	    	
+			ProcesoGuardadoDTO  getProGuardadoDTO = new ProcesoGuardadoDTO();
+	 		
+	        try {
+	        	
+	        //	guaCerSucResponse = cancelacionesService.getGuardarCertificadoSUC(request);
+	        	
+	        } catch (Exception e) {
+	        	
+	            throw new Exception(e.getMessage());
+	        }
+	        return Response.ok(getProGuardadoDTO).build();
+	    }
+		
+		
+		@Path("/saveSftpToRutaNominaError")
+	    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	    public Response saveSftpToRutaNominaError() throws Exception {
+	    	
+			ProcesoGuardadoDTO  getProGuardadoDTO = new ProcesoGuardadoDTO();
+	 		
+	        try {
+	        	
+	        //	guaCerSucResponse = cancelacionesService.getGuardarCertificadoSUC(request);
+	        	
+	        } catch (Exception e) {
+	        	
+	            throw new Exception(e.getMessage());
+	        }
+	        return Response.ok(getProGuardadoDTO).build();
+	    }
+		
+		
 }

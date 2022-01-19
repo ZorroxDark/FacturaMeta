@@ -8,16 +8,17 @@
 	<version>1.0.1</version>
 	<packaging>pom</packaging>
 	<modules>
-		 <module>mtlsa-billing-dto</module> 
+		<module>mtlsa-billing-dto</module> 
 		 <module>mtlsa-billing-utils</module>
 
 		 <module>mtsla-billing-dao</module>  
-		 <module>mtlsa-billing-entity</module> 
-		 <module>mtlsa-billing-client</module> 
+		<!-- <module>mtlsa-billing-entity</module>-->
+		<module>mtlsa-billing-client</module> 
 
 		 <module>mtlsa-billing-service</module>
 		 <module>mtlsa-billing-rest</module>  
 		<!--  <module>mtlsa-billing-soap</module> -->
 
+		<module>mtlsa-billing-sftps</module>
 	</modules>
 </project>
