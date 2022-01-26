@@ -19,7 +19,7 @@ public class EjecutaProceso {
 		// TODO Auto-generated method stub
 		
 		
-		
+		// tipo ( factura, nomina)
 		try {
 			
 		GuardadoDTO respuesta = new GuardadoDTO();

@@ -18,7 +18,7 @@ public class CatSocioComercialRequest implements Serializable{
 	private String rfc;
 	private String giro;
 	private String cuentaContable;
-	private String activo;
+	private Integer activo;
 	private String linea1;
 	private String linea2;	
 	private String linea3;
@@ -30,21 +30,21 @@ public class CatSocioComercialRequest implements Serializable{
 	private String dirExpFe;
 	private String nombreCertificado;
 	private String certificado;
-	private String formato1;	
-	private String formato2;
-	private String formato3;
-	private String formato4;
-	private String formato5;
-	private String formato6;	
-	private String formato7;
-	private String formato8;
-	private String formato9;
-	private String formato10;
-	private String formato11;
-	private String formato12;
-	private String formato13;
-	private String formato14;
-	private String formato15;
+	private Integer formato1;	
+	private Integer formato2;
+	private Integer formato3;
+	private Integer formato4;
+	private Integer formato5;
+	private Integer formato6;	
+	private Integer formato7;
+	private Integer formato8;
+	private Integer formato9;
+	private Integer formato10;
+	private Integer formato11;
+	private Integer formato12;
+	private Integer formato13;
+	private Integer formato14;
+	private Integer formato15;
 	private String adenda;
 	private String transporte;
 	private String login;
@@ -56,13 +56,13 @@ public class CatSocioComercialRequest implements Serializable{
 	private String sCnCF03;
 	private String sCnCF04;
 	private String sCnCF05;
-	private String e_fa;
-	private String e_nc;
-	private String e_nd;
-	private String e_ot;
+	private Integer e_fa;
+	private Integer e_nc;
+	private Integer e_nd;
+	private Integer e_ot;
 	private String formaPago;	
 	private String numCtaPago;
-	private String consolida;
+	private Integer consolida;
 	private String tin;
 	private String curp;
 	private String usoCFDI;
@@ -105,12 +105,7 @@ public class CatSocioComercialRequest implements Serializable{
 	public void setCuentaContable(String cuentaContable) {
 		this.cuentaContable = cuentaContable;
 	}
-	public String getActivo() {
-		return activo;
-	}
-	public void setActivo(String activo) {
-		this.activo = activo;
-	}
+	
 	public String getLinea1() {
 		return linea1;
 	}
@@ -177,96 +172,6 @@ public class CatSocioComercialRequest implements Serializable{
 	public void setCertificado(String certificado) {
 		this.certificado = certificado;
 	}
-	public String getFormato1() {
-		return formato1;
-	}
-	public void setFormato1(String formato1) {
-		this.formato1 = formato1;
-	}
-	public String getFormato2() {
-		return formato2;
-	}
-	public void setFormato2(String formato2) {
-		this.formato2 = formato2;
-	}
-	public String getFormato3() {
-		return formato3;
-	}
-	public void setFormato3(String formato3) {
-		this.formato3 = formato3;
-	}
-	public String getFormato4() {
-		return formato4;
-	}
-	public void setFormato4(String formato4) {
-		this.formato4 = formato4;
-	}
-	public String getFormato5() {
-		return formato5;
-	}
-	public void setFormato5(String formato5) {
-		this.formato5 = formato5;
-	}
-	public String getFormato6() {
-		return formato6;
-	}
-	public void setFormato6(String formato6) {
-		this.formato6 = formato6;
-	}
-	public String getFormato7() {
-		return formato7;
-	}
-	public void setFormato7(String formato7) {
-		this.formato7 = formato7;
-	}
-	public String getFormato8() {
-		return formato8;
-	}
-	public void setFormato8(String formato8) {
-		this.formato8 = formato8;
-	}
-	public String getFormato9() {
-		return formato9;
-	}
-	public void setFormato9(String formato9) {
-		this.formato9 = formato9;
-	}
-	public String getFormato10() {
-		return formato10;
-	}
-	public void setFormato10(String formato10) {
-		this.formato10 = formato10;
-	}
-	public String getFormato11() {
-		return formato11;
-	}
-	public void setFormato11(String formato11) {
-		this.formato11 = formato11;
-	}
-	public String getFormato12() {
-		return formato12;
-	}
-	public void setFormato12(String formato12) {
-		this.formato12 = formato12;
-	}
-	public String getFormato13() {
-		return formato13;
-	}
-	public void setFormato13(String formato13) {
-		this.formato13 = formato13;
-	}
-	public String getFormato14() {
-		return formato14;
-	}
-	public void setFormato14(String formato14) {
-		this.formato14 = formato14;
-	}
-	public String getFormato15() {
-		return formato15;
-	}
-	public void setFormato15(String formato15) {
-		this.formato15 = formato15;
-	}
 	public String getAdenda() {
 		return adenda;
 	}
@@ -303,6 +208,173 @@ public class CatSocioComercialRequest implements Serializable{
 	public void setGln(String gln) {
 		this.gln = gln;
 	}
+	
+	public String getFormaPago() {
+		return formaPago;
+	}
+	public void setFormaPago(String formaPago) {
+		this.formaPago = formaPago;
+	}
+	public String getNumCtaPago() {
+		return numCtaPago;
+	}
+	public void setNumCtaPago(String numCtaPago) {
+		this.numCtaPago = numCtaPago;
+	}
+	
+	public String getTin() {
+		return tin;
+	}
+	public void setTin(String tin) {
+		this.tin = tin;
+	}
+	public String getCurp() {
+		return curp;
+	}
+	public void setCurp(String curp) {
+		this.curp = curp;
+	}
+	public String getUsoCFDI() {
+		return usoCFDI;
+	}
+	public void setUsoCFDI(String usoCFDI) {
+		this.usoCFDI = usoCFDI;
+	}
+	public String getMetodoPago() {
+		return metodoPago;
+	}
+	public void setMetodoPago(String metodoPago) {
+		this.metodoPago = metodoPago;
+	}
+	public Integer getActivo() {
+		return activo;
+	}
+	public void setActivo(Integer activo) {
+		this.activo = activo;
+	}
+	public Integer getFormato1() {
+		return formato1;
+	}
+	public void setFormato1(Integer formato1) {
+		this.formato1 = formato1;
+	}
+	public Integer getFormato2() {
+		return formato2;
+	}
+	public void setFormato2(Integer formato2) {
+		this.formato2 = formato2;
+	}
+	public Integer getFormato3() {
+		return formato3;
+	}
+	public void setFormato3(Integer formato3) {
+		this.formato3 = formato3;
+	}
+	public Integer getFormato4() {
+		return formato4;
+	}
+	public void setFormato4(Integer formato4) {
+		this.formato4 = formato4;
+	}
+	public Integer getFormato5() {
+		return formato5;
+	}
+	public void setFormato5(Integer formato5) {
+		this.formato5 = formato5;
+	}
+	public Integer getFormato6() {
+		return formato6;
+	}
+	public void setFormato6(Integer formato6) {
+		this.formato6 = formato6;
+	}
+	public Integer getFormato7() {
+		return formato7;
+	}
+	public void setFormato7(Integer formato7) {
+		this.formato7 = formato7;
+	}
+	public Integer getFormato8() {
+		return formato8;
+	}
+	public void setFormato8(Integer formato8) {
+		this.formato8 = formato8;
+	}
+	public Integer getFormato9() {
+		return formato9;
+	}
+	public void setFormato9(Integer formato9) {
+		this.formato9 = formato9;
+	}
+	public Integer getFormato10() {
+		return formato10;
+	}
+	public void setFormato10(Integer formato10) {
+		this.formato10 = formato10;
+	}
+	public Integer getFormato11() {
+		return formato11;
+	}
+	public void setFormato11(Integer formato11) {
+		this.formato11 = formato11;
+	}
+	public Integer getFormato12() {
+		return formato12;
+	}
+	public void setFormato12(Integer formato12) {
+		this.formato12 = formato12;
+	}
+	public Integer getFormato13() {
+		return formato13;
+	}
+	public void setFormato13(Integer formato13) {
+		this.formato13 = formato13;
+	}
+	public Integer getFormato14() {
+		return formato14;
+	}
+	public void setFormato14(Integer formato14) {
+		this.formato14 = formato14;
+	}
+	public Integer getFormato15() {
+		return formato15;
+	}
+	public void setFormato15(Integer formato15) {
+		this.formato15 = formato15;
+	}
+	public Integer getE_fa() {
+		return e_fa;
+	}
+	public void setE_fa(Integer e_fa) {
+		this.e_fa = e_fa;
+	}
+	public Integer getE_nc() {
+		return e_nc;
+	}
+	public void setE_nc(Integer e_nc) {
+		this.e_nc = e_nc;
+	}
+	public Integer getE_nd() {
+		return e_nd;
+	}
+	public void setE_nd(Integer e_nd) {
+		this.e_nd = e_nd;
+	}
+	public Integer getE_ot() {
+		return e_ot;
+	}
+	public void setE_ot(Integer e_ot) {
+		this.e_ot = e_ot;
+	}
+	public Integer getConsolida() {
+		return consolida;
+	}
+	public void setConsolida(Integer consolida) {
+		this.consolida = consolida;
+	}
+	
+	
+	
 	public String getsCnCF01() {
 		return sCnCF01;
 	}
@@ -333,72 +405,6 @@ public class CatSocioComercialRequest implements Serializable{
 	public void setsCnCF05(String sCnCF05) {
 		this.sCnCF05 = sCnCF05;
 	}
-	public String getE_fa() {
-		return e_fa;
-	}
-	public void setE_fa(String e_fa) {
-		this.e_fa = e_fa;
-	}
-	public String getE_nc() {
-		return e_nc;
-	}
-	public void setE_nc(String e_nc) {
-		this.e_nc = e_nc;
-	}
-	public String getE_nd() {
-		return e_nd;
-	}
-	public void setE_nd(String e_nd) {
-		this.e_nd = e_nd;
-	}
-	public String getE_ot() {
-		return e_ot;
-	}
-	public void setE_ot(String e_ot) {
-		this.e_ot = e_ot;
-	}
-	public String getFormaPago() {
-		return formaPago;
-	}
-	public void setFormaPago(String formaPago) {
-		this.formaPago = formaPago;
-	}
-	public String getNumCtaPago() {
-		return numCtaPago;
-	}
-	public void setNumCtaPago(String numCtaPago) {
-		this.numCtaPago = numCtaPago;
-	}
-	public String getConsolida() {
-		return consolida;
-	}
-	public void setConsolida(String consolida) {
-		this.consolida = consolida;
-	}
-	public String getTin() {
-		return tin;
-	}
-	public void setTin(String tin) {
-		this.tin = tin;
-	}
-	public String getCurp() {
-		return curp;
-	}
-	public void setCurp(String curp) {
-		this.curp = curp;
-	}
-	public String getUsoCFDI() {
-		return usoCFDI;
-	}
-	public void setUsoCFDI(String usoCFDI) {
-		this.usoCFDI = usoCFDI;
-	}
-	public String getMetodoPago() {
-		return metodoPago;
-	}
-	public void setMetodoPago(String metodoPago) {
-		this.metodoPago = metodoPago;
-	}
 	@Override
 	public String toString() {
 		return "CatSocioComercialRequest [cliente=" + cliente + ", empresa=" + empresa + ", razonSocial=" + razonSocial
@@ -415,30 +421,9 @@ public class CatSocioComercialRequest implements Serializable{
 				+ ", sCnCF02=" + sCnCF02 + ", sCnCF03=" + sCnCF03 + ", sCnCF04=" + sCnCF04 + ", sCnCF05=" + sCnCF05
 				+ ", e_fa=" + e_fa + ", e_nc=" + e_nc + ", e_nd=" + e_nd + ", e_ot=" + e_ot + ", formaPago=" + formaPago
 				+ ", numCtaPago=" + numCtaPago + ", consolida=" + consolida + ", tin=" + tin + ", curp=" + curp
-				+ ", usoCFDI=" + usoCFDI + ", metodoPago=" + metodoPago + ", getCliente()=" + getCliente()
-				+ ", getEmpresa()=" + getEmpresa() + ", getRazonSocial()=" + getRazonSocial() + ", getRfc()=" + getRfc()
-				+ ", getGiro()=" + getGiro() + ", getCuentaContable()=" + getCuentaContable() + ", getActivo()="
-				+ getActivo() + ", getLinea1()=" + getLinea1() + ", getLinea2()=" + getLinea2() + ", getLinea3()="
-				+ getLinea3() + ", getLinea4()=" + getLinea4() + ", getLinea5()=" + getLinea5() + ", getLinea6()="
-				+ getLinea6() + ", getRol()=" + getRol() + ", getDirImpFe()=" + getDirImpFe() + ", getDirExpFe()="
-				+ getDirExpFe() + ", getNombreCertificado()=" + getNombreCertificado() + ", getCertificado()="
-				+ getCertificado() + ", getFormato1()=" + getFormato1() + ", getFormato2()=" + getFormato2()
-				+ ", getFormato3()=" + getFormato3() + ", getFormato4()=" + getFormato4() + ", getFormato5()="
-				+ getFormato5() + ", getFormato6()=" + getFormato6() + ", getFormato7()=" + getFormato7()
-				+ ", getFormato8()=" + getFormato8() + ", getFormato9()=" + getFormato9() + ", getFormato10()="
-				+ getFormato10() + ", getFormato11()=" + getFormato11() + ", getFormato12()=" + getFormato12()
-				+ ", getFormato13()=" + getFormato13() + ", getFormato14()=" + getFormato14() + ", getFormato15()="
-				+ getFormato15() + ", getAdenda()=" + getAdenda() + ", getTransporte()=" + getTransporte()
-				+ ", getLogin()=" + getLogin() + ", getUsuario()=" + getUsuario() + ", getNoProveedor()="
-				+ getNoProveedor() + ", getGln()=" + getGln() + ", getsCnCF01()=" + getsCnCF01() + ", getsCnCF02()="
-				+ getsCnCF02() + ", getsCnCF03()=" + getsCnCF03() + ", getsCnCF04()=" + getsCnCF04() + ", getsCnCF05()="
-				+ getsCnCF05() + ", getE_fa()=" + getE_fa() + ", getE_nc()=" + getE_nc() + ", getE_nd()=" + getE_nd()
-				+ ", getE_ot()=" + getE_ot() + ", getFormaPago()=" + getFormaPago() + ", getNumCtaPago()="
-				+ getNumCtaPago() + ", getConsolida()=" + getConsolida() + ", getTin()=" + getTin() + ", getCurp()="
-				+ getCurp() + ", getUsoCFDI()=" + getUsoCFDI() + ", getMetodoPago()=" + getMetodoPago()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]";
+				+ ", usoCFDI=" + usoCFDI + ", metodoPago=" + metodoPago + "]";
 	}
+	
 	
 	
 	

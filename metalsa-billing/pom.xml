@@ -19,6 +19,5 @@
 		 <module>mtlsa-billing-rest</module>  
 		<!--  <module>mtlsa-billing-soap</module> -->
 
-		<module>mtlsa-billing-sftps</module>
 	</modules>
 </project>

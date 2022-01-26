@@ -4,15 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import mx.com.mtlsa.billing.dto.MensajeDTO;
 import mx.com.mtlsa.billing.dto.request.txt.CatContactoRequest;
 import mx.com.mtlsa.billing.service.CatalogoService;
 
+
+@Path("/")
 public class CatalogoContactoController {
 	
 	
@@ -32,69 +37,65 @@ public class CatalogoContactoController {
         	listcatContacto = getCatalogoService.getCatContacto(request);
         	
         } catch (Exception e) {
-        	
-            throw new Exception(e.getMessage());
+        	throw new Exception(e.getMessage());
         }
         return Response.ok(listcatContacto).build();
     }
 	
 
-	/*
+
 	@POST
     @Path("/insertContactos")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response insertContactos(CatContactoRequest request) throws Exception {
     	
- 		GuardarCertificadoSucResponse  guaCerSucResponse = new GuardarCertificadoSucResponse();
+		MensajeDTO  mensajeRespuesta = new MensajeDTO();
  		
         try {
         	
-        	guaCerSucResponse = cancelacionesService.getGuardarCertificadoSUC(request);
+        	mensajeRespuesta = getCatalogoService.insertCatContacto(request);
         	
         } catch (Exception e) {
-        	
-            throw new Exception(e.getMessage());
+        	throw new Exception(e.getMessage());
         }
-        return Response.ok(guaCerSucResponse).build();
+        return Response.ok(mensajeRespuesta).build();
     }
 	
 
-	@POST
+	@PUT
     @Path("/updateContactos")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response updateContactos(CatContactoRequest request) throws Exception {
     	
- 		GuardarCertificadoSucResponse  guaCerSucResponse = new GuardarCertificadoSucResponse();
+		MensajeDTO  mensajeRespuesta = new MensajeDTO();
  		
         try {
         	
-        	guaCerSucResponse = cancelacionesService.getGuardarCertificadoSUC(request);
+        	mensajeRespuesta = getCatalogoService.putCatContacto(request);
         	
         } catch (Exception e) {
-        	
-            throw new Exception(e.getMessage());
+        	throw new Exception(e.getMessage());
         }
-        return Response.ok(guaCerSucResponse).build();
+        return Response.ok(mensajeRespuesta).build();
     }
 	
 	
-	@POST
+	@DELETE
     @Path("/deleteContactos")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response deleteContactos(CatContactoRequest request) throws Exception {
     	
- 		GuardarCertificadoSucResponse  guaCerSucResponse = new GuardarCertificadoSucResponse();
+		MensajeDTO  mensajeRespuesta = new MensajeDTO();
  		
         try {
         	
-        	guaCerSucResponse = cancelacionesService.getGuardarCertificadoSUC(request);
+        	mensajeRespuesta = getCatalogoService.deleteCatContacto(request);
         	
         } catch (Exception e) {
-        	
-            throw new Exception(e.getMessage());
+        	throw new Exception(e.getMessage());
         }
-        return Response.ok(guaCerSucResponse).build();
-    }*/
+        return Response.ok(mensajeRespuesta).build();
+    }
 	
 
 }

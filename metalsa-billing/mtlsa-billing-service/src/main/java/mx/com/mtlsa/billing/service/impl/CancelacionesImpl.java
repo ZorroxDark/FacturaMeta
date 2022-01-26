@@ -180,6 +180,16 @@ public class CancelacionesImpl implements CancelacionesService, Serializable {
 			}
 			
 			
+			
+			//Se obtiene las listas
+			
+			
+			
+			
+			
+			
+			
+			
 
 		} catch (Exception e) {
 			System.out.println("Error :" + e);
@@ -191,21 +201,5 @@ public class CancelacionesImpl implements CancelacionesService, Serializable {
 }
 
 
-//if(temp.isAutorizoCliente()!= null){
-//	cancelacionDTO.setAutorizoCliente(temp.isAutorizoCliente());
-//}
-//cancelacionDTO.setCfdiUuid(temp.getCFDIUUID());
-//cancelacionDTO.setEstadoCancelacion(temp.getEstadoCancelacion());
-//cancelacionDTO.setEstadoDocumento(temp.getEstadoDocumento());
-//cancelacionDTO.setFechaEstatus(temp.getFechaEstatus());
-//cancelacionDTO.setFechaSolicitud(temp.getFechaSolicitud());
 
-//if(temp.getMontoTotal() != null ){
-//	cancelacionDTO.setMontoTotal(temp.getMontoTotal());
-//}
-//cancelacionDTO.setRfcEmisor(temp.getRFCEmisor());
-//cancelacionDTO.setRfcReceptor(temp.getRFCReceptor());
-//cancelacionDTO.setCorreo(temp.getCorreo());
-//cancelacionDTO.setObservaciones(temp.getObservaciones());
-//cancelacionDTO.setXmlAcuseB64(temp.getXMLAcuseB64());
 

@@ -2,7 +2,9 @@ package mx.com.mtlsa.billing.dto.request.txt;
 
 import java.io.Serializable;
 
-public class CatContactoRequest implements Serializable{
+import mx.com.mtlsa.billing.dto.MensajeDTO;
+
+public class CatContactoRequest   implements Serializable{
 
 	/**
 	 * 
