@@ -69,7 +69,7 @@ public class Mailer {
             Properties props =  new Properties();
             props.put("mail.smtp.host", "smtp.office365.com");
             props.put("mail.smtp.starttls.enable", "true");
-            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.auth", "false");
             props.put("mail.debug", "false");
             this.props=props;
 
@@ -84,7 +84,7 @@ public class Mailer {
             Properties props =  new Properties();
             props.put("mail.smtp.host", "smtp.office365.com");
             props.put("mail.smtp.starttls.enable", "true");
-            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.auth", "false");
             props.put("mail.debug", "false");
             this.props=props;
 
@@ -114,7 +114,7 @@ public class Mailer {
             props.put("mail.smtp.host", "mail.metalsa.com");
             props.put("mail.smtp.port", 25);
             props.put("mail.smtp.ssl.trust", "mail.metalsa.com");
-            props.put("mail.smtp.starttls.enable", false);
+            props.put("mail.smtp.starttls.enable", true);
             props.put("mail.smtp.auth", false);
             props.put("mail.smtp.ehlo", false);
             props.put("mail.smtp.connectiontimeout", 10000);
@@ -239,6 +239,7 @@ public class Mailer {
           Transport transport = session.getTransport("smtp");
           transport.connect();
           transport.sendMessage(msg, msg.getAllRecipients());
+          transport.close();
           return true;
      }
      catch (MessagingException e) {

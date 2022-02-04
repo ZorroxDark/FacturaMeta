@@ -20,6 +20,10 @@ public class Constantes {
 	  // SERVIDOR 
 	  public static final String NOMBRE_DEL_MODULO_UTILS_WAR ="mtlsa-billing-utils";
 	  public static final String SPLIT_PARA_LA_RUTA_WAR ="reportes//";
+	  
+	  
+	  // CORREOS AP
+	  public static final String CORREO_AP = "irma.sanchez@metalsa.com,rafael.sanchez02@metalsa.com,heidi.haros@metalsa.com";
 
     
 }

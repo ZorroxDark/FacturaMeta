@@ -12,78 +12,40 @@ public class ConsultarCancelaReceptorSucResponse implements Serializable{
 	
 	
 	private boolean estado;
-	private ConsultarCancelaDatos listaCancelacion;
-	
-	private ConsultarCancelaDatos listaRechazados;
+	private ConsultarCancelaDatos listRechazoCancelacion;
+	private ConsultarCancelaDatos listAceptaCancelacion;
 	
 	
 	public ConsultarCancelaReceptorSucResponse() {
 		
 	}
 
-
-	
-
-
 	public boolean isEstado() {
 		return estado;
 	}
-
-
-
-
 
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
 
+	public ConsultarCancelaDatos getListRechazoCancelacion() {
+		return listRechazoCancelacion;
+	}
+
+	public void setListRechazoCancelacion(ConsultarCancelaDatos listRechazoCancelacion) {
+		this.listRechazoCancelacion = listRechazoCancelacion;
+	}
+
+	public ConsultarCancelaDatos getListAceptaCancelacion() {
+		return listAceptaCancelacion;
+	}
+
+	public void setListAceptaCancelacion(ConsultarCancelaDatos listAceptaCancelacion) {
+		this.listAceptaCancelacion = listAceptaCancelacion;
+	}
 
 	
-
-
-
-
-	public ConsultarCancelaDatos getListaCancelacion() {
-		return listaCancelacion;
-	}
-
-
-
-
-
-	public void setListaCancelacion(ConsultarCancelaDatos listaCancelacion) {
-		this.listaCancelacion = listaCancelacion;
-	}
-
-
-
-
-
-	public ConsultarCancelaDatos getListaRechazados() {
-		return listaRechazados;
-	}
-
-
-
-
-
-	public void setListaRechazados(ConsultarCancelaDatos listaRechazados) {
-		this.listaRechazados = listaRechazados;
-	}
-
-
-
-
-
-	@Override
-	public String toString() {
-		return "ConsultarCancelaReceptorSucResponse [estado=" + estado + ", listaCancelacion=" + listaCancelacion
-				+ ", listaRechazados=" + listaRechazados + "]";
-	}
-
-
-
-
+	
 	
 	
 	

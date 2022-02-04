@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
@@ -23,6 +26,68 @@ import jcifs.smb.SmbFileOutputStream;
 
 public class Test {
 	
+	
+	public static void main(String[] args) throws MalformedURLException {
+		Mailer mailer = new Mailer("MX");
+		
+		ArrayList<String> to = new ArrayList<String>();
+		to.add("roberto.castillo.conde@metalsa.com");
+		//to.add("miguel.velazquez@contractor.metalsa.com");
+		
+		ArrayList<String> mailerCopy = new ArrayList<String>();
+		mailerCopy.add("ing.mecatronica.zorrox@gmail.com");
+		
+		try {
+			boolean valor =
+					mailer.send(
+							"HOLA CCC",
+							"HOLA XX", 
+							to,
+							null, 
+							null,
+							"comservesp-", 
+							"proveedores@metalsa.com", 
+							"proveedores@metalsa.com",
+							null);
+			
+//			boolean valor =mailer.sendUS
+//					("HOLA n", "COntenido", to, null, null, "", "roanoke_ap_invoices@metalsa.com", "miguel.velazquez@contractor.metalsa.com", mailerCopy);
+//			
+//			String msgSubject, 
+//			String msgContent, 
+//			ArrayList to, 
+//			String name,
+//			HashMap<String,InputStream> inputStreamFiles, 
+//			String mailer, 
+//			String mailer_from, 
+//			String mailer_name, 
+//			String mailer_copy
+
+			
+			System.out.println("Resultado del envio:  "+valor);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error -> "+e);
+		}
+		
+		
+		
+		
+		
+		/*String msgSubject, 
+		String msgContent, 
+		ArrayList to, 
+		String name,
+		HashMap<String,InputStream> inputStreamFiles, 
+		String mailer, 
+		String mailer_from, 
+		String mailer_name, 
+		ArrayList mailer_copy*/
+	       
+		
+		
+		
+	}
 	
 //	public static void main(String[] args) throws MalformedURLException {
 		
@@ -77,7 +142,7 @@ public class Test {
 		
 //	}
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		   JSch jsch = new JSch();
 	        Session session = null;
 	        try {
@@ -120,7 +185,7 @@ public class Test {
 	            e.printStackTrace();
 	        }
 
-	}
+	}*/
 	
 	
 	/** 
