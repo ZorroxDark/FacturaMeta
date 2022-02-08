@@ -98,8 +98,8 @@ public class CancelaAceptado {
 		template.append("                              <tbody>");
 		template.append("                                 <tr>");
 		template.append("                                    <td valign='top' style='padding:0cm 15.0pt 0cm 15.0pt; word-break:break-word; word-wrap:break-word'>");
-		template.append("                                       <div>");
-		template.append("                                          <p class='x_MsoNormal' style=''><span style='font-size:12.0pt; font-family:&quot;Arial&quot;,sans-serif'>&nbsp;<span style='color:black'>Se <b>ACEPTÓ</b> la solicitud de cancelación del CFDI con UUID <b><br>");
+		template.append("                                       <div>");                                                                                                                                                       
+		template.append("                                          <p class='x_MsoNormal' style=''><span style='font-size:12.0pt; font-family:&quot;Arial&quot;,sans-serif'>&nbsp;<span style='color:black'>Se <b>ACEPTARON</b> las solicitudes de cancelación de los siguientes CFDI con UUID <b><br>");
 		
 		for(String uid:listUid) {
 			template.append("&nbsp; &nbsp; &nbsp;&nbsp;");
