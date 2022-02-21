@@ -14,6 +14,7 @@ public class ConsultarCancelaReceptorSucRequest implements Serializable {
 	}
 	
 	private String cToken;
+	private String cRFCEmisor;
 
 	public String getcToken() {
 		return cToken;
@@ -23,10 +24,19 @@ public class ConsultarCancelaReceptorSucRequest implements Serializable {
 		this.cToken = cToken;
 	}
 
+	public String getcRFCEmisor() {
+		return cRFCEmisor;
+	}
+
+	public void setcRFCEmisor(String cRFCEmisor) {
+		this.cRFCEmisor = cRFCEmisor;
+	}
+
 	@Override
 	public String toString() {
-		return "ConsultarCancelaReceptorSucRequest [cToken=" + cToken + "]";
+		return "ConsultarCancelaReceptorSucRequest [cToken=" + cToken + ", cRFCEmisor=" + cRFCEmisor + "]";
 	}
+
 	
 	
 

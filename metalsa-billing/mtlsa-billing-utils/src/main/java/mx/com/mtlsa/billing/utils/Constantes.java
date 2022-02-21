@@ -23,7 +23,10 @@ public class Constantes {
 	  
 	  
 	  // CORREOS AP
-	  public static final String CORREO_AP = "irma.sanchez@metalsa.com,rafael.sanchez02@metalsa.com,heidi.haros@metalsa.com";
+	  public static final String CORREO_AP_METALSA = "irma.sanchez@metalsa.com,rafael.sanchez02@metalsa.com,heidi.haros@metalsa.com";
+	  public static final String CORREO_AP_PROEZA = "josue.puente@proeza.com.mx,iliana.perales@proeza.com.mx,celsa.ramirez@proeza.com.mx";
 
-    
+	  // RFC CANCELACIONES
+	  public static final String RFC_PROEZA ="GPR880111PA8";
+	  public static final String RFC_METALSA ="MET920131CN5";
 }

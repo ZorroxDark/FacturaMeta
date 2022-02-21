@@ -214,6 +214,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ConsultarRelacionadosSUC }
+     * 
+     */
+    public ConsultarRelacionadosSUC createConsultarRelacionadosSUC() {
+        return new ConsultarRelacionadosSUC();
+    }
+
+    /**
+     * Create an instance of {@link ConsultarRelacionadosSUCResponse }
+     * 
+     */
+    public ConsultarRelacionadosSUCResponse createConsultarRelacionadosSUCResponse() {
+        return new ConsultarRelacionadosSUCResponse();
+    }
+
+    /**
+     * Create an instance of {@link RespuestaDTOOfListOfRelacionados }
+     * 
+     */
+    public RespuestaDTOOfListOfRelacionados createRespuestaDTOOfListOfRelacionados() {
+        return new RespuestaDTOOfListOfRelacionados();
+    }
+
+    /**
      * Create an instance of {@link ConsultarRelacionadosEmisorReceptorSUC }
      * 
      */
@@ -235,30 +259,6 @@ public class ObjectFactory {
      */
     public ConsultarRelacionadosEmisorReceptorSUCResponse createConsultarRelacionadosEmisorReceptorSUCResponse() {
         return new ConsultarRelacionadosEmisorReceptorSUCResponse();
-    }
-
-    /**
-     * Create an instance of {@link RespuestaDTOOfListOfRelacionados }
-     * 
-     */
-    public RespuestaDTOOfListOfRelacionados createRespuestaDTOOfListOfRelacionados() {
-        return new RespuestaDTOOfListOfRelacionados();
-    }
-
-    /**
-     * Create an instance of {@link ConsultarRelacionadosSUC }
-     * 
-     */
-    public ConsultarRelacionadosSUC createConsultarRelacionadosSUC() {
-        return new ConsultarRelacionadosSUC();
-    }
-
-    /**
-     * Create an instance of {@link ConsultarRelacionadosSUCResponse }
-     * 
-     */
-    public ConsultarRelacionadosSUCResponse createConsultarRelacionadosSUCResponse() {
-        return new ConsultarRelacionadosSUCResponse();
     }
 
     /**
@@ -478,6 +478,118 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link CancelarDocumentoFirmadoSUCV40 }
+     * 
+     */
+    public CancelarDocumentoFirmadoSUCV40 createCancelarDocumentoFirmadoSUCV40() {
+        return new CancelarDocumentoFirmadoSUCV40();
+    }
+
+    /**
+     * Create an instance of {@link ArrayOfSolicitudCancelacionFirmadaDTOV40 }
+     * 
+     */
+    public ArrayOfSolicitudCancelacionFirmadaDTOV40 createArrayOfSolicitudCancelacionFirmadaDTOV40() {
+        return new ArrayOfSolicitudCancelacionFirmadaDTOV40();
+    }
+
+    /**
+     * Create an instance of {@link CancelarDocumentoFirmadoSUCV40Response }
+     * 
+     */
+    public CancelarDocumentoFirmadoSUCV40Response createCancelarDocumentoFirmadoSUCV40Response() {
+        return new CancelarDocumentoFirmadoSUCV40Response();
+    }
+
+    /**
+     * Create an instance of {@link RespuestaDTOOfListOfRespuestaDTOOfCancelacionDTOV40 }
+     * 
+     */
+    public RespuestaDTOOfListOfRespuestaDTOOfCancelacionDTOV40 createRespuestaDTOOfListOfRespuestaDTOOfCancelacionDTOV40() {
+        return new RespuestaDTOOfListOfRespuestaDTOOfCancelacionDTOV40();
+    }
+
+    /**
+     * Create an instance of {@link ConsultaCancelacionSUCV40 }
+     * 
+     */
+    public ConsultaCancelacionSUCV40 createConsultaCancelacionSUCV40() {
+        return new ConsultaCancelacionSUCV40();
+    }
+
+    /**
+     * Create an instance of {@link ConsultaCancelacionSUCV40Response }
+     * 
+     */
+    public ConsultaCancelacionSUCV40Response createConsultaCancelacionSUCV40Response() {
+        return new ConsultaCancelacionSUCV40Response();
+    }
+
+    /**
+     * Create an instance of {@link RespuestaDTOOfListOfCancelacionDTOV40 }
+     * 
+     */
+    public RespuestaDTOOfListOfCancelacionDTOV40 createRespuestaDTOOfListOfCancelacionDTOV40() {
+        return new RespuestaDTOOfListOfCancelacionDTOV40();
+    }
+
+    /**
+     * Create an instance of {@link SolicitarCancelacionSUCV40 }
+     * 
+     */
+    public SolicitarCancelacionSUCV40 createSolicitarCancelacionSUCV40() {
+        return new SolicitarCancelacionSUCV40();
+    }
+
+    /**
+     * Create an instance of {@link ArrayOfSolicitudCancelacionDTOV40 }
+     * 
+     */
+    public ArrayOfSolicitudCancelacionDTOV40 createArrayOfSolicitudCancelacionDTOV40() {
+        return new ArrayOfSolicitudCancelacionDTOV40();
+    }
+
+    /**
+     * Create an instance of {@link SolicitarCancelacionSUCV40Response }
+     * 
+     */
+    public SolicitarCancelacionSUCV40Response createSolicitarCancelacionSUCV40Response() {
+        return new SolicitarCancelacionSUCV40Response();
+    }
+
+    /**
+     * Create an instance of {@link ValidarUUIDSUCV40 }
+     * 
+     */
+    public ValidarUUIDSUCV40 createValidarUUIDSUCV40() {
+        return new ValidarUUIDSUCV40();
+    }
+
+    /**
+     * Create an instance of {@link ArrayOfValidarUUIDSV40 }
+     * 
+     */
+    public ArrayOfValidarUUIDSV40 createArrayOfValidarUUIDSV40() {
+        return new ArrayOfValidarUUIDSV40();
+    }
+
+    /**
+     * Create an instance of {@link ValidarUUIDSUCV40Response }
+     * 
+     */
+    public ValidarUUIDSUCV40Response createValidarUUIDSUCV40Response() {
+        return new ValidarUUIDSUCV40Response();
+    }
+
+    /**
+     * Create an instance of {@link RespuestaDTOOfListOfRespuestaDTOOfContenidoDato }
+     * 
+     */
+    public RespuestaDTOOfListOfRespuestaDTOOfContenidoDato createRespuestaDTOOfListOfRespuestaDTOOfContenidoDato() {
+        return new RespuestaDTOOfListOfRespuestaDTOOfContenidoDato();
+    }
+
+    /**
      * Create an instance of {@link ArrayOfCancelacionDTO }
      * 
      */
@@ -571,6 +683,86 @@ public class ObjectFactory {
      */
     public UuidObjResponse createUuidObjResponse() {
         return new UuidObjResponse();
+    }
+
+    /**
+     * Create an instance of {@link SolicitudCancelacionFirmadaDTOV40 }
+     * 
+     */
+    public SolicitudCancelacionFirmadaDTOV40 createSolicitudCancelacionFirmadaDTOV40() {
+        return new SolicitudCancelacionFirmadaDTOV40();
+    }
+
+    /**
+     * Create an instance of {@link ArrayOfRespuestaDTOOfCancelacionDTOV40 }
+     * 
+     */
+    public ArrayOfRespuestaDTOOfCancelacionDTOV40 createArrayOfRespuestaDTOOfCancelacionDTOV40() {
+        return new ArrayOfRespuestaDTOOfCancelacionDTOV40();
+    }
+
+    /**
+     * Create an instance of {@link RespuestaDTOOfCancelacionDTOV40 }
+     * 
+     */
+    public RespuestaDTOOfCancelacionDTOV40 createRespuestaDTOOfCancelacionDTOV40() {
+        return new RespuestaDTOOfCancelacionDTOV40();
+    }
+
+    /**
+     * Create an instance of {@link CancelacionDTOV40 }
+     * 
+     */
+    public CancelacionDTOV40 createCancelacionDTOV40() {
+        return new CancelacionDTOV40();
+    }
+
+    /**
+     * Create an instance of {@link ArrayOfCancelacionDTOV40 }
+     * 
+     */
+    public ArrayOfCancelacionDTOV40 createArrayOfCancelacionDTOV40() {
+        return new ArrayOfCancelacionDTOV40();
+    }
+
+    /**
+     * Create an instance of {@link SolicitudCancelacionDTOV40 }
+     * 
+     */
+    public SolicitudCancelacionDTOV40 createSolicitudCancelacionDTOV40() {
+        return new SolicitudCancelacionDTOV40();
+    }
+
+    /**
+     * Create an instance of {@link ValidarUUIDSV40 }
+     * 
+     */
+    public ValidarUUIDSV40 createValidarUUIDSV40() {
+        return new ValidarUUIDSV40();
+    }
+
+    /**
+     * Create an instance of {@link ArrayOfRespuestaDTOOfContenidoDato }
+     * 
+     */
+    public ArrayOfRespuestaDTOOfContenidoDato createArrayOfRespuestaDTOOfContenidoDato() {
+        return new ArrayOfRespuestaDTOOfContenidoDato();
+    }
+
+    /**
+     * Create an instance of {@link RespuestaDTOOfContenidoDato }
+     * 
+     */
+    public RespuestaDTOOfContenidoDato createRespuestaDTOOfContenidoDato() {
+        return new RespuestaDTOOfContenidoDato();
+    }
+
+    /**
+     * Create an instance of {@link ContenidoDato }
+     * 
+     */
+    public ContenidoDato createContenidoDato() {
+        return new ContenidoDato();
     }
 
 }

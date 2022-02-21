@@ -156,20 +156,6 @@ public interface WSCFDICancelacionSoap {
 
     /**
      * 
-     * @param consulRelacEmiRecepSUC
-     * @return
-     *     returns mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfListOfRelacionados
-     */
-    @WebMethod(operationName = "ConsultarRelacionadosEmisorReceptorSUC", action = "http://tempuri.org/ConsultarRelacionadosEmisorReceptorSUC")
-    @WebResult(name = "ConsultarRelacionadosEmisorReceptorSUCResult", targetNamespace = "http://tempuri.org/")
-    @RequestWrapper(localName = "ConsultarRelacionadosEmisorReceptorSUC", targetNamespace = "http://tempuri.org/", className = "mx.com.mtlsa.billing.client.cancelaciones.ConsultarRelacionadosEmisorReceptorSUC")
-    @ResponseWrapper(localName = "ConsultarRelacionadosEmisorReceptorSUCResponse", targetNamespace = "http://tempuri.org/", className = "mx.com.mtlsa.billing.client.cancelaciones.ConsultarRelacionadosEmisorReceptorSUCResponse")
-    public RespuestaDTOOfListOfRelacionados consultarRelacionadosEmisorReceptorSUC(
-        @WebParam(name = "_ConsulRelacEmiRecepSUC", targetNamespace = "http://tempuri.org/")
-        ConsulRelacEmiRecepSUC consulRelacEmiRecepSUC);
-
-    /**
-     * 
      * @param cToken
      * @param cCFDIUUID
      * @return
@@ -184,6 +170,20 @@ public interface WSCFDICancelacionSoap {
         String cCFDIUUID,
         @WebParam(name = "cToken", targetNamespace = "http://tempuri.org/")
         String cToken);
+
+    /**
+     * 
+     * @param consulRelacEmiRecepSUC
+     * @return
+     *     returns mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfListOfRelacionados
+     */
+    @WebMethod(operationName = "ConsultarRelacionadosEmisorReceptorSUC", action = "http://tempuri.org/ConsultarRelacionadosEmisorReceptorSUC")
+    @WebResult(name = "ConsultarRelacionadosEmisorReceptorSUCResult", targetNamespace = "http://tempuri.org/")
+    @RequestWrapper(localName = "ConsultarRelacionadosEmisorReceptorSUC", targetNamespace = "http://tempuri.org/", className = "mx.com.mtlsa.billing.client.cancelaciones.ConsultarRelacionadosEmisorReceptorSUC")
+    @ResponseWrapper(localName = "ConsultarRelacionadosEmisorReceptorSUCResponse", targetNamespace = "http://tempuri.org/", className = "mx.com.mtlsa.billing.client.cancelaciones.ConsultarRelacionadosEmisorReceptorSUCResponse")
+    public RespuestaDTOOfListOfRelacionados consultarRelacionadosEmisorReceptorSUC(
+        @WebParam(name = "_ConsulRelacEmiRecepSUC", targetNamespace = "http://tempuri.org/")
+        ConsulRelacEmiRecepSUC consulRelacEmiRecepSUC);
 
     /**
      * 
@@ -414,6 +414,86 @@ public interface WSCFDICancelacionSoap {
     public RespuestaDTOOfUuidObjResponse consultarXmlSolicitudSUC(
         @WebParam(name = "cUuid", targetNamespace = "http://tempuri.org/")
         String cUuid,
+        @WebParam(name = "cToken", targetNamespace = "http://tempuri.org/")
+        String cToken);
+
+    /**
+     * 
+     * @param cRFCEmisor
+     * @param cSolicitudFirmada
+     * @param oListaSolicitudCancelacion
+     * @param cToken
+     * @return
+     *     returns mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfListOfRespuestaDTOOfCancelacionDTOV40
+     */
+    @WebMethod(operationName = "CancelarDocumentoFirmadoSUCV40", action = "http://tempuri.org/CancelarDocumentoFirmadoSUCV40")
+    @WebResult(name = "CancelarDocumentoFirmadoSUCV40Result", targetNamespace = "http://tempuri.org/")
+    @RequestWrapper(localName = "CancelarDocumentoFirmadoSUCV40", targetNamespace = "http://tempuri.org/", className = "mx.com.mtlsa.billing.client.cancelaciones.CancelarDocumentoFirmadoSUCV40")
+    @ResponseWrapper(localName = "CancelarDocumentoFirmadoSUCV40Response", targetNamespace = "http://tempuri.org/", className = "mx.com.mtlsa.billing.client.cancelaciones.CancelarDocumentoFirmadoSUCV40Response")
+    public RespuestaDTOOfListOfRespuestaDTOOfCancelacionDTOV40 cancelarDocumentoFirmadoSUCV40(
+        @WebParam(name = "cRFCEmisor", targetNamespace = "http://tempuri.org/")
+        String cRFCEmisor,
+        @WebParam(name = "cSolicitudFirmada", targetNamespace = "http://tempuri.org/")
+        String cSolicitudFirmada,
+        @WebParam(name = "oListaSolicitudCancelacion", targetNamespace = "http://tempuri.org/")
+        ArrayOfSolicitudCancelacionFirmadaDTOV40 oListaSolicitudCancelacion,
+        @WebParam(name = "cToken", targetNamespace = "http://tempuri.org/")
+        String cToken);
+
+    /**
+     * 
+     * @param oListUUID
+     * @param cToken
+     * @param dFechaInicio
+     * @param dFechaFin
+     * @return
+     *     returns mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfListOfCancelacionDTOV40
+     */
+    @WebMethod(operationName = "ConsultaCancelacionSUCV40", action = "http://tempuri.org/ConsultaCancelacionSUCV40")
+    @WebResult(name = "ConsultaCancelacionSUCV40Result", targetNamespace = "http://tempuri.org/")
+    @RequestWrapper(localName = "ConsultaCancelacionSUCV40", targetNamespace = "http://tempuri.org/", className = "mx.com.mtlsa.billing.client.cancelaciones.ConsultaCancelacionSUCV40")
+    @ResponseWrapper(localName = "ConsultaCancelacionSUCV40Response", targetNamespace = "http://tempuri.org/", className = "mx.com.mtlsa.billing.client.cancelaciones.ConsultaCancelacionSUCV40Response")
+    public RespuestaDTOOfListOfCancelacionDTOV40 consultaCancelacionSUCV40(
+        @WebParam(name = "oListUUID", targetNamespace = "http://tempuri.org/")
+        ArrayOfString oListUUID,
+        @WebParam(name = "dFechaInicio", targetNamespace = "http://tempuri.org/")
+        XMLGregorianCalendar dFechaInicio,
+        @WebParam(name = "dFechaFin", targetNamespace = "http://tempuri.org/")
+        XMLGregorianCalendar dFechaFin,
+        @WebParam(name = "cToken", targetNamespace = "http://tempuri.org/")
+        String cToken);
+
+    /**
+     * 
+     * @param oListaSolicitudCancelacion
+     * @param cToken
+     * @return
+     *     returns mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfListOfRespuestaDTOOfCancelacionDTOV40
+     */
+    @WebMethod(operationName = "SolicitarCancelacionSUCV40", action = "http://tempuri.org/SolicitarCancelacionSUCV40")
+    @WebResult(name = "SolicitarCancelacionSUCV40Result", targetNamespace = "http://tempuri.org/")
+    @RequestWrapper(localName = "SolicitarCancelacionSUCV40", targetNamespace = "http://tempuri.org/", className = "mx.com.mtlsa.billing.client.cancelaciones.SolicitarCancelacionSUCV40")
+    @ResponseWrapper(localName = "SolicitarCancelacionSUCV40Response", targetNamespace = "http://tempuri.org/", className = "mx.com.mtlsa.billing.client.cancelaciones.SolicitarCancelacionSUCV40Response")
+    public RespuestaDTOOfListOfRespuestaDTOOfCancelacionDTOV40 solicitarCancelacionSUCV40(
+        @WebParam(name = "oListaSolicitudCancelacion", targetNamespace = "http://tempuri.org/")
+        ArrayOfSolicitudCancelacionDTOV40 oListaSolicitudCancelacion,
+        @WebParam(name = "cToken", targetNamespace = "http://tempuri.org/")
+        String cToken);
+
+    /**
+     * 
+     * @param oListUUID
+     * @param cToken
+     * @return
+     *     returns mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfListOfRespuestaDTOOfContenidoDato
+     */
+    @WebMethod(operationName = "ValidarUUIDSUCV40", action = "http://tempuri.org/ValidarUUIDSUCV40")
+    @WebResult(name = "ValidarUUIDSUCV40Result", targetNamespace = "http://tempuri.org/")
+    @RequestWrapper(localName = "ValidarUUIDSUCV40", targetNamespace = "http://tempuri.org/", className = "mx.com.mtlsa.billing.client.cancelaciones.ValidarUUIDSUCV40")
+    @ResponseWrapper(localName = "ValidarUUIDSUCV40Response", targetNamespace = "http://tempuri.org/", className = "mx.com.mtlsa.billing.client.cancelaciones.ValidarUUIDSUCV40Response")
+    public RespuestaDTOOfListOfRespuestaDTOOfContenidoDato validarUUIDSUCV40(
+        @WebParam(name = "oListUUID", targetNamespace = "http://tempuri.org/")
+        ArrayOfValidarUUIDSV40 oListUUID,
         @WebParam(name = "cToken", targetNamespace = "http://tempuri.org/")
         String cToken);
 

@@ -9,10 +9,14 @@ import mx.com.mtlsa.billing.dto.response.txt.CancelacionResponse;
 
 public interface GetCancelacionesDao {
 
-	 ArrayOfCancelacionDTO getListaFacturasCancelar(ArrayOfCancelacionDTO listaArrayOfCancelacion);
-	
-	 List<CancelacionInfoAddResponse> getListaCorreoProvedor(List<CancelacionResponse> listaCancelacion);
-	
-	 List<CancelacionInfoAddResponse> getListaCorreoComprador(List<CancelacionResponse> listaCancelacion);
+	 ArrayOfCancelacionDTO getListFacCancelarMetalsa(ArrayOfCancelacionDTO listaArrayOfCancelacion);
+	 ArrayOfCancelacionDTO getListFacCancelarProeza(ArrayOfCancelacionDTO listaArrayOfCancelacion);
+	 
+	 List<CancelacionInfoAddResponse> getListCorreoProvedorMetalsa(List<CancelacionResponse> listaCancelacion);
+	 List<CancelacionInfoAddResponse> getListCorreoProvedorProeza(List<CancelacionResponse> listaCancelacion);
+		
+	 
+	 List<CancelacionInfoAddResponse> getListCorreoCompradorMetalsa(List<CancelacionResponse> listaCancelacion);
+	 List<CancelacionInfoAddResponse> getListCorreoCompradorProeza(List<CancelacionResponse> listaCancelacion);
 	 
 }

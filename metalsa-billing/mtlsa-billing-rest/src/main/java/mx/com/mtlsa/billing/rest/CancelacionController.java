@@ -1,5 +1,8 @@
 package mx.com.mtlsa.billing.rest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -11,9 +14,12 @@ import mx.com.mtlsa.billing.dto.request.txt.AceptarRechazarRecSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.ConsultarCancelaReceptorSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.GenerarTokenSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.GuardarCertificadoSucRequest;
+import mx.com.mtlsa.billing.dto.request.txt.ValidarUUIDSRequest;
 import mx.com.mtlsa.billing.dto.response.txt.ConsultarCancelaReceptorSucResponse;
 import mx.com.mtlsa.billing.dto.response.txt.GenerarTokenSUCResponse;
 import mx.com.mtlsa.billing.dto.response.txt.GuardarCertificadoSucResponse;
+import mx.com.mtlsa.billing.dto.response.txt.ValidarUUID40Response;
+import mx.com.mtlsa.billing.dto.response.txt.ValidarUUIDSUCResultResponse;
 import mx.com.mtlsa.billing.service.CancelacionesService;
 
 
@@ -23,7 +29,7 @@ public class CancelacionController {
 	 @Inject
 	 CancelacionesService cancelacionesService;
 	
-	
+	 
 	 	@POST
 	    @Path("/GuardarCertificadoSUC")
 	    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -88,6 +94,45 @@ public class CancelacionController {
 	    public Response aceptarRechazarReceptorSUC(AceptarRechazarRecSucRequest request) throws Exception {
 	    	
 	 		ConsultarCancelaReceptorSucResponse  consultaCancRecSucRes = new ConsultarCancelaReceptorSucResponse();
+	 		   
+	        try {
+	        	
+	        	consultaCancRecSucRes = cancelacionesService.getConsultarCancelacionesReceptorSUC(request);
+	        	
+	        } catch (Exception e) {
+	        	
+	            throw new Exception(e.getMessage());
+	        }
+	        return Response.ok(consultaCancRecSucRes).build();
+	    }
+		
+		
+		//Clientes
+		@POST
+	    @Path("/ValidarUUID")
+	    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	    public Response validarUUID(ValidarUUIDSRequest request) throws Exception {
+	    	
+			ValidarUUID40Response  validarUUIDSUCV40Res = new ValidarUUID40Response();
+	 		
+	        try {
+	        	
+	        	validarUUIDSUCV40Res = cancelacionesService.getValidarUUIDSUC(request);
+	        	
+	        } catch (Exception e) {
+	        	
+	            throw new Exception(e.getMessage());
+	        }
+	        return Response.ok(validarUUIDSUCV40Res).build();
+	    }
+	 	
+		//Clientes
+		@POST
+	    @Path("/ConsultaRelacionados")
+	    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	    public Response consultaRelacionados(AceptarRechazarRecSucRequest request) throws Exception {
+	    	
+	 		ConsultarCancelaReceptorSucResponse  consultaCancRecSucRes = new ConsultarCancelaReceptorSucResponse();
 	 		
 		       
 	        try {
@@ -100,7 +145,46 @@ public class CancelacionController {
 	        }
 	        return Response.ok(consultaCancRecSucRes).build();
 	    }
-	 	
+		
+		
+		//Clientes
+		@POST
+	    @Path("/CancelarDocumentosXML")
+	    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	    public Response cancelarDocumentosXML(AceptarRechazarRecSucRequest request) throws Exception {
+	    	
+	 		ConsultarCancelaReceptorSucResponse  consultaCancRecSucRes = new ConsultarCancelaReceptorSucResponse();
+	 		
+		       
+	        try {
+	        	
+	        	//consultaCancRecSucRes = cancelacionesService.getConsultarCancelacionesReceptorSUC(request);
+	        	
+	        } catch (Exception e) {
+	        	
+	            throw new Exception(e.getMessage());
+	        }
+	        return Response.ok(consultaCancRecSucRes).build();
+	    }
+		
+		@POST
+	    @Path("/ConsultarEstatusAcuse")
+	    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	    public Response consultarEstatusAcuse(AceptarRechazarRecSucRequest request) throws Exception {
+	    	
+	 		ConsultarCancelaReceptorSucResponse  consultaCancRecSucRes = new ConsultarCancelaReceptorSucResponse();
+	 		
+		       
+	        try {
+	        	
+	        	//consultaCancRecSucRes = cancelacionesService.getConsultarCancelacionesReceptorSUC(request);
+	        	
+	        } catch (Exception e) {
+	        	
+	            throw new Exception(e.getMessage());
+	        }
+	        return Response.ok(consultaCancRecSucRes).build();
+	    }
 	 	
 	 	
 

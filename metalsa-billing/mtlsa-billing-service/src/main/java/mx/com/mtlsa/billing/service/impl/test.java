@@ -74,10 +74,14 @@ public class test {
 			RespuestaDTOOfString respuesta = new RespuestaDTOOfString();	
 			
 			respuesta =wSCFDBuilderPlusSoap.guardarCertificadoSUC
-			("SUCMET0621", "SUCMET0621*21","MET920131CN5", 
+			/*("SUCMET0621", "SUCMET0621*21","MET920131CN5", 
 					encodeFileToBase64BinaryCER(), 
 					encodeFileToBase64BinaryKEY(), 
-					"met.9201");
+					"met.9201");*/
+			("SUCMET0621", "SUCMET0621*21","GPR880111PA8", 
+					encodeFileToBase64BinaryCER(), 
+					encodeFileToBase64BinaryKEY(), 
+					"Proeza88");
 		
 		System.out.println("--> "+respuesta.getMensaje());
 		System.out.println("--> "+respuesta.getDatos());
@@ -91,7 +95,8 @@ public class test {
 	
 	
 	public static String encodeFileToBase64BinaryCER() throws IOException {
-	    File file = new File("C:\\Users\\\\Usuario\\Documents\\OmarCodigo_29_Nov_21\\CSD_MET920131CN5_20211025100335\\00001000000509573393.cer");
+	    //File file = new File("C:\\Users\\\\Usuario\\Documents\\OmarCodigo_29_Nov_21\\CSD_MET920131CN5_20211025100335\\00001000000509573393.cer");
+	    File file = new File("C:\\Users\\\\Usuario\\Documents\\\\Firmas\\FIEL_GPR880111PA8_20181004_152208\\00001000000412307270.cer");
 	    
 		// File file = new File("C:\\Users\\Usuario\\Documents\\Firmas\\FIEL_MET920131CN5_20200921113405\\WSCFDICancelacion_v16.pdf");
 		    
@@ -120,8 +125,10 @@ public class test {
 	public static String encodeFileToBase64BinaryKEY() throws IOException {
 		   // File file = new File("C:\\Users\\Usuario\\Documents\\Firmas\\FIEL_MET920131CN5_20200921113405\\met920131cn5.cer");
 		    
-			 File file = new File("C:\\Users\\Usuario\\Documents\\OmarCodigo_29_Nov_21\\CSD_MET920131CN5_20211025100335\\CSD_METALSA_MET920131CN5_20211025_100315.key");
-			    
+			 //File file = new File("C:\\Users\\Usuario\\Documents\\OmarCodigo_29_Nov_21\\CSD_MET920131CN5_20211025100335\\CSD_METALSA_MET920131CN5_20211025_100315.key");
+		File file = new File("C:\\Users\\Usuario\\Documents\\Firmas\\FIEL_GPR880111PA8_20181004_152208\\Claveprivada_FIEL_GPR880111PA8_20181004_152208.key");
+		   
+			 
 		    String base64File = "";
 	        //File file = new File(filePath);
 	        try  {
