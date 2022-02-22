@@ -1,29 +1,23 @@
 package mx.com.mtlsa.billing.service.impl;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.xml.bind.annotation.XmlElement;
 
 import mx.com.mtlsa.billing.client.cancelaciones.AceptarRechazarResult;
 import mx.com.mtlsa.billing.client.cancelaciones.ArrayOfAceptarRechazarResult;
 import mx.com.mtlsa.billing.client.cancelaciones.ArrayOfCancelacionDTO;
-import mx.com.mtlsa.billing.client.cancelaciones.ArrayOfCancelacionDTOV40;
 import mx.com.mtlsa.billing.client.cancelaciones.ArrayOfRequestAceptarRechazarReceptorSUC;
-import mx.com.mtlsa.billing.client.cancelaciones.ArrayOfRespuestaDTOOfContenidoDato;
 import mx.com.mtlsa.billing.client.cancelaciones.ArrayOfValidarUUIDSV40;
 import mx.com.mtlsa.billing.client.cancelaciones.CancelacionDTO;
-import mx.com.mtlsa.billing.client.cancelaciones.CancelacionDTOV40;
 import mx.com.mtlsa.billing.client.cancelaciones.RequestAceptarRechazarReceptorSUC;
 import mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfContenidoDato;
 import mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfListOfCancelacionDTO;
 import mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfListOfRespuestaDTOOfContenidoDato;
 import mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfString;
-import mx.com.mtlsa.billing.client.cancelaciones.ValidarUUIDSUCResponse;
 import mx.com.mtlsa.billing.client.cancelaciones.ValidarUUIDSUCV40Response;
 import mx.com.mtlsa.billing.client.cancelaciones.ValidarUUIDSV40;
 import mx.com.mtlsa.billing.client.cancelaciones.WSCFDICancelacion;
@@ -197,6 +191,7 @@ public class CancelacionesImpl implements CancelacionesService, Serializable {
 						
 						if(!existe) {
 							rechazoSinRelacionBD.setCfdiUuid(tempGeneral.getCFDIUUID());	
+							rechazoSinRelacionBD.setAutorizoCliente(true);//No tienen realcion en BD se pone como true en autoriza cliente
 							listCancelacionDTO.add(rechazoSinRelacionBD);
 						}
 						
