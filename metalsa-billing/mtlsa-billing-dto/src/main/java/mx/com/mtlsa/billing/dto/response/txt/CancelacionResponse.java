@@ -4,10 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.datatype.XMLGregorianCalendar;
-
 public class CancelacionResponse implements Serializable {
 
 	/**

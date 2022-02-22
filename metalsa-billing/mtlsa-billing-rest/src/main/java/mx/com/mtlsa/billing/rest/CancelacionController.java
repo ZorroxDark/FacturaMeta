@@ -1,8 +1,5 @@
 package mx.com.mtlsa.billing.rest;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -15,11 +12,11 @@ import mx.com.mtlsa.billing.dto.request.txt.ConsultarCancelaReceptorSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.GenerarTokenSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.GuardarCertificadoSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.ValidarUUIDSRequest;
+import mx.com.mtlsa.billing.dto.response.txt.AceptarRechazarRecSucResponse;
 import mx.com.mtlsa.billing.dto.response.txt.ConsultarCancelaReceptorSucResponse;
 import mx.com.mtlsa.billing.dto.response.txt.GenerarTokenSUCResponse;
 import mx.com.mtlsa.billing.dto.response.txt.GuardarCertificadoSucResponse;
 import mx.com.mtlsa.billing.dto.response.txt.ValidarUUID40Response;
-import mx.com.mtlsa.billing.dto.response.txt.ValidarUUIDSUCResultResponse;
 import mx.com.mtlsa.billing.service.CancelacionesService;
 
 
@@ -93,17 +90,17 @@ public class CancelacionController {
 	    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	    public Response aceptarRechazarReceptorSUC(AceptarRechazarRecSucRequest request) throws Exception {
 	    	
-	 		ConsultarCancelaReceptorSucResponse  consultaCancRecSucRes = new ConsultarCancelaReceptorSucResponse();
-	 		   
+			AceptarRechazarRecSucResponse  aceptarRecSucResponse = new AceptarRechazarRecSucResponse();
+
 	        try {
 	        	
-	        	consultaCancRecSucRes = cancelacionesService.getConsultarCancelacionesReceptorSUC(request);
+	        	aceptarRecSucResponse = cancelacionesService.getAceptarRechazarRecSuc(request);
 	        	
 	        } catch (Exception e) {
 	        	
 	            throw new Exception(e.getMessage());
 	        }
-	        return Response.ok(consultaCancRecSucRes).build();
+	        return Response.ok(aceptarRecSucResponse).build();
 	    }
 		
 		

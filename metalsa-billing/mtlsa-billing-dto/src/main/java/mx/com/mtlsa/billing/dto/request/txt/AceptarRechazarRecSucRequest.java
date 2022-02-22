@@ -1,8 +1,8 @@
 package mx.com.mtlsa.billing.dto.request.txt;
 
 import java.io.Serializable;
-
-import mx.com.mtlsa.billing.dto.response.txt.ConsultarCancelaDatos;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AceptarRechazarRecSucRequest implements Serializable {
 	
@@ -15,38 +15,40 @@ public class AceptarRechazarRecSucRequest implements Serializable {
 	
 	
 	
-
-	private ConsultarCancelaDatos envioListaCancelacion;
-	
-	private ConsultarCancelaDatos envioListaRechazados;
+	private String cToken;
+	private List<AceptarRechazarRequest> listUuids = new ArrayList<AceptarRechazarRequest>();
 	
 	
-	AceptarRechazarRecSucRequest(){
+	public AceptarRechazarRecSucRequest(){
 		
 	}
-
-
-	public ConsultarCancelaDatos getEnvioListaCancelacion() {
-		return envioListaCancelacion;
-	}
-
-
-	public void setEnvioListaCancelacion(ConsultarCancelaDatos envioListaCancelacion) {
-		this.envioListaCancelacion = envioListaCancelacion;
-	}
-
-
-	public ConsultarCancelaDatos getEnvioListaRechazados() {
-		return envioListaRechazados;
-	}
-
-
-	public void setEnvioListaRechazados(ConsultarCancelaDatos envioListaRechazados) {
-		this.envioListaRechazados = envioListaRechazados;
-	}
-	
-	
 	
 	
 
+
+	public String getcToken() {
+		return cToken;
+	}
+
+
+	public void setcToken(String cToken) {
+		this.cToken = cToken;
+	}
+
+
+	public List<AceptarRechazarRequest> getListUuids() {
+		return listUuids;
+	}
+
+
+	public void setListUuids(List<AceptarRechazarRequest> listUuids) {
+		this.listUuids = listUuids;
+	}
+
+
+	@Override
+	public String toString() {
+		return "AceptarRechazarRecSucRequest [cToken=" + cToken + ", listUuids=" + listUuids + "]";
+	}
+	
 }

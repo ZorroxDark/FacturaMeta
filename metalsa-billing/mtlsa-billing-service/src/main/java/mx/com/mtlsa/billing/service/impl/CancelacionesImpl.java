@@ -9,12 +9,16 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.xml.bind.annotation.XmlElement;
 
+import mx.com.mtlsa.billing.client.cancelaciones.AceptarRechazarResult;
+import mx.com.mtlsa.billing.client.cancelaciones.ArrayOfAceptarRechazarResult;
 import mx.com.mtlsa.billing.client.cancelaciones.ArrayOfCancelacionDTO;
 import mx.com.mtlsa.billing.client.cancelaciones.ArrayOfCancelacionDTOV40;
+import mx.com.mtlsa.billing.client.cancelaciones.ArrayOfRequestAceptarRechazarReceptorSUC;
 import mx.com.mtlsa.billing.client.cancelaciones.ArrayOfRespuestaDTOOfContenidoDato;
 import mx.com.mtlsa.billing.client.cancelaciones.ArrayOfValidarUUIDSV40;
 import mx.com.mtlsa.billing.client.cancelaciones.CancelacionDTO;
 import mx.com.mtlsa.billing.client.cancelaciones.CancelacionDTOV40;
+import mx.com.mtlsa.billing.client.cancelaciones.RequestAceptarRechazarReceptorSUC;
 import mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfContenidoDato;
 import mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfListOfCancelacionDTO;
 import mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfListOfRespuestaDTOOfContenidoDato;
@@ -24,11 +28,15 @@ import mx.com.mtlsa.billing.client.cancelaciones.ValidarUUIDSUCV40Response;
 import mx.com.mtlsa.billing.client.cancelaciones.ValidarUUIDSV40;
 import mx.com.mtlsa.billing.client.cancelaciones.WSCFDICancelacion;
 import mx.com.mtlsa.billing.client.cancelaciones.WSCFDICancelacionSoap;
+import mx.com.mtlsa.billing.dto.request.txt.AceptarRechazarRecSucRequest;
+import mx.com.mtlsa.billing.dto.request.txt.AceptarRechazarRequest;
 import mx.com.mtlsa.billing.dto.request.txt.ConsultarCancelaReceptorSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.GenerarTokenSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.GuardarCertificadoSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.ValidarDatosRequest;
 import mx.com.mtlsa.billing.dto.request.txt.ValidarUUIDSRequest;
+import mx.com.mtlsa.billing.dto.response.txt.AceptarRechazarRecSucResponse;
+import mx.com.mtlsa.billing.dto.response.txt.AceptarRechazarResponse;
 import mx.com.mtlsa.billing.dto.response.txt.CancelacionInfoAddResponse;
 import mx.com.mtlsa.billing.dto.response.txt.CancelacionResponse;
 import mx.com.mtlsa.billing.dto.response.txt.ConsultarCancelaDatos;
@@ -169,6 +177,7 @@ public class CancelacionesImpl implements CancelacionesService, Serializable {
 					for(CancelacionDTO tempCanela:validaFacturasCancela.getCancelacionDTO()) {
 						CancelacionResponse rechazosEnBase = new CancelacionResponse();
 						rechazosEnBase.setCfdiUuid(tempCanela.getCFDIUUID());	
+						//rechazosEnBase.setAutorizoCliente(tempCanela.isAutorizoCliente());
 						listRechazadosEnBaseDTO.add(rechazosEnBase);// trae las que vienen en las tablas
 					}
 					
@@ -459,6 +468,59 @@ public class CancelacionesImpl implements CancelacionesService, Serializable {
 
 	}
 	
+	
+	
+	public AceptarRechazarRecSucResponse getAceptarRechazarRecSuc(AceptarRechazarRecSucRequest request) {
+		
+		AceptarRechazarRecSucResponse respuesta = new AceptarRechazarRecSucResponse();
+		
+		
+		try {
+			
+			WSCFDICancelacionSoap wSCFDBuilderPlusSoap = new WSCFDICancelacion().getWSCFDICancelacionSoap();	
+			
+			ArrayOfAceptarRechazarResult arrayOfAceptarRechazarResult = new ArrayOfAceptarRechazarResult();
+			ArrayOfRequestAceptarRechazarReceptorSUC arrayOfRequestAceptarRechazarReceptorSUC = new ArrayOfRequestAceptarRechazarReceptorSUC();
+			
+			for(AceptarRechazarRequest tempReq:request.getListUuids()) {
+				RequestAceptarRechazarReceptorSUC requestAcepRecObj= new RequestAceptarRechazarReceptorSUC();
+				requestAcepRecObj.setAutorizoCliente(tempReq.getbAutorizoCliente());
+				requestAcepRecObj.setCFDIUUID(tempReq.getcCfdiUuid());
+				
+				arrayOfRequestAceptarRechazarReceptorSUC.getRequestAceptarRechazarReceptorSUC().add(requestAcepRecObj);
+				
+			}
+				
+			arrayOfAceptarRechazarResult = wSCFDBuilderPlusSoap.aceptarRechazarReceptorSUC(arrayOfRequestAceptarRechazarReceptorSUC, request.getcToken());
+			
+				
+			List<AceptarRechazarResponse> listaAceRecFinal= new ArrayList<AceptarRechazarResponse>();
+				
+			for(AceptarRechazarResult tempAcepta: arrayOfAceptarRechazarResult.getAceptarRechazarResult()) {
+					
+				AceptarRechazarResponse acepRechaObj = new AceptarRechazarResponse();
+				acepRechaObj.setbEstado(tempAcepta.isEstado());
+				acepRechaObj.setcCfdiUuid(tempAcepta.getCFDIUUID());
+				acepRechaObj.setcMensaje(tempAcepta.getMensaje());
+					
+				listaAceRecFinal.add(acepRechaObj);
+					
+			}
+				
+			respuesta.getListUuids().addAll(listaAceRecFinal);
+				
+			
+			
+			
+			
+		}catch (Exception e) {
+			System.out.println("Error"+ e);
+		}
+		
+		
+		return respuesta;
+		
+	}
 	
 	
 	
