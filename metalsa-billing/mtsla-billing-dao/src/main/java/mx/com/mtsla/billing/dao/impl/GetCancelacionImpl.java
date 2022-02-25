@@ -18,7 +18,7 @@ import mx.com.mtsla.billing.dao.GetCancelacionesDao;
 @Stateless
 public class GetCancelacionImpl implements GetCancelacionesDao {
 	
-	@PersistenceContext(unitName = "jdbc/mtlsa_cuscofidi2")
+	@PersistenceContext(unitName = "jdbc/ebs-apps")
 	private EntityManager em;
 	private Query query;
 	

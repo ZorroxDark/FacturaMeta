@@ -22,7 +22,7 @@ import mx.com.mtsla.billing.dao.map.MapEstrucSecAuxComplePagoTxtDTO;
 @Stateless
 public class GetInfoTxtImpl implements GetInfoTxtDao {
 
-	@PersistenceContext(unitName = "jdbc/mtlsa_COFIDI_SSQL")
+	@PersistenceContext(unitName = "jdbc/fac-cofidi")
 	private EntityManager em;
 
 	private Query query;

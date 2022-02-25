@@ -15,6 +15,9 @@ public class ConsultarCancelaReceptorSucResponse implements Serializable{
 	private ConsultarCancelaDatos listRechazoCancelacion;
 	private ConsultarCancelaDatos listAceptaCancelacion;
 	
+	private  String mensaje;
+	private  String codigo;
+	
 	
 	public ConsultarCancelaReceptorSucResponse() {
 		
@@ -44,6 +47,30 @@ public class ConsultarCancelaReceptorSucResponse implements Serializable{
 		this.listAceptaCancelacion = listAceptaCancelacion;
 	}
 
+	public String getMensaje() {
+		return mensaje;
+	}
+
+	public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	@Override
+	public String toString() {
+		return "ConsultarCancelaReceptorSucResponse [estado=" + estado + ", listRechazoCancelacion="
+				+ listRechazoCancelacion + ", listAceptaCancelacion=" + listAceptaCancelacion + ", mensaje=" + mensaje
+				+ ", codigo=" + codigo + "]";
+	}
+
+	
 	
 	
 	

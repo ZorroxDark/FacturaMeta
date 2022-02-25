@@ -8,11 +8,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import mx.com.mtlsa.billing.dto.request.txt.AceptarRechazarRecSucRequest;
+import mx.com.mtlsa.billing.dto.request.txt.ConRelacionadoRequest;
 import mx.com.mtlsa.billing.dto.request.txt.ConsultarCancelaReceptorSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.GenerarTokenSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.GuardarCertificadoSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.ValidarUUIDSRequest;
 import mx.com.mtlsa.billing.dto.response.txt.AceptarRechazarRecSucResponse;
+import mx.com.mtlsa.billing.dto.response.txt.ConRelacionadoResponse;
 import mx.com.mtlsa.billing.dto.response.txt.ConsultarCancelaReceptorSucResponse;
 import mx.com.mtlsa.billing.dto.response.txt.GenerarTokenSUCResponse;
 import mx.com.mtlsa.billing.dto.response.txt.GuardarCertificadoSucResponse;
@@ -125,22 +127,22 @@ public class CancelacionController {
 	 	
 		//Clientes
 		@POST
-	    @Path("/ConsultaRelacionados")
+	    @Path("/ConsultarUUIDRelacionadosSUC")
 	    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	    public Response consultaRelacionados(AceptarRechazarRecSucRequest request) throws Exception {
+	    public Response consultaRelacionados(ConRelacionadoRequest request) throws Exception {
 	    	
-	 		ConsultarCancelaReceptorSucResponse  consultaCancRecSucRes = new ConsultarCancelaReceptorSucResponse();
+			ConRelacionadoResponse  conRelacionadoResponse = new ConRelacionadoResponse();
 	 		
 		       
 	        try {
 	        	
-	        	//consultaCancRecSucRes = cancelacionesService.getConsultarCancelacionesReceptorSUC(request);
+	        	conRelacionadoResponse = cancelacionesService.getConsultaRelacionado(request);
 	        	
 	        } catch (Exception e) {
 	        	
 	            throw new Exception(e.getMessage());
 	        }
-	        return Response.ok(consultaCancRecSucRes).build();
+	        return Response.ok(conRelacionadoResponse).build();
 	    }
 		
 		

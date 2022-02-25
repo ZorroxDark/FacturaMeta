@@ -18,7 +18,7 @@ import mx.com.mtsla.billing.dao.map.MapCatalogosDTO;
 public class GetCatalogoImpl implements GetCatalogoDao {
 
 	
-	@PersistenceContext(unitName = "jdbc/mtlsa_COFIDI_SSQL")
+	@PersistenceContext(unitName = "jdbc/fac-cofidi")
 	private EntityManager em;
 	private Query query;
 	

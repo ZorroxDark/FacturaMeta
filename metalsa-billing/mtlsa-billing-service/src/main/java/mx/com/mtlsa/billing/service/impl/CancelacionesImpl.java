@@ -13,9 +13,11 @@ import mx.com.mtlsa.billing.client.cancelaciones.ArrayOfCancelacionDTO;
 import mx.com.mtlsa.billing.client.cancelaciones.ArrayOfRequestAceptarRechazarReceptorSUC;
 import mx.com.mtlsa.billing.client.cancelaciones.ArrayOfValidarUUIDSV40;
 import mx.com.mtlsa.billing.client.cancelaciones.CancelacionDTO;
+import mx.com.mtlsa.billing.client.cancelaciones.Relacionados;
 import mx.com.mtlsa.billing.client.cancelaciones.RequestAceptarRechazarReceptorSUC;
 import mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfContenidoDato;
 import mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfListOfCancelacionDTO;
+import mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfListOfRelacionados;
 import mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfListOfRespuestaDTOOfContenidoDato;
 import mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfString;
 import mx.com.mtlsa.billing.client.cancelaciones.ValidarUUIDSUCV40Response;
@@ -24,6 +26,7 @@ import mx.com.mtlsa.billing.client.cancelaciones.WSCFDICancelacion;
 import mx.com.mtlsa.billing.client.cancelaciones.WSCFDICancelacionSoap;
 import mx.com.mtlsa.billing.dto.request.txt.AceptarRechazarRecSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.AceptarRechazarRequest;
+import mx.com.mtlsa.billing.dto.request.txt.ConRelacionadoRequest;
 import mx.com.mtlsa.billing.dto.request.txt.ConsultarCancelaReceptorSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.GenerarTokenSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.GuardarCertificadoSucRequest;
@@ -33,6 +36,9 @@ import mx.com.mtlsa.billing.dto.response.txt.AceptarRechazarRecSucResponse;
 import mx.com.mtlsa.billing.dto.response.txt.AceptarRechazarResponse;
 import mx.com.mtlsa.billing.dto.response.txt.CancelacionInfoAddResponse;
 import mx.com.mtlsa.billing.dto.response.txt.CancelacionResponse;
+import mx.com.mtlsa.billing.dto.response.txt.ConRelacionado;
+import mx.com.mtlsa.billing.dto.response.txt.ConRelacionadoDatos;
+import mx.com.mtlsa.billing.dto.response.txt.ConRelacionadoResponse;
 import mx.com.mtlsa.billing.dto.response.txt.ConsultarCancelaDatos;
 import mx.com.mtlsa.billing.dto.response.txt.ConsultarCancelaReceptorSucResponse;
 import mx.com.mtlsa.billing.dto.response.txt.DatosValidarUUIDSUCResponse;
@@ -128,6 +134,9 @@ public class CancelacionesImpl implements CancelacionesService, Serializable {
 		
 		
 		ConsultarCancelaReceptorSucResponse responseCancelaRec = new ConsultarCancelaReceptorSucResponse();
+		StringBuilder error = new StringBuilder();
+		responseCancelaRec.setCodigo("0");
+		responseCancelaRec.setCodigo("Exitoso");
 
 		try {
 			
@@ -222,7 +231,6 @@ public class CancelacionesImpl implements CancelacionesService, Serializable {
 				}
 				 
 				ArrayList<String> test = new ArrayList<String>();
-				//test.add("miguel.velazquez@contractor.metalsa.com");
 				test.add("roberto.castillo.conde@metalsa.com");
 				
 				// Manda Correos a Cancelacion se va a (AP)
@@ -248,7 +256,7 @@ public class CancelacionesImpl implements CancelacionesService, Serializable {
 						enviado = mailer.send(
 										"Solicitud de Cancelación Aceptada ",
 										planAceptado.plantillaAceptadoMetalsa(listaUidAceptados), 
-										test,//va aqui lo de APP sino genera error //correosAP
+										test,//correosAP,//test,//va aqui lo de APP sino genera error //correosAP
 										null,
 										null,
 										"platilla1-", //se envia plantilla en el metodo otra opcion
@@ -260,7 +268,7 @@ public class CancelacionesImpl implements CancelacionesService, Serializable {
 						enviado= mailer.send(
 										"Solicitud de Cancelación Aceptada ",
 										planAceptado.plantillaAceptadoProeza(listaUidAceptados), 
-										test,//va aqui lo de APP sino genera error //correosAP
+										test,//correosAP,//va aqui lo de APP sino genera error //correosAP
 										null,
 										null,
 										"platilla1-", //se envia plantilla en el metodo otra opcion
@@ -271,10 +279,22 @@ public class CancelacionesImpl implements CancelacionesService, Serializable {
 										null);
 					}
 					
-					System.out.println("Status envio Aceptada solo correos  APP : "+enviado +"/n "+test.toString()+ " uid "+listaUidAceptados.toString());
+					System.out.println("Status envio Aceptada solo correos  APP : "+enviado +"/n "+correosAP.toString()+ " uid "+listaUidAceptados.toString());
 
 				}catch (Exception e) {
 					System.out.println("Error :" + e);
+					
+					error.append("ERROR -- Solicitud de Cancelación ACEPTADA Message : ");
+					error.append(e.getMessage());
+					error.append("\n");
+					error.append("ERROR -- Solicitud de Cancelación ACEPTADA Cause : ");
+					error.append(e.getCause());
+					error.append("\n");
+					error.append("ERROR -- Solicitud de Cancelación ACEPTADA ERROR :");
+					error.append(e);
+					
+					responseCancelaRec.setCodigo("-1");
+					responseCancelaRec.setCodigo("ERROR --> "+error.toString());
 				}
 				
 				
@@ -312,8 +332,9 @@ public class CancelacionesImpl implements CancelacionesService, Serializable {
 							
 							try {
 								
+															
 								ArrayList<String> correosOracle = new ArrayList<String>();
-								correosOracle.add("roberto.castillo.conde@metalsa.com");
+								//correosOracle.add("roberto.castillo.conde@metalsa.com");
 								
 								//1 Obtengo Correo Provedor 
 								
@@ -350,7 +371,7 @@ public class CancelacionesImpl implements CancelacionesService, Serializable {
 									enviado = mailer.send(
 												"Solicitud de Cancelación Rechazada "+temp.getUuid(),
 												planRechazoOracle.plantillaRechazoOracleMetalsa(temp.getRazonSocial(), temp.getUuid(),correos), 
-												test,//correosOracle,
+												test,//test,//correosOracle,
 												null, 
 												null,
 												"comservesp-", //se envia plantilla en el metodo otra opcion
@@ -364,7 +385,7 @@ public class CancelacionesImpl implements CancelacionesService, Serializable {
 									enviado = mailer.send(
 											"Solicitud de Cancelación Rechazada "+temp.getUuid(),
 											planRechazoOracle.plantillaRechazoOracleProeza(temp.getRazonSocial(), temp.getUuid(),correos), 
-											test,//correosOracle,
+											test,//test,//correosOracle,
 											null, 
 											null,
 											"comservesp-", //se envia plantilla en el metodo otra opcion
@@ -381,7 +402,17 @@ public class CancelacionesImpl implements CancelacionesService, Serializable {
 							
 								
 							}catch (Exception e) {
-								System.out.println("Error :" + e);
+								error.append("ERROR -- Solicitud de Cancelación ACEPTADA Envio Message : ");
+								error.append(e.getMessage());
+								error.append("\n");
+								error.append("ERROR -- Solicitud de Cancelación ACEPTADA Envio Cause : ");
+								error.append(e.getCause());
+								error.append("\n");
+								error.append("ERROR -- Solicitud de Cancelación ACEPTADA Envio ERROR :");
+								error.append(e);
+								
+								responseCancelaRec.setCodigo("-2");
+								responseCancelaRec.setCodigo("ERROR --> "+error.toString());
 							}
 						
 							
@@ -395,9 +426,9 @@ public class CancelacionesImpl implements CancelacionesService, Serializable {
 								  temp.getStatus().trim().equals("3")) {
 							//Envia Correo ()
 							
-							
+														
 							ArrayList<String> correosBuzon = new ArrayList<String>();
-							correosBuzon.add("roberto.castillo.conde@metalsa.com");
+							//correosBuzon.add("roberto.castillo.conde@metalsa.com");
 							
 							for(String e:temp.getEmailProveedor()) {
 								correosBuzon.add(e);
@@ -412,7 +443,7 @@ public class CancelacionesImpl implements CancelacionesService, Serializable {
 									enviado = mailer.send(
 													"Solicitud de Cancelación Rechazada "+temp.getUuid(),
 													planRechazoBuzon.plantillaRechazoBuzonMetalsa(temp.getRazonSocial(), temp.getUuid()), 
-													test,//correosBuzon,
+													test,//correosBuzon,//test,//correosBuzon,
 													null, 
 													null,
 													"comservesp-", //se envia plantilla en el metodo otra opcion
@@ -425,7 +456,7 @@ public class CancelacionesImpl implements CancelacionesService, Serializable {
 									enviado = mailer.send(
 											"Solicitud de Cancelación Rechazada "+temp.getUuid(),
 											planRechazoBuzon.plantillaRechazoBuzonProeza(temp.getRazonSocial(), temp.getUuid()), 
-											test,//correosBuzon,
+											test,//correosBuzon,//test,//correosBuzon,
 											null, 
 											null,
 											"comservesp-", //se envia plantilla en el metodo otra opcion
@@ -443,6 +474,16 @@ public class CancelacionesImpl implements CancelacionesService, Serializable {
 							
 							}catch (Exception e) {
 								System.out.println("Error :" + e);
+								error.append("ERROR -- Solicitud de Cancelación OralceBuzon Message : ");
+								error.append(e.getMessage());
+								error.append("\n");
+								error.append("ERROR -- Solicitud de Cancelación OralceBuzon Cause : ");
+								error.append(e.getCause());
+								error.append("\n");
+								error.append("ERROR -- Solicitud de Cancelación OralceBuzon ERROR :");
+								error.append(e);
+								responseCancelaRec.setCodigo("-2");
+								responseCancelaRec.setCodigo("ERROR --> "+error.toString());
 							}
 						}
 						
@@ -451,6 +492,16 @@ public class CancelacionesImpl implements CancelacionesService, Serializable {
 				
 				}catch (Exception e) {
 					System.out.println("Error :" + e);
+					error.append("ERROR -- Solicitud de Cancelación OralceBuzon Message : ");
+					error.append(e.getMessage());
+					error.append("\n");
+					error.append("ERROR -- Solicitud de Cancelación OralceBuzon Cause : ");
+					error.append(e.getCause());
+					error.append("\n");
+					error.append("ERROR -- Solicitud de Cancelación OralceBuzon ERROR :");
+					error.append(e);
+					responseCancelaRec.setCodigo("-3");
+					responseCancelaRec.setCodigo("ERROR --> "+error.toString());
 				}
 				
 			}
@@ -458,6 +509,16 @@ public class CancelacionesImpl implements CancelacionesService, Serializable {
 
 		} catch (Exception e) {
 			System.out.println("Error :" + e);
+			error.append("ERROR -- getConsultarCancelacionesReceptorSUC  Message : ");
+			error.append(e.getMessage());
+			error.append("\n");
+			error.append("ERROR -- getConsultarCancelacionesReceptorSUC Cause : ");
+			error.append(e.getCause());
+			error.append("\n");
+			error.append("ERROR -- getConsultarCancelacionesReceptorSUC ERROR :");
+			error.append(e);
+			responseCancelaRec.setCodigo("-1");
+			responseCancelaRec.setCodigo("ERROR --> "+error.toString());
 		}
 		return responseCancelaRec;
 
@@ -585,6 +646,61 @@ public class CancelacionesImpl implements CancelacionesService, Serializable {
 		}
 		return respuestaService;
 	}
+	
+	
+	public ConRelacionadoResponse getConsultaRelacionado(ConRelacionadoRequest request) {
+		
+		ConRelacionadoResponse respuestaService = new ConRelacionadoResponse();
+		
+		try {
+			
+			WSCFDICancelacionSoap wSCFDBuilderPlusSoap = new WSCFDICancelacion().getWSCFDICancelacionSoap();	
+			
+			//Envia peticion
+			RespuestaDTOOfListOfRelacionados res = new RespuestaDTOOfListOfRelacionados();
+			res=wSCFDBuilderPlusSoap.consultarRelacionadosSUC(request.getcCfdiUuid(), request.getcToken());
+			
+			//Setea resultados
+			respuestaService.setEstado(res.isEstado());
+			respuestaService.setMensaje(res.getMensaje());
+			
+			List<ConRelacionado> relacionados = new ArrayList<ConRelacionado>();
+			
+			
+			if(!res.getDatos().getRelacionados().isEmpty()){
+				
+				
+				for(Relacionados temp: res.getDatos().getRelacionados()) {
+					ConRelacionado conRela = new ConRelacionado();
+					
+					conRela.setCfdiuuid(temp.getCFDIUUID());
+					conRela.setEstado(temp.isEstado());
+					conRela.setMensaje(temp.getMensaje());
+					conRela.setRfcEmisor(temp.getRFCEmisor());
+					conRela.setRfcReceptor(temp.getRFCReceptor());
+					conRela.setTipoRelacion(temp.getTipoRelacion());
+					conRela.setUuidRelacionado(temp.getUUIDRelacionado());
+					
+					relacionados.add(conRela);
+					
+				}
+			}
+			
+			ConRelacionadoDatos datos = new ConRelacionadoDatos();
+			datos.setRelacionados(relacionados);
+			
+			respuestaService.setDatos(datos);
+		
+			
+		} catch (Exception e) {
+			System.out.println("Error :" + e);
+		}
+		return respuestaService;
+	}
+	
+	
+	
+	
 
 }
 

@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>metalsa-billing-sftps</groupId>
 	<artifactId>mtlsa-billing-sftps</artifactId>
-	<name>metalsa-billing-sftps</name>
+	<name>mtlsa-billing-sftps</name>
 	<description>Generacion  de jar para envio de archivos de sftp</description>
 
 
