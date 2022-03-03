@@ -1,25 +1,40 @@
 package mx.com.mtlsa.billing.service.impl;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 import mx.com.mtlsa.billing.client.cancelaciones.AceptarRechazarResult;
 import mx.com.mtlsa.billing.client.cancelaciones.ArrayOfAceptarRechazarResult;
 import mx.com.mtlsa.billing.client.cancelaciones.ArrayOfCancelacionDTO;
 import mx.com.mtlsa.billing.client.cancelaciones.ArrayOfRequestAceptarRechazarReceptorSUC;
+import mx.com.mtlsa.billing.client.cancelaciones.ArrayOfSolicitudCancelacionDTOV40;
+import mx.com.mtlsa.billing.client.cancelaciones.ArrayOfString;
 import mx.com.mtlsa.billing.client.cancelaciones.ArrayOfValidarUUIDSV40;
 import mx.com.mtlsa.billing.client.cancelaciones.CancelacionDTO;
+import mx.com.mtlsa.billing.client.cancelaciones.CancelacionDTOV40;
 import mx.com.mtlsa.billing.client.cancelaciones.Relacionados;
 import mx.com.mtlsa.billing.client.cancelaciones.RequestAceptarRechazarReceptorSUC;
+import mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfCancelacionDTOV40;
 import mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfContenidoDato;
 import mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfListOfCancelacionDTO;
+import mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfListOfCancelacionDTOV40;
 import mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfListOfRelacionados;
+import mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfListOfRespuestaDTOOfCancelacionDTOV40;
 import mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfListOfRespuestaDTOOfContenidoDato;
 import mx.com.mtlsa.billing.client.cancelaciones.RespuestaDTOOfString;
+import mx.com.mtlsa.billing.client.cancelaciones.SolicitudCancelacionDTOV40;
 import mx.com.mtlsa.billing.client.cancelaciones.ValidarUUIDSUCV40Response;
 import mx.com.mtlsa.billing.client.cancelaciones.ValidarUUIDSV40;
 import mx.com.mtlsa.billing.client.cancelaciones.WSCFDICancelacion;
@@ -27,23 +42,31 @@ import mx.com.mtlsa.billing.client.cancelaciones.WSCFDICancelacionSoap;
 import mx.com.mtlsa.billing.dto.request.txt.AceptarRechazarRecSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.AceptarRechazarRequest;
 import mx.com.mtlsa.billing.dto.request.txt.ConRelacionadoRequest;
+import mx.com.mtlsa.billing.dto.request.txt.ConsultaCancelacion;
+import mx.com.mtlsa.billing.dto.request.txt.ConsultaCancelacionRequest;
 import mx.com.mtlsa.billing.dto.request.txt.ConsultarCancelaReceptorSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.GenerarTokenSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.GuardarCertificadoSucRequest;
+import mx.com.mtlsa.billing.dto.request.txt.SolicitudCancelacion;
+import mx.com.mtlsa.billing.dto.request.txt.SolicitudCancelacionRequest;
 import mx.com.mtlsa.billing.dto.request.txt.ValidarDatosRequest;
 import mx.com.mtlsa.billing.dto.request.txt.ValidarUUIDSRequest;
 import mx.com.mtlsa.billing.dto.response.txt.AceptarRechazarRecSucResponse;
 import mx.com.mtlsa.billing.dto.response.txt.AceptarRechazarResponse;
 import mx.com.mtlsa.billing.dto.response.txt.CancelacionInfoAddResponse;
 import mx.com.mtlsa.billing.dto.response.txt.CancelacionResponse;
+import mx.com.mtlsa.billing.dto.response.txt.CancelacionV40;
 import mx.com.mtlsa.billing.dto.response.txt.ConRelacionado;
 import mx.com.mtlsa.billing.dto.response.txt.ConRelacionadoDatos;
 import mx.com.mtlsa.billing.dto.response.txt.ConRelacionadoResponse;
+import mx.com.mtlsa.billing.dto.response.txt.ConsultaCancelacionResponse;
 import mx.com.mtlsa.billing.dto.response.txt.ConsultarCancelaDatos;
 import mx.com.mtlsa.billing.dto.response.txt.ConsultarCancelaReceptorSucResponse;
 import mx.com.mtlsa.billing.dto.response.txt.DatosValidarUUIDSUCResponse;
 import mx.com.mtlsa.billing.dto.response.txt.GenerarTokenSUCResponse;
 import mx.com.mtlsa.billing.dto.response.txt.GuardarCertificadoSucResponse;
+import mx.com.mtlsa.billing.dto.response.txt.RespuestaCancelacionV40;
+import mx.com.mtlsa.billing.dto.response.txt.SolicitarCancelacionResponse;
 import mx.com.mtlsa.billing.dto.response.txt.ValidarUUID40Response;
 import mx.com.mtlsa.billing.dto.response.txt.ValidarUUIDSUCResultResponse;
 import mx.com.mtlsa.billing.service.CancelacionesService;
@@ -698,6 +721,177 @@ public class CancelacionesImpl implements CancelacionesService, Serializable {
 		return respuestaService;
 	}
 	
+	
+	public SolicitarCancelacionResponse getSolicitaCancelacionV40(SolicitudCancelacionRequest request) {
+		
+		SolicitarCancelacionResponse respuestaService = new SolicitarCancelacionResponse();
+
+		try {
+			
+			WSCFDICancelacionSoap wSCFDBuilderPlusSoap = new WSCFDICancelacion().getWSCFDICancelacionSoap();	
+			ArrayOfSolicitudCancelacionDTOV40 listSolCancelacionV40 = new ArrayOfSolicitudCancelacionDTOV40();
+			RespuestaDTOOfListOfRespuestaDTOOfCancelacionDTOV40 resCancelacion40 = new RespuestaDTOOfListOfRespuestaDTOOfCancelacionDTOV40();
+			
+			
+			//1 Crea request llena informacion 
+			
+			for(SolicitudCancelacion temp : request.getSolicitudCancelacion()) {
+				
+				SolicitudCancelacionDTOV40 solCan40 = new SolicitudCancelacionDTOV40();
+				
+				solCan40.setCFDIUUID(temp.getCfdiuuid());
+				solCan40.setFolioSustitucion(temp.getFolioSustitucion());
+				solCan40.setMontoTotal(temp.getMontoTotal());
+				solCan40.setMotivo(temp.getMotivo());
+				solCan40.setRFCEmisor(temp.getRfcEmisor());
+				solCan40.setRFCReceptor(temp.getRfcReceptor());
+				solCan40.setTipoDoc(temp.getTipoDoc());
+				
+				listSolCancelacionV40.getSolicitudCancelacionDTOV40().add(solCan40);
+				
+			}
+			
+			resCancelacion40 = wSCFDBuilderPlusSoap.solicitarCancelacionSUCV40(listSolCancelacionV40, request.getcToken());
+			
+			
+			//2 Setea la respuesta  
+			
+			//parte 1 Seteo
+			respuestaService.setEstado(resCancelacion40.isEstado());
+			respuestaService.setMensaje(resCancelacion40.getMensaje()!= null ? resCancelacion40.getMensaje() :"");
+			
+			//parte 2 Seteo
+			
+			if(resCancelacion40.getDatos().getRespuestaDTOOfCancelacionDTOV40() != null 
+					|| !resCancelacion40.getDatos().getRespuestaDTOOfCancelacionDTOV40().isEmpty() ) { 
+			
+				for(RespuestaDTOOfCancelacionDTOV40 tempRes: resCancelacion40.getDatos().getRespuestaDTOOfCancelacionDTOV40()) {
+					
+					RespuestaCancelacionV40 respuestaCancelacionV40 = new RespuestaCancelacionV40();
+					respuestaCancelacionV40.setEstado(tempRes.isEstado());
+					respuestaCancelacionV40.setMensaje(tempRes.getMensaje());
+					
+					
+					CancelacionV40 cancelaV40 = new CancelacionV40();
+					
+					cancelaV40.setAutorizoCliente(tempRes.getDatos().isAutorizoCliente());
+					cancelaV40.setCfdiuuid(tempRes.getDatos().getCFDIUUID()!=null ? tempRes.getDatos().getCFDIUUID():"");
+					cancelaV40.setCorreo(tempRes.getDatos().getCorreo()!=null ? tempRes.getDatos().getCorreo() :"");
+					cancelaV40.setEfos(tempRes.getDatos().getEFOS()!=null ? tempRes.getDatos().getEFOS():"");
+					cancelaV40.setEstadoCancelacion(tempRes.getDatos().getEstadoCancelacion() !=null ? tempRes.getDatos().getEstadoCancelacion():"");
+					cancelaV40.setEstadoDocumento(tempRes.getDatos().getEstadoDocumento() !=null ? tempRes.getDatos().getEstadoDocumento() :"" );
+					cancelaV40.setFechaEstatus(tempRes.getDatos().getFechaEstatus() != null ? tempRes.getDatos().getFechaEstatus().toString() :"");
+					cancelaV40.setFechaSolicitud(tempRes.getDatos().getFechaSolicitud() != null ? tempRes.getDatos().getFechaSolicitud().toString():"");
+					cancelaV40.setFolioSustitucion(tempRes.getDatos().getFolioSustitucion() != null ?  tempRes.getDatos().getFolioSustitucion() :"");
+					cancelaV40.setMontoTotal(tempRes.getDatos().getMontoTotal() != null ? tempRes.getDatos().getMontoTotal(): new BigDecimal(0.0));
+					cancelaV40.setMotivo(tempRes.getDatos().getMotivo() != null ? tempRes.getDatos().getMotivo():"");
+					cancelaV40.setObservaciones(tempRes.getDatos().getObservaciones()  != null ? tempRes.getDatos().getObservaciones():"");
+					cancelaV40.setRfcEmisor(tempRes.getDatos().getRFCEmisor() !=null ? tempRes.getDatos().getRFCEmisor() : "");
+					cancelaV40.setRfcReceptor(tempRes.getDatos().getRFCReceptor() !=null ? tempRes.getDatos().getRFCReceptor() :"");
+					cancelaV40.setTipoDoc(tempRes.getDatos().getTipoDoc() != null ? tempRes.getDatos().getTipoDoc():"");
+					cancelaV40.setXmlAcuseB64(tempRes.getDatos().getXMLAcuseB64() != null ? tempRes.getDatos().getXMLAcuseB64():"");
+					
+					
+					respuestaCancelacionV40.setDatos(cancelaV40);
+					respuestaService.getDatos().add(respuestaCancelacionV40);
+					
+				}
+			}
+			
+			
+		}catch (Exception e) {
+			
+			System.out.println("Error :" + e);
+		}
+		return respuestaService;
+	}
+	
+	
+	
+	public ConsultaCancelacionResponse getConsultarCancelacionesAcuse(ConsultaCancelacionRequest request) {
+		
+		ConsultaCancelacionResponse  respuestaService = new ConsultaCancelacionResponse();
+
+		try {
+			
+			WSCFDICancelacionSoap wSCFDBuilderPlusSoap = new WSCFDICancelacion().getWSCFDICancelacionSoap();
+			RespuestaDTOOfListOfCancelacionDTOV40 resCancelacion40 = new RespuestaDTOOfListOfCancelacionDTOV40();
+			ArrayOfString lista = new ArrayOfString();
+			
+			//1 Crea request llena informacion 
+			
+			//for(request.getoListUUID())
+			for(ConsultaCancelacion valor:request.getoListUUID()) {
+				lista.getString().add(valor.getUid());
+			}
+			
+			
+			DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Date dateInicio = format.parse(request.getdFechaInicio());
+			Date dateFin = format.parse(request.getdFechaFin());
+
+			GregorianCalendar calInicio = new GregorianCalendar();
+			calInicio.setTime(dateInicio);
+			
+			GregorianCalendar calFin = new GregorianCalendar();
+			calFin.setTime(dateFin);
+
+			XMLGregorianCalendar xmlGregCalInicio =  DatatypeFactory.newInstance().newXMLGregorianCalendar(calInicio);
+			XMLGregorianCalendar xmlGregCalFin    =  DatatypeFactory.newInstance().newXMLGregorianCalendar(calFin);
+
+						
+			resCancelacion40 = wSCFDBuilderPlusSoap.consultaCancelacionSUCV40(lista, xmlGregCalInicio, 
+					xmlGregCalFin, request.getcToken());
+			
+			
+			//2 Setea la respuesta  
+			
+			respuestaService.setEstado(resCancelacion40.isEstado());
+			respuestaService.setMensaje(resCancelacion40.getMensaje() != null ? resCancelacion40.getMensaje() :"");
+			
+			
+			
+			
+			if(resCancelacion40.getDatos() != null 
+					|| !resCancelacion40.getDatos().getCancelacionDTOV40().isEmpty() ) { 
+			
+				for(CancelacionDTOV40 tempRes: resCancelacion40.getDatos().getCancelacionDTOV40()) {
+					
+					
+					CancelacionV40 cancelaV40 = new CancelacionV40();
+					
+					cancelaV40.setAutorizoCliente(tempRes.isAutorizoCliente());
+					cancelaV40.setCfdiuuid(tempRes.getCFDIUUID()!=null ? tempRes.getCFDIUUID():"");
+					cancelaV40.setCorreo(tempRes.getCorreo()!=null ? tempRes.getCorreo() :"");
+					cancelaV40.setEfos(tempRes.getEFOS()!=null ? tempRes.getEFOS():"");
+					cancelaV40.setEstadoCancelacion(tempRes.getEstadoCancelacion() !=null ? tempRes.getEstadoCancelacion():"");
+					cancelaV40.setEstadoDocumento(tempRes.getEstadoDocumento() !=null ? tempRes.getEstadoDocumento() :"" );
+					cancelaV40.setFechaEstatus(tempRes.getFechaEstatus() != null ? tempRes.getFechaEstatus().toString() :"");
+					cancelaV40.setFechaSolicitud(tempRes.getFechaSolicitud() != null ? tempRes.getFechaSolicitud().toString():"");
+					cancelaV40.setFolioSustitucion(tempRes.getFolioSustitucion() != null ?  tempRes.getFolioSustitucion() :"");
+					cancelaV40.setMontoTotal(tempRes.getMontoTotal() != null ? tempRes.getMontoTotal(): new BigDecimal(0.0));
+					cancelaV40.setMotivo(tempRes.getMotivo() != null ? tempRes.getMotivo():"");
+					cancelaV40.setObservaciones(tempRes.getObservaciones()  != null ? tempRes.getObservaciones():"");
+					cancelaV40.setRfcEmisor(tempRes.getRFCEmisor() !=null ? tempRes.getRFCEmisor() : "");
+					cancelaV40.setRfcReceptor(tempRes.getRFCReceptor() !=null ? tempRes.getRFCReceptor() :"");
+					cancelaV40.setTipoDoc(tempRes.getTipoDoc() != null ? tempRes.getTipoDoc():"");
+					cancelaV40.setXmlAcuseB64(tempRes.getXMLAcuseB64() != null ? tempRes.getXMLAcuseB64():"");
+					
+					respuestaService.getDatos().add(cancelaV40);
+					
+				}
+			}
+			
+			
+		}catch (Exception e) {
+			
+			System.out.println("Error :" + e);
+		}
+		return respuestaService;
+		
+		
+		
+	}
 	
 	
 	

@@ -48,7 +48,7 @@ public class GeneraTxtServiceImpl implements GeneraTxtService, Serializable {
 
 		FileWriter flwriter = null;
 		StringBuilder getFacturaFinal = new StringBuilder("");
-		String nomArchivo = Utils.generaIdTxt();
+		String nomArchivo="" ;//= Utils.generaIdTxt();
 
 		try {
 
@@ -66,8 +66,10 @@ public class GeneraTxtServiceImpl implements GeneraTxtService, Serializable {
 				if (listaEcabezado.size() != 0) {
 				
 					System.out.println("2-  Genera el IDs () ..");
-					String nomIdFolio = Utils.generaIdTxt() + count.toString();
-					listaEcabezado.get(0).setFolio(nomIdFolio);
+					System.out.println("Folio : "+listaEcabezado.get(0).getFolio());
+					nomArchivo=listaEcabezado.get(0).getFolio();
+					//String nomIdFolio = Utils.generaIdTxt() + count.toString();
+					//listaEcabezado.get(0).setFolio(nomIdFolio);
 	
 					especMsFactura.setCabecera(listaEcabezado.get(0));
 					getFacturaFinal.append(GeneraStringFacturas.facturaCabecera(listaEcabezado.get(0)).toString());

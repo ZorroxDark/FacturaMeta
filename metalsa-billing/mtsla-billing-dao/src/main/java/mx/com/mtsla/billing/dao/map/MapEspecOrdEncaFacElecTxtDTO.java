@@ -29,6 +29,7 @@ public class MapEspecOrdEncaFacElecTxtDTO {
 		        	
 		        	//especOrdEncaFac.setFolio(null != respuesta[0] ? UtilsNumeros.valStrToInt(respuesta[0].toString()):"");
 					//especOrdEncaFac.setFolio("9000"); // se pone porvisional debe der numerico pero el query trae Alfanumerico
+					especOrdEncaFac.setFolio(null != respuesta[142] ? respuesta[142].toString().trim():"");
 				    especOrdEncaFac.setNombreEmisor(null != respuesta[1] ? respuesta[1].toString().trim():"");
 				    especOrdEncaFac.setRfcEmisor(null != respuesta[2] ? respuesta[2].toString().trim():"");
 				    especOrdEncaFac.setDomEmisorCalle(null != respuesta[3] ? respuesta[3].toString().trim():"");
