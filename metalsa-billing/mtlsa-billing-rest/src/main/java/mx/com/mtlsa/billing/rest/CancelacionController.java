@@ -1,11 +1,16 @@
 package mx.com.mtlsa.billing.rest;
 
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.json.JSONObject;
 
 import mx.com.mtlsa.billing.dto.request.txt.AceptarRechazarRecSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.ConRelacionadoRequest;
@@ -170,6 +175,79 @@ public class CancelacionController {
 	        }
 	        return Response.ok(solCancelacionResponse).build();
 	    }
+		
+		
+//		@POST  
+//	    @Path(value = "/editMTSInvoice")
+//	    @Consumes({MediaType.TEXT_PLAIN,MediaType.APPLICATION_JSON})
+//	    @Produces({MediaType.APPLICATION_OCTET_STREAM,MediaType.APPLICATION_JSON})
+////	    public void editMTSInvoice(@Suspended final AsyncResponse asyncResponse, final String payload, @Context final UriInfo info){
+//
+//	    public void editMTSInvoice( 
+//	    		final AsyncResponse asyncResponse, final String payload, @QueryParam(value = "records") 
+//			    final String records, @QueryParam(value = "products") final String products, @QueryParam(value = "comments") 
+//			    final String comments, @QueryParam(value = "timbrar") final boolean timbrar, @QueryParam(value = "callback1") 
+//			    final String callback) {
+//	        executorService.submit(new Runnable() {
+//	        	
+//	        	 public void run() {
+//	                 try {
+////	                     System.out.println(payload);
+//	                     JSONObject jsonObj = new JSONObject();
+//
+//	                     jsonObj.put("success", InvoiceCtrl.editMTSInvoices(payload)); 
+////	                     String  resJ = callback +  "(" + jsonObj.toString() + ")";
+//	                     String  resJ =  jsonObj.toString();
+//	                     Response res = Response.ok(resJ, MediaType.APPLICATION_JSON).status(Response.Status.ACCEPTED).build(); 
+//	                     asyncResponse.resume(res);
+//	                 } catch (Exception ex) {
+//	                     Logger.getLogger(Invoice.class.getName()).log(Level.SEVERE, null, ex);
+//	                 }
+//	             }
+//	         });
+//	     }  
+		
+		
+		
+		 @GET
+		 @Path(value = "/CancelarDocumentosSencha")
+		 @Produces({MediaType.APPLICATION_OCTET_STREAM,MediaType.APPLICATION_JSON})
+		 public void getCancelarDocumentosSencha(
+				 @QueryParam(value = "callback1")  String callback, 
+				 @QueryParam(value = "request") final String  request,  
+				 @QueryParam(value = "filtro")  final String  filtro) {
+		               try {
+		            	   JSONObject jsonObj = new JSONObject(); 
+		                   
+		            	    System.out.println("Entra a -----------");
+		                    
+		                    
+		                    System.out.println("Inicio ");
+		                    System.out.println(callback );
+		                    System.out.println("Request ");
+		                    System.out.println(request );
+		                    
+		                    callback=request;
+		                    
+		                    String  resJ = callback +  "(" + jsonObj.toString() + ")";
+		                    
+		                    Response res = Response.ok(resJ, MediaType.APPLICATION_JSON).status(Response.Status.ACCEPTED).build();
+		                
+		                } catch (Exception ex) {
+		                    try {
+		                        JSONObject jsonObj = new JSONObject(); 
+		                        jsonObj.put("success", false);
+		                       
+		                        String  resJ = callback +  "(" + jsonObj.toString() + ")";
+		                        Response res = Response.ok(resJ, MediaType.APPLICATION_JSON).status(Response.Status.ACCEPTED).build();
+		                       
+		                    } catch (Exception e){
+		                        e.printStackTrace();
+		                    }
+		                }
+		            }
+		    
+		    
 		
 		@POST
 	    @Path("/ConsultarEstatusAcuse")
