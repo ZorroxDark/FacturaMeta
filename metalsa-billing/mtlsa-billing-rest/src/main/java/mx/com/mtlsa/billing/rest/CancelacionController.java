@@ -176,46 +176,13 @@ public class CancelacionController {
 	        return Response.ok(solCancelacionResponse).build();
 	    }
 		
-		
-//		@POST  
-//	    @Path(value = "/editMTSInvoice")
-//	    @Consumes({MediaType.TEXT_PLAIN,MediaType.APPLICATION_JSON})
-//	    @Produces({MediaType.APPLICATION_OCTET_STREAM,MediaType.APPLICATION_JSON})
-////	    public void editMTSInvoice(@Suspended final AsyncResponse asyncResponse, final String payload, @Context final UriInfo info){
-//
-//	    public void editMTSInvoice( 
-//	    		final AsyncResponse asyncResponse, final String payload, @QueryParam(value = "records") 
-//			    final String records, @QueryParam(value = "products") final String products, @QueryParam(value = "comments") 
-//			    final String comments, @QueryParam(value = "timbrar") final boolean timbrar, @QueryParam(value = "callback1") 
-//			    final String callback) {
-//	        executorService.submit(new Runnable() {
-//	        	
-//	        	 public void run() {
-//	                 try {
-////	                     System.out.println(payload);
-//	                     JSONObject jsonObj = new JSONObject();
-//
-//	                     jsonObj.put("success", InvoiceCtrl.editMTSInvoices(payload)); 
-////	                     String  resJ = callback +  "(" + jsonObj.toString() + ")";
-//	                     String  resJ =  jsonObj.toString();
-//	                     Response res = Response.ok(resJ, MediaType.APPLICATION_JSON).status(Response.Status.ACCEPTED).build(); 
-//	                     asyncResponse.resume(res);
-//	                 } catch (Exception ex) {
-//	                     Logger.getLogger(Invoice.class.getName()).log(Level.SEVERE, null, ex);
-//	                 }
-//	             }
-//	         });
-//	     }  
-		
-		
-		
+				
 		 @GET
-		 @Path(value = "/CancelarDocumentosSencha")
+		 @Path(value = "/CancelarDocumentosSenchaGet")
 		 @Produces({MediaType.APPLICATION_OCTET_STREAM,MediaType.APPLICATION_JSON})
 		 public void getCancelarDocumentosSencha(
 				 @QueryParam(value = "callback1")  String callback, 
-				 @QueryParam(value = "request") final String  request,  
-				 @QueryParam(value = "filtro")  final String  filtro) {
+				 @QueryParam(value = "request")  String  request) {
 		               try {
 		            	   JSONObject jsonObj = new JSONObject(); 
 		                   
@@ -232,7 +199,6 @@ public class CancelacionController {
 		                    String  resJ = callback +  "(" + jsonObj.toString() + ")";
 		                    
 		                    Response res = Response.ok(resJ, MediaType.APPLICATION_JSON).status(Response.Status.ACCEPTED).build();
-		                
 		                } catch (Exception ex) {
 		                    try {
 		                        JSONObject jsonObj = new JSONObject(); 
