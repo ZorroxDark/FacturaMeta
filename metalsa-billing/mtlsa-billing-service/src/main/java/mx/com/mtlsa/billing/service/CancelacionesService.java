@@ -36,6 +36,8 @@ public interface CancelacionesService {
 	
 	SolicitarCancelacionResponse getSolicitaCancelacionV40(SolicitudCancelacionRequest request);
 	
+	SolicitarCancelacionResponse getSolicitaCancelacionV40Sencha(String request);
+	
 	
 	ConsultaCancelacionResponse getConsultarCancelacionesAcuse(ConsultaCancelacionRequest request);
 

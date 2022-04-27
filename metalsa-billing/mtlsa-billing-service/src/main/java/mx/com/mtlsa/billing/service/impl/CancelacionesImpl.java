@@ -15,6 +15,11 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.google.gson.Gson;
+
 import mx.com.mtlsa.billing.client.cancelaciones.AceptarRechazarResult;
 import mx.com.mtlsa.billing.client.cancelaciones.ArrayOfAceptarRechazarResult;
 import mx.com.mtlsa.billing.client.cancelaciones.ArrayOfCancelacionDTO;
@@ -47,6 +52,7 @@ import mx.com.mtlsa.billing.dto.request.txt.ConsultaCancelacionRequest;
 import mx.com.mtlsa.billing.dto.request.txt.ConsultarCancelaReceptorSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.GenerarTokenSucRequest;
 import mx.com.mtlsa.billing.dto.request.txt.GuardarCertificadoSucRequest;
+import mx.com.mtlsa.billing.dto.request.txt.SolCancelaFrontRequest;
 import mx.com.mtlsa.billing.dto.request.txt.SolicitudCancelacion;
 import mx.com.mtlsa.billing.dto.request.txt.SolicitudCancelacionRequest;
 import mx.com.mtlsa.billing.dto.request.txt.ValidarDatosRequest;
@@ -72,6 +78,7 @@ import mx.com.mtlsa.billing.dto.response.txt.ValidarUUIDSUCResultResponse;
 import mx.com.mtlsa.billing.service.CancelacionesService;
 import mx.com.mtlsa.billing.utils.Constantes;
 import mx.com.mtlsa.billing.utils.Mailer;
+import mx.com.mtlsa.billing.utils.SolCancelacionRequest;
 import mx.com.mtlsa.billing.utils.plantillas.CancelaAceptado;
 import mx.com.mtlsa.billing.utils.plantillas.CancelaRechazoBuzon;
 import mx.com.mtlsa.billing.utils.plantillas.CancelaRechazoOracle;
@@ -891,6 +898,115 @@ public class CancelacionesImpl implements CancelacionesService, Serializable {
 		
 		
 		
+	}
+
+
+	public SolicitarCancelacionResponse getSolicitaCancelacionV40Sencha(String request) {
+		SolicitarCancelacionResponse respuestaService = new SolicitarCancelacionResponse();
+
+		try {
+			
+			// 1 convierte el string a JSON
+			JSONObject jsonObject = new JSONObject(request);
+	        JSONArray objetoSolCan = jsonObject.getJSONArray("solicitudCancelacion");
+	       
+	        Gson gson = new Gson();
+	        SolCancelaFrontRequest solCancelaFront =  gson.fromJson(objetoSolCan.get(0).toString(), SolCancelaFrontRequest.class);
+			
+			
+			
+			WSCFDICancelacionSoap wSCFDBuilderPlusSoap = new WSCFDICancelacion().getWSCFDICancelacionSoap();	
+			ArrayOfSolicitudCancelacionDTOV40 listSolCancelacionV40 = new ArrayOfSolicitudCancelacionDTOV40();
+			RespuestaDTOOfListOfRespuestaDTOOfCancelacionDTOV40 resCancelacion40 = new RespuestaDTOOfListOfRespuestaDTOOfCancelacionDTOV40();
+			
+			
+			//2 se llena el objeto se envia solo un registro del grid
+			
+				
+			SolicitudCancelacionDTOV40 solCan40 = new SolicitudCancelacionDTOV40();
+				
+			solCan40.setCFDIUUID(solCancelaFront.getCfdiuuid());
+			solCan40.setFolioSustitucion(solCancelaFront.getCfdiuuid());
+			solCan40.setMontoTotal(BigDecimal.valueOf(Double.valueOf(solCancelaFront.getMontoTotal())));
+			solCan40.setMotivo(solCancelaFront.getMotivo());
+			solCan40.setRFCEmisor(solCancelaFront.getRfcEmisor());
+			solCan40.setRFCReceptor(solCancelaFront.getRfcReceptor());
+			solCan40.setTipoDoc(solCancelaFront.getTipoDoc());
+				
+			listSolCancelacionV40.getSolicitudCancelacionDTOV40().add(solCan40);
+			
+			//3 genero el token
+			//MET920131CN5
+			//"KULxreqd1P/2I7lRuZTPEvyFhGuconEfc2T4+zu3KTM=",
+			
+			
+			//GPR880111PA8
+			//"vWq4Q4GHKVja75Iz9pZGAcoJY+FXG+2Kv9DMMGZxzuk=",
+			
+			String token ="";
+			if(solCan40.getRFCEmisor().equals("MET920131CN5")) {
+				token = "KULxreqd1P/2I7lRuZTPEvyFhGuconEfc2T4+zu3KTM=";
+				
+				
+			}else if(solCan40.getRFCEmisor().equals("GPR880111PA8")) {
+
+				token = "KULxreqd1P/2I7lRuZTPEvyFhGuconEfc2T4+zu3KTM=";
+				
+			}
+			
+			resCancelacion40 = wSCFDBuilderPlusSoap.solicitarCancelacionSUCV40(listSolCancelacionV40, token);
+			
+			
+			//2 Setea la respuesta  
+			
+			//parte 1 Seteo
+			respuestaService.setEstado(resCancelacion40.isEstado());
+			respuestaService.setMensaje(resCancelacion40.getMensaje()!= null ? resCancelacion40.getMensaje() :"");
+			
+			//parte 2 Seteo
+			
+			if(resCancelacion40.getDatos().getRespuestaDTOOfCancelacionDTOV40() != null 
+					|| !resCancelacion40.getDatos().getRespuestaDTOOfCancelacionDTOV40().isEmpty() ) { 
+			
+				for(RespuestaDTOOfCancelacionDTOV40 tempRes: resCancelacion40.getDatos().getRespuestaDTOOfCancelacionDTOV40()) {
+					
+					RespuestaCancelacionV40 respuestaCancelacionV40 = new RespuestaCancelacionV40();
+					respuestaCancelacionV40.setEstado(tempRes.isEstado());
+					respuestaCancelacionV40.setMensaje(tempRes.getMensaje());
+					
+					
+					CancelacionV40 cancelaV40 = new CancelacionV40();
+					
+					cancelaV40.setAutorizoCliente(tempRes.getDatos().isAutorizoCliente());
+					cancelaV40.setCfdiuuid(tempRes.getDatos().getCFDIUUID()!=null ? tempRes.getDatos().getCFDIUUID():"");
+					cancelaV40.setCorreo(tempRes.getDatos().getCorreo()!=null ? tempRes.getDatos().getCorreo() :"");
+					cancelaV40.setEfos(tempRes.getDatos().getEFOS()!=null ? tempRes.getDatos().getEFOS():"");
+					cancelaV40.setEstadoCancelacion(tempRes.getDatos().getEstadoCancelacion() !=null ? tempRes.getDatos().getEstadoCancelacion():"");
+					cancelaV40.setEstadoDocumento(tempRes.getDatos().getEstadoDocumento() !=null ? tempRes.getDatos().getEstadoDocumento() :"" );
+					cancelaV40.setFechaEstatus(tempRes.getDatos().getFechaEstatus() != null ? tempRes.getDatos().getFechaEstatus().toString() :"");
+					cancelaV40.setFechaSolicitud(tempRes.getDatos().getFechaSolicitud() != null ? tempRes.getDatos().getFechaSolicitud().toString():"");
+					cancelaV40.setFolioSustitucion(tempRes.getDatos().getFolioSustitucion() != null ?  tempRes.getDatos().getFolioSustitucion() :"");
+					cancelaV40.setMontoTotal(tempRes.getDatos().getMontoTotal() != null ? tempRes.getDatos().getMontoTotal(): new BigDecimal(0.0));
+					cancelaV40.setMotivo(tempRes.getDatos().getMotivo() != null ? tempRes.getDatos().getMotivo():"");
+					cancelaV40.setObservaciones(tempRes.getDatos().getObservaciones()  != null ? tempRes.getDatos().getObservaciones():"");
+					cancelaV40.setRfcEmisor(tempRes.getDatos().getRFCEmisor() !=null ? tempRes.getDatos().getRFCEmisor() : "");
+					cancelaV40.setRfcReceptor(tempRes.getDatos().getRFCReceptor() !=null ? tempRes.getDatos().getRFCReceptor() :"");
+					cancelaV40.setTipoDoc(tempRes.getDatos().getTipoDoc() != null ? tempRes.getDatos().getTipoDoc():"");
+					cancelaV40.setXmlAcuseB64(tempRes.getDatos().getXMLAcuseB64() != null ? tempRes.getDatos().getXMLAcuseB64():"");
+					
+					
+					respuestaCancelacionV40.setDatos(cancelaV40);
+					respuestaService.getDatos().add(respuestaCancelacionV40);
+					
+				}
+			}
+			
+			
+		}catch (Exception e) {
+			
+			System.out.println("Error :" + e);
+		}
+		return respuestaService;
 	}
 	
 	

@@ -180,37 +180,22 @@ public class CancelacionController {
 		 @GET
 		 @Path(value = "/CancelarDocumentosSenchaGet")
 		 @Produces({MediaType.APPLICATION_OCTET_STREAM,MediaType.APPLICATION_JSON})
-		 public void getCancelarDocumentosSencha(
+		 public Response getCancelarDocumentosSencha(
 				 @QueryParam(value = "callback1")  String callback, 
-				 @QueryParam(value = "request")  String  request) {
+				 @QueryParam(value = "request")  String  request) throws Exception {
+			 
+			 		SolicitarCancelacionResponse  solCancelacionResponse = new SolicitarCancelacionResponse();
 		               try {
 		            	   JSONObject jsonObj = new JSONObject(); 
-		                   
-		            	    System.out.println("Entra a -----------");
-		                    
-		                    
-		                    System.out.println("Inicio ");
-		                    System.out.println(callback );
-		                    System.out.println("Request ");
-		                    System.out.println(request );
-		                    
-		                    callback=request;
-		                    
-		                    String  resJ = callback +  "(" + jsonObj.toString() + ")";
-		                    
-		                    Response res = Response.ok(resJ, MediaType.APPLICATION_JSON).status(Response.Status.ACCEPTED).build();
-		                } catch (Exception ex) {
-		                    try {
-		                        JSONObject jsonObj = new JSONObject(); 
-		                        jsonObj.put("success", false);
-		                       
-		                        String  resJ = callback +  "(" + jsonObj.toString() + ")";
-		                        Response res = Response.ok(resJ, MediaType.APPLICATION_JSON).status(Response.Status.ACCEPTED).build();
-		                       
-		                    } catch (Exception e){
-		                        e.printStackTrace();
-		                    }
-		                }
+		                	solCancelacionResponse = cancelacionesService.getSolicitaCancelacionV40Sencha(request);
+		                  		                    
+		                	
+		               } catch (Exception e) {
+		   	        	
+		   	            throw new Exception(e.getMessage());
+		   	        }
+		               
+		               return Response.ok(solCancelacionResponse).build();
 		            }
 		    
 		    
